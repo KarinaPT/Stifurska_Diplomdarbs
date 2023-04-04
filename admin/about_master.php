@@ -20,10 +20,10 @@
     <header>
         <a class="logo">Administrēšanas panelis</a>
         <nav class="navbar">
-            <a href="statistics.html">Statistika/Profils</a>
-            <a href="all_products.html" class="active">Preces</a>
-            <a href="all_masters.html" >Pārdevēji</a>
-            <a href="category.html">Kategorijas</a>
+            <a href="statistics.php">Statistika/Profils</a>
+            <a href="all_products.php" class="active">Preces</a>
+            <a href="all_masters.php" >Pārdevēji</a>
+            <a href="category.php">Kategorijas</a>
             <a href="../index.html"><i class="fa-solid fa-right-to-bracket"></i> Iziet</a>
         </nav>
     </header>

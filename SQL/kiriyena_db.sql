@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Апр 03 2023 г., 21:00
+-- Время создания: Апр 04 2023 г., 18:49
 -- Версия сервера: 10.4.27-MariaDB
 -- Версия PHP: 7.4.33
 
@@ -56,6 +56,13 @@ CREATE TABLE `kategorija` (
   `Nosaukums` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Дамп данных таблицы `kategorija`
+--
+
+INSERT INTO `kategorija` (`Kategorija_ID`, `Nosaukums`) VALUES
+(1, 'Kosmētika');
+
 -- --------------------------------------------------------
 
 --
@@ -64,9 +71,16 @@ CREATE TABLE `kategorija` (
 
 CREATE TABLE `k_apakssadala` (
   `Kapakssadala_ID` int(11) NOT NULL,
-  `Nosaukums` varchar(30) NOT NULL,
+  `Nosaukums_sadala` varchar(30) NOT NULL,
   `ID_Kategorija` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Дамп данных таблицы `k_apakssadala`
+--
+
+INSERT INTO `k_apakssadala` (`Kapakssadala_ID`, `Nosaukums_sadala`, `ID_Kategorija`) VALUES
+(1, 'Lūpu krāsas', 1);
 
 -- --------------------------------------------------------
 
@@ -103,11 +117,11 @@ INSERT INTO `pardevejs` (`Pardevejs_ID`, `Vards_pardevejs`, `Uzvards_pardevejs`,
 
 CREATE TABLE `prece` (
   `Prece_ID` int(11) NOT NULL,
-  `Nosaukums` varchar(100) NOT NULL,
+  `Nosaukums_prece` varchar(100) NOT NULL,
   `Cena` double NOT NULL,
   `Statuss` varchar(45) NOT NULL,
-  `Apraksts` text DEFAULT NULL,
-  `Attela` text DEFAULT NULL,
+  `Apraksts_prece` text DEFAULT NULL,
+  `Attela_prece` text DEFAULT NULL,
   `Ipatnibas` text DEFAULT NULL,
   `ID_Pardevejs` int(11) NOT NULL,
   `ID_KApakssadala` int(11) NOT NULL,
@@ -165,13 +179,13 @@ ALTER TABLE `administrators`
 -- AUTO_INCREMENT для таблицы `kategorija`
 --
 ALTER TABLE `kategorija`
-  MODIFY `Kategorija_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Kategorija_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT для таблицы `k_apakssadala`
 --
 ALTER TABLE `k_apakssadala`
-  MODIFY `Kapakssadala_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Kapakssadala_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT для таблицы `pardevejs`
