@@ -21,9 +21,9 @@
         <a class="logo">Administrēšanas panelis</a>
         <nav class="navbar">
             <a href="#" class="active">Statistika/Profils</a>
-            <a href="all_products.html">Preces</a>
-            <a href="all_masters.html" >Pārdevēji</a>
-            <a href="category.html">Kategorijas</a>
+            <a href="all_products.php">Preces</a>
+            <a href="all_masters.php" >Pārdevēji</a>
+            <a href="category.php">Kategorijas</a>
             <a href="../index.html"><i class="fa-solid fa-right-to-bracket"></i> Iziet</a>
         </nav>
     </header>
@@ -40,7 +40,7 @@
                     while($row = mysqli_fetch_assoc($output)){
                         echo "
                             <div class='box'>
-                            <img src='{$row['Attela']}'>
+                            <img src='{$row['Attela_admin']}'>
                             <p><b>Vārds: </b>{$row['Vards']}</p>
                             <p><b>Uzvārds: </b>{$row['Uzvards']}</p>
                             <p><b>E-pasts: </b>{$row['E_pasts']}</p>

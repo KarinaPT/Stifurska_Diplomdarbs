@@ -39,8 +39,7 @@
 
                         if(mysqli_num_rows($atlasa) >0){
                             while($row = mysqli_fetch_assoc($atlasa)){
-                                echo "                           
-                                    <h3>{$row['Brenda_nosaukums']}</h3>
+                                echo "                          
                                     <p><b>Vārds: </b>{$row['Vards_pardevejs']}</p>
                                     <p><b>Uzvārds: </b>{$row['Uzvards_pardevejs']}</p>
                                     <p><b>E-pasts: </b>{$row['E_pasts_pardevejs']}</p>
