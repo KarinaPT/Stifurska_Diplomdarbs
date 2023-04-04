@@ -51,8 +51,7 @@
                             }
                         }else{
                             echo "Tabula nav datu ko attēlot";
-                        }
-                                            
+                        }                         
                 ?>
             </div>                          
         </div>

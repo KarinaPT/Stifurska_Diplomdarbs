@@ -44,18 +44,32 @@
                     </tr>
 
                     <tr>
-                        <td>БЛЕФ КЛАССИКА</td>
-                        <td>6.50€</td>
-                        <td>Bluff cosmetics</td>
+                        <?php
+                            $preceSQL = "SELECT * FROM prece";
+                            $atlasa_prece = mysqli_query($conn, $preceSQL) or die ("Nekorekts vaicājums");
+
+                            if(mysqli_num_rows($atlasa_prece) >0){
+                                while($row = mysqli_fetch_assoc($atlasa_prece)){
+                                    echo "  
+                                        <td>{$row['Nosaukums_prece']}</td>
+                                        <td>{$row['Cena']}€</td>
+                                        <td>{$row['ID_Pardevejs']}</td>
+                                    ";
+                                }
+                            }else{
+                                echo "Tabula nav datu ko attēlot";
+                            }
+                    ?>
                         <td>
                             <a class='btn2'><i class="fa fa-trash" aria-hidden="true" title="Dzēst"></i></a>
                             <form action='#' method='post'>
                                 <button type = 'submit' class = 'btn2' name='Apskatīt ' >
                                     <a><i class="far fa-clipboard" aria-hidden="true" href="about_prod.html"></i></a>
                                 </button>
-                            </form>
-                            </td>
+                            </form>    
+                        </td>      
                     </tr>
+                                    
                 </table>
             </div>
     </div>
