@@ -8,4 +8,3 @@
  INSERT INTO `kategorija` (`Kategorija_ID`, `Nosaukums_kategorija`) VALUES (NULL, 'Kosmētika');
  INSERT INTO `k_apakssadala` (`Kapakssadala_ID`, `Nosaukums_sadala`, `ID_Kategorija`) VALUES (NULL, 'Lūpu krāsas', '1');
  INSERT INTO `prece` (`Prece_ID`, `Nosaukums_prece`, `Cena`, `Statuss`, `Apraksts_prece`, `Attela_prece`, `Ipatnibas_prece`, `ID_Pardevejs`, `ID_KApakssadala`, `ID_Kategorija_KApakssadala`) VALUES (NULL, 'Bluff cosmetics', '6.50', 'Ir pieejams', 'BLUFF \"CLASSIC\" это кристально чистый блеск для губ со вкусом АРБУЗ, который ИДЕАЛЬНО увлажнит и смягчит ваши губы', NULL, 'Ручная работа\r\nТовар будет доставлен из: Латвия\r\nМатериалы: кокосовое масло, масло виноградных косточек, масло сладкого миндаля', '1', '1', '1');
- 

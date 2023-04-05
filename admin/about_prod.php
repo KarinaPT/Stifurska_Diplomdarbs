@@ -33,19 +33,33 @@
     <div class="box-container">
         <div class='box'>
             <?php 
-                $apraksts_preceSQL = "SELECT * FROM prece"; 
-                $atlasa_apraksts = mysqli_query($conn, $apraksts_preceSQL) or die ("Nekorekts vaicājums");
-
-                if(mysqli_num_rows($atlasa_apraksts) >0){
+                if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                    require("config.php"); 
+                    $prece_ID = $_POST['apskatit'];
+                    $par_preceSQL = "SELECT prece.prece_ID, prece.Nosaukums_prece, prece.Cena, prece.Statuss, prece.Apraksts_prece, prece.Attela_prece, prece.Ipatnibas_prece, 
+                    kategorija.Nosaukums_kategorija, 
+                    k_apakssadala.Nosaukums_sadala,
+                    pardevejs.Brenda_nosaukums
+                    FROM prece
+                    JOIN kategorija
+                    ON Kategorija_ID = prece.ID_Kategorija_KApakssadala
+                    LEFT JOIN k_apakssadala
+                    ON Kapakssadala_ID = prece.ID_KApakssadala
+                    LEFT JOIN pardevejs
+                    ON Pardevejs_ID = prece.ID_Pardevejs
+                    WHERE prece_ID=$prece_ID"; 
+                    $atlasa_apraksts = mysqli_query($conn, $par_preceSQL) or die ("Nekorekts vaicājums");
                      while($row = mysqli_fetch_assoc($atlasa_apraksts)){
                         echo "
                             <img src='{$row['Attela_prece']}'>
                             <h3>{$row['Nosaukums_prece']}</h3>
                             <p><b>Cena: </b>{$row['Cena']}€</p>
-                            <p><b>Pārdevējs: </b>{$row['ID_Pardevejs']}</p>
-                            <p><b>Apraksts: </b>{$row['Apraksts_prece']}</p>
                             <p><b>Statuss: </b>{$row['Statuss']}</p>
+                            <p><b>Pārdevējs: </b>{$row['Brenda_nosaukums']}</p>
+                            <p><b>Apraksts: </b>{$row['Apraksts_prece']}</p>
                             <p><b>Īpatnības: </b>{$row['Ipatnibas_prece']}</p>
+                            <p><b>Kategorija: </b>{$row['Nosaukums_kategorija']}</p>
+                            <p><b>Kategoriju apakšsadaļa: </b>{$row['Nosaukums_sadala']}</p>
                             ";  
 					}
                 }else{

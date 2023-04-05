@@ -43,33 +43,35 @@
                         <th></th>
                     </tr>
 
-                    <tr>
                         <?php
-                            $preceSQL = "SELECT * FROM prece";
+                            require("config.php");
+                            $preceSQL = "SELECT prece.prece_ID, prece.Nosaukums_prece, prece.Cena, 
+                            pardevejs.Brenda_nosaukums
+                            FROM prece
+                            JOIN pardevejs
+                            ON Pardevejs_ID = prece.ID_Pardevejs;";
                             $atlasa_prece = mysqli_query($conn, $preceSQL) or die ("Nekorekts vaicājums");
-
-                            if(mysqli_num_rows($atlasa_prece) >0){
-                                while($row = mysqli_fetch_assoc($atlasa_prece)){
-                                    echo "  
-                                        <td>{$row['Nosaukums_prece']}</td>
-                                        <td>{$row['Cena']}€</td>
-                                        <td>{$row['ID_Pardevejs']}</td>
-                                    ";
-                                }
-                            }else{
-                                echo "Tabula nav datu ko attēlot";
-                            }
-                    ?>
-                        <td>
-                            <a class='btn2'><i class="fa fa-trash" aria-hidden="true" title="Dzēst"></i></a>
-                            <form action='#' method='post'>
-                                <button type = 'submit' class = 'btn2' name='Apskatīt ' >
-                                    <a><i class="far fa-clipboard" aria-hidden="true" href="about_prod.html"></i></a>
-                                </button>
-                            </form>    
-                        </td>      
-                    </tr>
-                                    
+                            while($row = mysqli_fetch_assoc($atlasa_prece)){
+                        ?>
+                                <tr> 
+                                    <td><?php echo $row['Nosaukums_prece']; ?></td>
+                                    <td><?php echo $row['Cena']; ?>€</td>
+                                    <td><?php echo $row['Brenda_nosaukums']; ?></td>
+                                    <td>
+                                        <a class='btn2'><i class="fa fa-trash" aria-hidden="true" title="Dzēst"></i></a>
+                                        <form action='about_prod.php' method='post'>
+                                            <button type = 'submit' class = 'btn2' name='apskatit' value=<?php echo $row['prece_ID']; ?> title="Pilna informācija par grāmatu">
+                                                <a><i class="far fa-clipboard" aria-hidden="true"></i></a>
+                                            </button>
+                                        </form>   
+                                    </td>  
+                                    <td></td>    
+                                </tr>
+                        <?php
+					            }
+				        ?>
+                           
+                        
                 </table>
             </div>
     </div>
