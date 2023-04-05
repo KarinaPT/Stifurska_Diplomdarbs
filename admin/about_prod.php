@@ -35,7 +35,7 @@
             <?php 
                 if($_SERVER['REQUEST_METHOD'] == 'POST'){
                     require("config.php"); 
-                    $prece_ID = $_POST['apskatit'];
+                    $prece_ID = $_POST['Apskatīt'];
                     $par_preceSQL = "SELECT prece.prece_ID, prece.Nosaukums_prece, prece.Cena, prece.Statuss, prece.Apraksts_prece, prece.Attela_prece, prece.Ipatnibas_prece, 
                     kategorija.Nosaukums_kategorija, 
                     k_apakssadala.Nosaukums_sadala,

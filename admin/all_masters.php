@@ -52,11 +52,11 @@
                             <td><?php echo $row['Brenda_nosaukums']; ?></td>
                             <td>
                                 <a class='btn2'><i class="fa fa-trash" aria-hidden="true" title="Dzēst"></i></a>
-                                <form action='#' method='post'>
-                                    <button type = 'submit' class = 'btn2' name='Apskatīt '>
+                                <form action='about_master.php' method='post'>
+                                    <button type = 'submit' class = 'btn2' name='Apskatīt' value=<?php echo $row['Pardevejs_ID']; ?> title="Detalizēts pārdevēja apraksts">
                                         <a><i class="far fa-clipboard" aria-hidden="true"></i></a>
                                     </button>
-                                </form>
+                                </form>  
                             </td>
                         </tr>
                     <?php

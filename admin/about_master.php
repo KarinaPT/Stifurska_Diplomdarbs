@@ -29,29 +29,35 @@
     </header>
 
     <section id="description">
-        <h1>Informācija par pārdevēju
+        <h1>Detalizēts pārdevēja apraksts
         </h1>
         <div class="box-container">
             <div class='box'>
                 <?php
+                    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                    require("config.php"); 
+                    $Pardevejs_ID = $_POST['Apskatīt'];
                     $pardevejsSQL = "SELECT * FROM pardevejs";
                     $atlasa = mysqli_query($conn, $pardevejsSQL) or die ("Nekorekts vaicājums");
-
-                        if(mysqli_num_rows($atlasa) >0){
-                            while($row = mysqli_fetch_assoc($atlasa)){
-                                echo "                           
+                        while($row = mysqli_fetch_assoc($atlasa)){
+                                echo "       
+                                    <img src='{$row['Attela_URL']}'>   
+                                    <h3>{$row['Brenda_nosaukums']}</h3>                 
                                     <p><b>Vārds: </b>{$row['Vards_pardevejs']}</p>
                                     <p><b>Uzvārds: </b>{$row['Uzvards_pardevejs']}</p>
                                     <p><b>E-pasts: </b>{$row['E_pasts_pardevejs']}</p>
                                     <p><b>Telefona numurs: </b>{$row['T_numurs_pardevejs']}</p>
                                     <p><b>Preču skaits: </b> 14</p>
                                     <p><b>Loma: </b>{$row['Loma']}</p>
+                                    <p><b>Apraksts: </b>{$row['Apraksts']}</p>
+                                    <p><b>Izveidošanas datums: </b>{$row['Izveidosanas_datums']}</p>
                                 ";
                             }
                         }else{
                             echo "Tabula nav datu ko attēlot";
                         }                         
                 ?>
+                <input type="button" onclick="history.back();" value="Atpakaļ" class="btn ">
             </div>                          
         </div>
     </section>

@@ -60,7 +60,7 @@
                                     <td>
                                         <a class='btn2'><i class="fa fa-trash" aria-hidden="true" title="Dzēst"></i></a>
                                         <form action='about_prod.php' method='post'>
-                                            <button type = 'submit' class = 'btn2' name='apskatit' value=<?php echo $row['prece_ID']; ?> title="Pilna informācija par grāmatu">
+                                            <button type = 'submit' class = 'btn2' name='Apskatīt' value=<?php echo $row['prece_ID']; ?> title="Detalizēts preču apraksts">
                                                 <a><i class="far fa-clipboard" aria-hidden="true"></i></a>
                                             </button>
                                         </form>   
