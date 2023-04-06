@@ -37,34 +37,37 @@
                 <table>
                     <tr>
                         <th>Brenda nosaukums</th>
+                        <th>Vārds</th>
+                        <th>E-pasts</th>
                         <th><a class='btn2' href="#">Pievienot jaunu pārdevēju</a></th>
                         <th></th>
                     </tr>
 
-                    <?php 
-                        $pardevejsSQL = "SELECT * FROM pardevejs"; 
-                        $atlasa_pardevejs = mysqli_query($conn, $pardevejsSQL) or die ("Nekorekts vaicājums");
-
-                        if(mysqli_num_rows($atlasa_pardevejs) >0){
-                            while($row = mysqli_fetch_assoc($atlasa_pardevejs)){
-                    ?>
-                        <tr>
-                            <td><?php echo $row['Brenda_nosaukums']; ?></td>
-                            <td>
-                                <a class='btn2'><i class="fa fa-trash" aria-hidden="true" title="Dzēst"></i></a>
-                                <form action='about_master.php' method='post'>
-                                    <button type = 'submit' class = 'btn2' name='Apskatīt' value=<?php echo $row['Pardevejs_ID']; ?> title="Detalizēts pārdevēja apraksts">
-                                        <a><i class="far fa-clipboard" aria-hidden="true"></i></a>
-                                    </button>
-                                </form>  
-                            </td>
-                        </tr>
                     <?php
-					        }
-                        }else{
-                             echo "Tabula nav datu ko attēlot";
-                        }
-                    ?>   
+                            require("config.php");
+                            $pardevejs = "SELECT *
+                            FROM pardevejs ";
+                            $atlasa_pardevejs = mysqli_query($conn, $pardevejs) or die ("Nekorekts vaicājums");
+                            while($row = mysqli_fetch_assoc($atlasa_pardevejs)){
+                        ?>
+                                <tr> 
+                                    <td><?php echo $row['Brenda_nosaukums']; ?></td>
+                                    <td><?php echo $row['Vards_pardevejs']; ?></td>
+                                    <td><?php echo $row['E_pasts_pardevejs']; ?></td>
+                                    <td>
+                                        <a class='btn2'><i class="fa fa-trash" aria-hidden="true" title="Dzēst"></i></a>
+                                        <form action='about_master.php' method='post'>
+                                            <button type = 'submit' class = 'btn2' name='Apskatīt' value=<?php echo $row['Pardevejs_ID']; ?> title="Detalizēts preču apraksts">
+                                                <a><i class="far fa-clipboard" aria-hidden="true"></i></a>
+                                            </button>
+                                        </form>   
+                                    </td>  
+                                    <td></td>    
+                                </tr>
+                        <?php
+					            }
+				        ?>
+                        
                 </table>
             </div>
     </div>

@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Kategoriju administrēšana</title>
+   <title>Kategoriju apakšsadaļu administrēšana</title>
    <link rel="stylesheet" href="css/css.css">
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
    <link rel="shortcut icon" type="image/x-icon" href="../assets/img/favicon.png"/>
@@ -22,7 +22,7 @@
         <a href="statistics.php">Statistika/Profils</a>
         <a href="all_products.php">Preces</a>
         <a href="all_masters.php">Pārdevēji</a>
-        <a href="#" class="active">Kategorijas</a>
+        <a href="categoty.php" class="active">Kategorijas / Apakšsadaļas</a>
         <a href="../index.html"><i class="fa-solid fa-right-to-bracket"></i> Iziet</a>
     </nav>
 </header>
@@ -30,31 +30,33 @@
 <section id="forInfo">
     <div class="row">
             <div class="info">
-                <div class="head-info head-color">Kategoriju administrēšana: <br>
+                <div class="head-info head-color">Kategoriju apakšsadaļu administrēšana: <input type="button" onclick="history.back();" value="Atpakaļ" class="btn "><br>
                 </div>
                 <table>
                     <tr>
-                        <th>Kategorijas nosaukumus</th>
-                        <th><a class='btn2' href="#">Pievienot kategoriju</a></th>
+                        <th>Kategorijas apakšsadaļu nosaukumi</th>
+                        
+                        <th><a class='btn2' href="#">Pievienot apakšsadaļu</a></th>
                         <th></th>
                     </tr>
 
                     <?php 
-                        $kategorijaSQL = "SELECT * FROM kategorija"; 
+                        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                        require("config.php"); 
+                        $Kategorija_ID = $_POST['Apskatīt'];
+                        $kategorijaSQL = "SELECT k_apakssadala.Kapakssadala_ID, k_apakssadala.Nosaukums_sadala,
+                        kategorija.Nosaukums_kategorija
+                        FROM k_apakssadala
+                        LEFT JOIN kategorija
+                        ON Kategorija_ID = k_apakssadala.ID_Kategorija
+                        WHERE Kategorija_ID=$Kategorija_ID;"; 
                         $atlasa_kategorija = mysqli_query($conn, $kategorijaSQL) or die ("Nekorekts vaicājums");
-
-                        if(mysqli_num_rows($atlasa_kategorija) >0){
                             while($row = mysqli_fetch_assoc($atlasa_kategorija)){
                     ?>
                         <tr>
-                            <td><?php echo $row['Nosaukums_kategorija']; ?></td>
+                            <td><?php echo $row['Nosaukums_sadala']; ?></td>
                             <td>
                                 <a class='btn2'><i class="fa fa-trash" aria-hidden="true" title="Dzēst"></i></a>
-                                <form action='about_cat.php' method='post'>
-                                    <button type = 'submit' class = 'btn2' name='Apskatīt' value=<?php echo $row['Kategorija_ID']; ?> title="Detalizēts preču apraksts">
-                                        <a><i class="far fa-clipboard" aria-hidden="true"></i></a>
-                                    </button>
-                                </form> 
                             </td>
                         </tr>
                     <?php

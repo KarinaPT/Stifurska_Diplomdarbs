@@ -71,6 +71,11 @@
         $result3 = mysqli_query($conn, $sql3);
         $data3 = mysqli_fetch_assoc($result3);
     ?>
+    <?php 
+        $sql4 ="SELECT COUNT(Kapakssadala_ID) AS total4 from k_apakssadala ";
+        $result4 = mysqli_query($conn, $sql4);
+        $data4 = mysqli_fetch_assoc($result4);
+    ?>
 
     <section id="statistics">
         <h1> Statistika</h1>
@@ -89,6 +94,11 @@
                 <i class="fa-solid fa-list-ul"  style="font-size:31px"></i>
                 <h3><?php echo $data3['total3']?></h3>
                 <p style="font-size:18px">Kategorijas</p>
+            </div>
+            <div class="icons">
+                <i class="fa-solid fa-list-ul"  style="font-size:31px"></i>
+                <h3><?php echo $data4['total4']?></h3>
+                <p style="font-size:18px">Kategoriju apakšsadaļas</p>
             </div>
         </div>
     </section>

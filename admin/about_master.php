@@ -37,7 +37,8 @@
                     if($_SERVER['REQUEST_METHOD'] == 'POST'){
                     require("config.php"); 
                     $Pardevejs_ID = $_POST['Apskatīt'];
-                    $pardevejsSQL = "SELECT * FROM pardevejs";
+                    $pardevejsSQL = "SELECT * FROM pardevejs
+                    WHERE Pardevejs_ID = $Pardevejs_ID"; 
                     $atlasa = mysqli_query($conn, $pardevejsSQL) or die ("Nekorekts vaicājums");
                         while($row = mysqli_fetch_assoc($atlasa)){
                                 echo "       
