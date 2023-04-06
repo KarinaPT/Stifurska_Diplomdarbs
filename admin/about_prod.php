@@ -1,8 +1,7 @@
 <?php
     require("config.php");
     session_start();
-   
-
+    if(isset($_SESSION['admin_name'])){
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -76,6 +75,8 @@
     Kiriyena © 2023 Small start = Big deal</br>
     Designed by Kiriyena
 </footer>
-
+<?php
+   }
+?>
 </body>
 </html>

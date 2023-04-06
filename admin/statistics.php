@@ -1,8 +1,7 @@
 <?php
     require("config.php");
     session_start();
-   
-
+    if(isset($_SESSION['admin_name'])){
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,7 +32,7 @@
         </h1>
         <div class="box-container">
             <?php
-                $adminSQL = "SELECT * FROM administrators";
+                $adminSQL = "SELECT * FROM administrators WHERE E_pasts = '".$_SESSION['admin_name']."'";
                 $output = mysqli_query($conn, $adminSQL)  or die ("Nekorekts vaicājums");
                                             
                 if(mysqli_num_rows($output) >0){
@@ -108,5 +107,8 @@
         Designed by Kiriyena
     </footer>
 
+<?php
+    }
+?>
 </body>
 </html>

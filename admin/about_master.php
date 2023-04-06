@@ -1,8 +1,7 @@
 <?php
     require("config.php");
     session_start();
-   
-
+    if(isset($_SESSION['admin_name'])){
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -59,7 +58,7 @@
                         }                         
                 ?>
                 <input type="button" onclick="history.back();" value="Atpakaļ" class="btn ">
-            </div>                          
+            </div>                           
         </div>
     </section>
 
@@ -67,6 +66,8 @@
         Kiriyena © 2023 Small start = Big deal</br>
         Designed by Kiriyena
     </footer>
-
+<?php
+   }
+?>
 </body>
 </html>

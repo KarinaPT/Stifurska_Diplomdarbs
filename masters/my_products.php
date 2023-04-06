@@ -1,10 +1,16 @@
+<?php
+    require("../admin/config.php");
+    session_start();
+    if(isset($_SESSION['user_name'])){
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Админитрация товаров</title>
+   <title>Preču administrācija</title>
    <link rel="stylesheet" href="css/cssForMaster.css">
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
    <link rel="shortcut icon" type="image/x-icon" href="../assets/img/favicon.png"/>
@@ -14,8 +20,8 @@
     <header>
         <a class="logo">Administrēšanas panelis</a>
         <nav class="navbar">
-            <a href="about_me.html" >Статистика/Профиль</a>
-            <a href="#" class="active">Товары</a>
+            <a href="about_me.php   " >Statistika/Profils</a>
+            <a href="#" class="active">Preces</a>
             <a href="../index.html"><i class="fa-solid fa-right-to-bracket"></i> Iziet</a>
         </nav>
     </header>
@@ -23,21 +29,31 @@
     <section id="forInfo">
         <div class="row">
                 <div class="info">
-                    <div class="head-info head-color">Администрация товаров: <br>
+                    <div class="head-info head-color">Preču administrācija: <br>
                     </div>
                     <table>
                         <tr>
-                            <th>Название</th>
-                            <th>Цена</th>
-                            <th>Компания</th>
-                            <th><a class='btn2' href="#">Добавить новый товар</a></th>
+                            <th>Nosaukums</th>
+                            <th>Cena</th>
+                            <th><a class='btn2' href="#">Pievienot jaunu prece</a></th>
                             <th></th>
                         </tr>
 
+                        <?php
+                            require("../admin/config.php");
+                            $preceSQL = "SELECT prece.prece_ID, prece.Nosaukums_prece, prece.Cena, 
+                            pardevejs.Pardevejs_ID, pardevejs.E_pasts_pardevejs
+                            FROM prece
+                            JOIN pardevejs
+                            ON Pardevejs_ID = prece.ID_Pardevejs
+                            WHERE pardevejs.E_pasts_pardevejs = '".$_SESSION['user_name']."'";
+                            $atlasa_prece = mysqli_query($conn, $preceSQL) or die ("Nekorekts vaicājums");
+                            while($row = mysqli_fetch_assoc($atlasa_prece)){
+                        ?>
+
                         <tr>
-                            <td>БЛЕФ КЛАССИКА</td>
-                            <td>6.50€</td>
-                            <td>Bluff cosmetics</td>
+                            <td><?php echo $row['Nosaukums_prece']; ?></td>
+                            <td><?php echo $row['Cena']; ?></td>
                             <td>
                                 <a class='btn2'><i class="fa fa-trash" aria-hidden="true" title="Dzēst"></i></a>
                                 <form action='#' method='post'>
@@ -48,6 +64,9 @@
                                 <a class='btn2' title="Rediģēt"><i class="far fa-edit" aria-hidden="true"></i></a>
                                 </td>
                         </tr>
+                        <?php
+					            }
+				        ?>
                     </table>
                 </div>
         </div>
@@ -59,6 +78,8 @@
         Kiriyena © 2023 Small start = Big deal</br>
         Designed by Kiriyena
     </footer>
-
+<?php
+    }
+?>
 </body>
 </html>

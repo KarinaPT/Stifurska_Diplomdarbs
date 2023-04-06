@@ -1,6 +1,7 @@
 <?php
    require("config.php");
    session_start();
+   if(isset($_SESSION['admin_name'])){
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -75,7 +76,7 @@
     Designed by Kiriyena
 </footer>
 <?php
-   
+   }
 ?>
 </body>
 </html>

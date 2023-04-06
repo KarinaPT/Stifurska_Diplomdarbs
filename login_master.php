@@ -1,3 +1,30 @@
+<?php 
+if(isset($_POST['submit'])){
+   include 'admin/config.php';
+
+   session_start();
+   $E_pasts_pardevejs = mysqli_real_escape_string($conn, $_POST['E_pasts_pardevejs']);
+   $Parole_pardevejs = md5($_POST['Parole_pardevejs']);
+
+   $select = " SELECT * FROM pardevejs WHERE E_pasts_pardevejs = '$E_pasts_pardevejs' && Parole_pardevejs = '$Parole_pardevejs' ";
+
+   $result = mysqli_query($conn, $select);
+
+   if(mysqli_num_rows($result) > 0){
+
+      $row = mysqli_fetch_array($result);
+
+      if($row['Loma'] == 'Pārdevējs'){
+
+         $_SESSION['user_name'] = $E_pasts_pardevejs;
+         header('location:masters/about_me.php');
+
+      }
+   }else{
+      $error[] = 'Nepareizs e-pasts vai parole!';
+   }
+};
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,8 +55,15 @@
 
       <form action="" method="post">
          <h3>Pieslēgties</h3>
-         <input type="email" name="epasts" required placeholder="E-pasts">
-         <input type="password" name="parole" required placeholder="Parole">
+         <?php
+          if(isset($error)){
+            foreach($error as $error){
+                echo '<span class="error-msg">'.$error.'</span>';
+            };
+            };
+         ?>
+         <input type="email" name="E_pasts_pardevejs" required placeholder="E-pasts">
+         <input type="password" name="Parole_pardevejs" required placeholder="Parole">
          <input type="submit" name="submit" value="Pieslēgties" class="form-btn">
       </form>
 
