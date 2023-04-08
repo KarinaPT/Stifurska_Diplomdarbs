@@ -20,7 +20,7 @@
     <header>
         <a class="logo">Administrēšanas panelis</a>
         <nav class="navbar">
-            <a href="about_me.php   " >Statistika/Profils</a>
+            <a href="about_me.php">Statistika/Profils</a>
             <a href="#" class="active">Preces</a>
             <a href="../index.html"><i class="fa-solid fa-right-to-bracket"></i> Iziet</a>
         </nav>
@@ -28,9 +28,8 @@
 
     <section id="forInfo">
         <div class="row">
-                <div class="info">
-                    <div class="head-info head-color">Preču administrācija: <br>
-                    </div>
+            <div class="info">
+                <div class="head-info head-color">Preču administrācija: <br></div>
                     <table>
                         <tr>
                             <th>Nosaukums</th>
@@ -51,27 +50,25 @@
                             while($row = mysqli_fetch_assoc($atlasa_prece)){
                         ?>
 
-                        <tr>
-                            <td><?php echo $row['Nosaukums_prece']; ?></td>
-                            <td><?php echo $row['Cena']; ?></td>
-                            <td>
-                                <a class='btn2'><i class="fa fa-trash" aria-hidden="true" title="Dzēst"></i></a>
-                                <form action='#' method='post'>
-                                    <button type = 'submit' class = 'btn2' name='Apskatīt '>
-                                        <a><i class="far fa-clipboard" aria-hidden="true" href="my_product_details.html"></i></a>
-                                    </button>
-                                </form>
-                                <a class='btn2' title="Rediģēt"><i class="far fa-edit" aria-hidden="true"></i></a>
-                                </td>
-                        </tr>
+                                <tr>
+                                    <td><?php echo $row['Nosaukums_prece']; ?></td>
+                                    <td><?php echo $row['Cena']; ?>€</td>
+                                    <td>
+                                        <a class='btn2'><i class="fa fa-trash" aria-hidden="true" title="Dzēst"></i></a>
+                                        <form action='my_product_details.php' method='post'>
+                                            <button type = 'submit' class = 'btn2' name='Apskatīt' value=<?php echo $row['prece_ID']; ?> title="Detalizēts preču apraksts">
+                                                <a><i class="far fa-clipboard" aria-hidden="true"></i></a>
+                                            </button>
+                                        </form>
+                                        
+                                    </td>
+                                </tr>
                         <?php
-					            }
+					         }
 				        ?>
                     </table>
-                </div>
+            </div>
         </div>
-        
-
     </section>
 
     <footer>
