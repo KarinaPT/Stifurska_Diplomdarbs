@@ -63,8 +63,9 @@
                         echo "Tabula nav datu ko attēlot";
                     }
                 ?>  
-                        <input type="button" onclick="history.back();" value="Atpakaļ" class="btn ">
-            </div>                              
+                                        <input type="button" onclick="history.back();" value="Atpakaļ" class="btn ">
+                                        </div>
+                                        
         </div>
     </section>
 

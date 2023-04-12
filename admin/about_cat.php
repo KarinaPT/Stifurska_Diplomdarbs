@@ -36,8 +36,6 @@
                 <table>
                     <tr>
                         <th>Kategorijas apakšsadaļu nosaukumi</th>
-                        
-                        <th><a class='btn2' href="#">Pievienot apakšsadaļu</a></th>
                         <th></th>
                     </tr>
 

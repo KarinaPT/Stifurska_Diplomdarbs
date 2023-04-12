@@ -20,8 +20,8 @@
         <a class="logo">Administrēšanas panelis</a>
         <nav class="navbar">
             <a href="statistics.php">Statistika/Profils</a>
-            <a href="all_products.php" class="active">Preces</a>
-            <a href="all_masters.php" >Pārdevēji</a>
+            <a href="all_products.php">Preces</a>
+            <a href="all_masters.php"  class="active">Pārdevēji / Apraksts</a>
             <a href="category.php">Kategorijas</a>
             <a href="../index.html"><i class="fa-solid fa-right-to-bracket"></i> Iziet</a>
         </nav>

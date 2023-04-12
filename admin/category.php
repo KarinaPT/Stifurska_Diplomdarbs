@@ -36,7 +36,7 @@
                 <table>
                     <tr>
                         <th>Kategorijas nosaukumus</th>
-                        <th><a class='btn2' href="#">Pievienot kategoriju</a></th>
+                        <th><a class='btn2' href="add_category.php">Pievienot kategoriju</a></th>
                         <th></th>
                     </tr>
 
@@ -58,6 +58,7 @@
                                 </form> 
                             </td>
                         </tr>
+                        
                     <?php
 					        }
                         }else{
@@ -65,8 +66,9 @@
                         }
                     ?>
                 </table>
-            </div>
+            </div> 
     </div>
+    <a class='btn2' href="add_subtitle.php">Pievienot apakšsadaļu</a>
     
 
 </section>
