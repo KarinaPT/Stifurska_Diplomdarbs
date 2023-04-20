@@ -23,7 +23,7 @@
             <a href="all_products.php">Preces</a>
             <a href="all_masters.php"  class="active">Pārdevēji / Apraksts</a>
             <a href="category.php">Kategorijas</a>
-            <a href="../index.html"><i class="fa-solid fa-right-to-bracket"></i> Iziet</a>
+            <a href="../logout.php"><i class="fa-solid fa-right-to-bracket"></i> Iziet</a>
         </nav>
     </header>
 
@@ -39,6 +39,14 @@
                     $pardevejsSQL = "SELECT * FROM pardevejs
                     WHERE Pardevejs_ID = $Pardevejs_ID"; 
                     $atlasa = mysqli_query($conn, $pardevejsSQL) or die ("Nekorekts vaicājums");
+
+                    $sql ="SELECT pardevejs.Pardevejs_ID, COUNT(prece.Prece_ID) as skaits
+                    FROM pardevejs
+                    LEFT JOIN prece ON pardevejs.Pardevejs_ID = prece.ID_Pardevejs
+                    WHERE Pardevejs_ID = $Pardevejs_ID";
+
+                    $result = mysqli_query($conn, $sql);
+                    $data = mysqli_fetch_assoc($result);
                         while($row = mysqli_fetch_assoc($atlasa)){
                                 echo "       
                                     <img src='{$row['Attela_URL']}'>   
@@ -47,7 +55,7 @@
                                     <p><b>Uzvārds: </b>{$row['Uzvards_pardevejs']}</p>
                                     <p><b>E-pasts: </b>{$row['E_pasts_pardevejs']}</p>
                                     <p><b>Telefona numurs: </b>{$row['T_numurs_pardevejs']}</p>
-                                    <p><b>Preču skaits: </b> 14</p>
+                                    <p><b>Preču skaits: </b>{$data['skaits']}</p>
                                     <p><b>Loma: </b>{$row['Loma']}</p>
                                     <p><b>Apraksts: </b>{$row['Apraksts']}</p>
                                     <p><b>Izveidošanas datums: </b>{$row['Izveidosanas_datums']}</p>
@@ -61,6 +69,10 @@
             </div>                           
         </div>
     </section>
+
+    <?php 
+      
+    ?>
 
     <footer>
         Kiriyena © 2023 Small start = Big deal</br>

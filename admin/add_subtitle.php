@@ -7,13 +7,22 @@ if(isset($_SESSION['admin_name'])){
     if(isset($_POST['add'])){
         $Nosaukums_sadala = mysqli_real_escape_string($conn, $_POST['Nosaukums_sadala']);
         $Kategorija_ID = mysqli_real_escape_string($conn, $_POST['Kategorija_ID']);
-        
-        mysqli_query($conn,"INSERT INTO `k_apakssadala`(`Nosaukums_sadala`, `ID_Kategorija`) 
-      VALUES ('$Nosaukums_sadala','$Kategorija_ID')");
-      header('location:category.php');      
-     }else{
+    
+        // Проверяем, существует ли уже такое значение поля Nosaukums_sadala
+        $result = mysqli_query($conn, "SELECT * FROM k_apakssadala WHERE Nosaukums_sadala = '$Nosaukums_sadala'");
+        if(mysqli_num_rows($result) > 0){
+            // Если значение уже существует, то выводим сообщение об ошибке
+            header('location:error.php');
+            
+        }else{
+            mysqli_query($conn,"INSERT INTO `k_apakssadala`(`Nosaukums_sadala`, `ID_Kategorija`) 
+            VALUES ('$Nosaukums_sadala','$Kategorija_ID')");
+            header('location:category.php');   
+        }
+    }else{
         $kategorija = mysqli_query($conn, 'SELECT * FROM kategorija');
-     }
+
+    };
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -36,20 +45,13 @@ if(isset($_SESSION['admin_name'])){
             <a href="all_products.php">Preces</a>
             <a href="all_masters.php" >Pārdevēji</a>
             <a href="category.php"  class="active">Kategorijas / Reģistrācija</a>
-            <a href="../index.html"><i class="fa-solid fa-right-to-bracket"></i> Iziet</a>
+            <a href="../logout.php"><i class="fa-solid fa-right-to-bracket"></i> Iziet</a>
         </nav>
     </header>
 
     <div class="form-container">
         <form action="" method="post">
             <h3>Reģistrācija</h3>
-            <?php
-                if(isset($error)){
-                    foreach($error as $error){
-                        echo '<span class="error-msg">'.$error.'</span>';
-                    };
-                };
-            ?>
             <input type="text" name="Nosaukums_sadala" required placeholder="Kategorijas apakšsadaļas nosaukums">
             <select name="Kategorija_ID" required="true">
                 <option hidden > </option>

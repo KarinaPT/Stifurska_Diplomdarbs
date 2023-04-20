@@ -24,7 +24,7 @@
         <a href="all_products.php">Preces</a>
         <a href="all_masters.php">Pārdevēji</a>
         <a href="#" class="active">Kategorijas</a>
-        <a href="../index.html"><i class="fa-solid fa-right-to-bracket"></i> Iziet</a>
+        <a href="../logout.php"><i class="fa-solid fa-right-to-bracket"></i> Iziet</a>
     </nav>
 </header>
 
@@ -50,7 +50,7 @@
                         <tr>
                             <td><?php echo $row['Nosaukums_kategorija']; ?></td>
                             <td>
-                                <a class='btn2'><i class="fa fa-trash" aria-hidden="true" title="Dzēst"></i></a>
+                            <a class='btn2' href="delete_cat.php?Kategorija_ID=<?php echo $row['Kategorija_ID']; ?>"><i class="fa fa-trash" aria-hidden="true" title="Dzēst"></i></a>
                                 <form action='about_cat.php' method='post'>
                                     <button type = 'submit' class = 'btn2' name='Apskatīt' value=<?php echo $row['Kategorija_ID']; ?> title="Detalizēts preču apraksts">
                                         <a><i class="far fa-clipboard" aria-hidden="true"></i></a>

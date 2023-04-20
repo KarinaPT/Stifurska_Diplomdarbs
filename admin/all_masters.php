@@ -24,7 +24,7 @@
         <a href="all_products.php">Preces</a>
         <a href="#" class="active">Pārdevēji</a>
         <a href="category.php">Kategorijas</a>
-        <a href="../index.html"><i class="fa-solid fa-right-to-bracket"></i> Iziet</a>
+        <a href="../logout.php"><i class="fa-solid fa-right-to-bracket"></i> Iziet</a>
     </nav>
 </header>
 
@@ -38,7 +38,7 @@
                         <th>Brenda nosaukums</th>
                         <th>Vārds</th>
                         <th>E-pasts</th>
-                        <th><a class='btn2' href="#">Pievienot jaunu pārdevēju</a></th>
+                        <th><a class='btn2' href="add_master.php">Pievienot jaunu pārdevēju</a></th>
                         <th></th>
                     </tr>
 
@@ -54,7 +54,7 @@
                                     <td><?php echo $row['Vards_pardevejs']; ?></td>
                                     <td><?php echo $row['E_pasts_pardevejs']; ?></td>
                                     <td>
-                                        <a class='btn2'><i class="fa fa-trash" aria-hidden="true" title="Dzēst"></i></a>
+                                    <a class='btn2' href="delete_master.php?Pardevejs_ID=<?php echo $row['Pardevejs_ID']; ?>"><i class="fa fa-trash" aria-hidden="true" title="Dzēst"></i></a>
                                         <form action='about_master.php' method='post'>
                                             <button type = 'submit' class = 'btn2' name='Apskatīt' value=<?php echo $row['Pardevejs_ID']; ?> title="Detalizēts preču apraksts">
                                                 <a><i class="far fa-clipboard" aria-hidden="true"></i></a>

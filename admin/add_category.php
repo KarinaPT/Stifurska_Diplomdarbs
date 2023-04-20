@@ -19,7 +19,7 @@ if(isset($_POST['add'])){
    }else{
         mysqli_query($conn,"insert into `kategorija` (Nosaukums_kategorija) 
         values ('$Nosaukums_kategorija')");
-    header('location:welcome_category.php');
+    header('location:category.php');
       
    }
 };
@@ -47,7 +47,7 @@ if(isset($_POST['add'])){
             <a href="all_products.php">Preces</a>
             <a href="all_masters.php" >Pārdevēji</a>
             <a href="category.php"  class="active">Kategorijas / Reģistrācija</a>
-            <a href="../index.html"><i class="fa-solid fa-right-to-bracket"></i> Iziet</a>
+            <a href="../logout.php"><i class="fa-solid fa-right-to-bracket"></i> Iziet</a>
         </nav>
     </header>
 
