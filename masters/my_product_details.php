@@ -22,7 +22,7 @@
         <nav class="navbar">
             <a href="about_me.html" >Statistika/Profils</a>
             <a href="my_product_details.php" class="active">Preces</a>
-            <a href="../index.html"><i class="fa-solid fa-right-to-bracket"></i> Iziet</a>
+            <a href="../logout.php"><i class="fa-solid fa-right-to-bracket"></i> Iziet</a>
         </nav>
     </header>
 
@@ -57,7 +57,9 @@
                                         <p><b>Īpatnības: </b>{$row['Ipatnibas_prece']}</p>
                                         <p><b>Kategorija: </b>{$row['Nosaukums_kategorija']}</p>
                                         <p><b>Kategoriju apakšsadaļa: </b>{$row['Nosaukums_sadala']}</p>
+                                        
                                 ";  
+                                
                         }
                     }else{
                         echo "Tabula nav datu ko attēlot";

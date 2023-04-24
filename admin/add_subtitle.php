@@ -54,7 +54,7 @@ if(isset($_SESSION['admin_name'])){
             <h3>Reģistrācija</h3>
             <input type="text" name="Nosaukums_sadala" required placeholder="Kategorijas apakšsadaļas nosaukums">
             <select name="Kategorija_ID" required="true">
-                <option hidden > </option>
+                <option value="" disabled selected hidden>Kategorija</option>
                      <?php
                         if(mysqli_num_rows($kategorija) >0){
                              while($row = mysqli_fetch_assoc($kategorija)){

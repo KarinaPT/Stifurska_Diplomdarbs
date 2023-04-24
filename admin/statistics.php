@@ -23,12 +23,12 @@
             <a href="all_products.php">Preces</a>
             <a href="all_masters.php" >Pārdevēji</a>
             <a href="category.php">Kategorijas</a>
-            <a href="../index.html"><i class="fa-solid fa-right-to-bracket"></i> Iziet</a>
+            <a href="../logout.php"><i class="fa-solid fa-right-to-bracket"></i> Iziet</a>
         </nav>
     </header>
 
     <section id="description">
-        <h1>Administratora informācija
+        <h1>Profils
         </h1>
         <div class="box-container">
             <?php
@@ -37,21 +37,27 @@
                                             
                 if(mysqli_num_rows($output) >0){
                     while($row = mysqli_fetch_assoc($output)){
+                        $t_numurs = $row['T_numurs']; // сохраняем значение T_numurs в отдельной переменной
+                        $Administrators_ID = $row['Administrators_ID']; // сохраняем значение Administrators_ID в отдельной переменной
                         echo "
                             <div class='box'>
                             <img src='{$row['Attela_admin']}'>
                             <p><b>Vārds: </b>{$row['Vards']}</p>
                             <p><b>Uzvārds: </b>{$row['Uzvards']}</p>
                             <p><b>E-pasts: </b>{$row['E_pasts']}</p>
-                            <p><b>Telefona numurs: </b>{$row['T_numurs']}</p>
+                            <p><b>Telefona numurs: </b>{$t_numurs}</p>
                             <p><b>Loma: </b>{$row['Loma']}</p>
+                            <a class='btn2' title='Rediģēt' href='edit_profile.php?Administrators_ID={$Administrators_ID}&E_pasts={$_SESSION['admin_name']}&T_numurs={$t_numurs}'><i class='far fa-edit' aria-hidden='true'></i></a>  
                             </div>
+                                          
                         ";
                     }
                 }else{
                     echo "Tabula nav datu ko attēlot";
+                    header("location: confirmation.php");
                 }
-            ?>                       
+            ?>  
+                 
         </div>
     </section>
 

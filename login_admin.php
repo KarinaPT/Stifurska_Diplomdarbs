@@ -59,6 +59,7 @@ if(isset($_POST['submit'])){
                                     ссылка на страницу всех товаров,
                                     ссылка на страницу всех продавцов ,
                                     ссылка на страницу категорий товаров -->
+         <a href="index.html">Sākumlapa</a>
           <a href="shop.html">Preces</a>
           <a href="masters.html">Pārdevēji</a>>
           <a href="login_master.php"></i>Pieslēgties</a>
@@ -84,6 +85,10 @@ if(isset($_POST['submit'])){
       </form>
 
    </div>
+   <footer>
+            Kiriyena © 2023 Small start = Big deal</br>
+            Designed by Kiriyena
+        </footer>
 
 </body>
 </html>

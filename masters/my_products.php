@@ -21,8 +21,8 @@
         <a class="logo">Administrēšanas panelis</a>
         <nav class="navbar">
             <a href="about_me.php">Statistika/Profils</a>
-            <a href="#" class="active">Preces</a>
-            <a href="../index.html"><i class="fa-solid fa-right-to-bracket"></i> Iziet</a>
+            <a href="my_products" class="active">Preces</a>
+            <a href="../logout.php"><i class="fa-solid fa-right-to-bracket"></i> Iziet</a>
         </nav>
     </header>
 
@@ -34,7 +34,7 @@
                         <tr>
                             <th>Nosaukums</th>
                             <th>Cena</th>
-                            <th><a class='btn2' href="#">Pievienot jaunu prece</a></th>
+                            <th><a class='btn2' href="add_my_prod.php">Pievienot jaunu prece</a></th>
                             <th></th>
                         </tr>
 
@@ -54,7 +54,7 @@
                                     <td><?php echo $row['Nosaukums_prece']; ?></td>
                                     <td><?php echo $row['Cena']; ?>€</td>
                                     <td>
-                                        <a class='btn2'><i class="fa fa-trash" aria-hidden="true" title="Dzēst"></i></a>
+                                    <a class='btn2' href="delete_my_prod.php?prece_ID=<?php echo $row['prece_ID']; ?>"><i class="fa fa-trash" aria-hidden="true" title="Dzēst"></i></a>
                                         <form action='my_product_details.php' method='post'>
                                             <button type = 'submit' class = 'btn2' name='Apskatīt' value=<?php echo $row['prece_ID']; ?> title="Detalizēts preču apraksts">
                                                 <a><i class="far fa-clipboard" aria-hidden="true"></i></a>

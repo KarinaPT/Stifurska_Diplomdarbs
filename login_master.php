@@ -59,6 +59,7 @@ if(isset($_POST['submit'])){
                                     ссылка на страницу всех товаров,
                                     ссылка на страницу всех продавцов ,
                                     ссылка на страницу категорий товаров -->
+          <a href="index.html">Sākumlapa</a>
           <a href="shop.html">Preces</a>
           <a href="masters.html">Pārdevēji</a>
           <a href="#" class="active"></i>Pieslēgties</a>
@@ -81,9 +82,15 @@ if(isset($_POST['submit'])){
          <input type="email" name="E_pasts_pardevejs" required placeholder="E-pasts"><!--  поле для ввода e-mail адреса пользователя, обязательное для заполнения, с подсказкой "E-pasts" внутри поля.-->
          <input type="password" name="Parole_pardevejs" required placeholder="Parole"><!--  поле для ввода пароля, обязательное для заполнения, с подсказкой "Parole" внутри поля. Введенный текст скрыт символами звездочек или точек. -->
          <input type="submit" name="submit" value="Pieslēgties" class="form-btn"> <!-- кнопка отправки формы с названием "Pieslēgties"-->
+         <a class='btn2' title='Sākumlapa' href='index.html'><i class="fa-solid fa-backward"></i> Sākumlapa</a>
+         <p>Jūs vēl neesat reģistrējies? <a href="registration.php">Reģistrēties</a></p>
+      
       </form>
 
    </div>
-
+   <footer>
+            Kiriyena © 2023 Small start = Big deal</br>
+            Designed by Kiriyena
+        </footer>
 </body>
 </html>

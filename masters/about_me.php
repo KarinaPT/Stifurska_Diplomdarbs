@@ -20,9 +20,9 @@
     <header>
         <a class="logo">Administrēšanas panelis</a>
         <nav class="navbar">
-            <a href="#" class="active">Statistika/Profils</a>
+            <a href="about_me.php" class="active">Statistika/Profils</a>
             <a href="my_products.php">Preces</a>
-            <a href="../index.html"><i class="fa-solid fa-right-to-bracket"></i> Iziet</a>
+            <a href="../logout.php"><i class="fa-solid fa-right-to-bracket"></i> Iziet</a>
         </nav>
     </header>
 
@@ -36,6 +36,8 @@
                                             
                 if(mysqli_num_rows($atlasa_lietotajs) >0){
                     while($row = mysqli_fetch_assoc($atlasa_lietotajs)){
+                        $T_numurs_pardevejs = $row['T_numurs_pardevejs']; // сохраняем значение T_numurs в отдельной переменной
+                        $Pardevejs_ID = $row['Pardevejs_ID']; // сохраняем значение Administrators_ID в отдельной переменной
                         echo "
                             <div class='box'>
                             <img src='{$row['Attela_URL']}'>
@@ -45,12 +47,15 @@
                             <p><b>E-pasts: </b>{$row['E_pasts_pardevejs']}</p>
                             <p><b>Telefona numurs: </b>{$row['T_numurs_pardevejs']}</p>
                             <p><b>Loma: </b>{$row['Loma']}</p>
-                            <p><b>Apraksts: </b>{$row['Apraksts']}</p>
+                            <p><b>Apraksts: </b>{$row['Apraksts']}</p>   
+                            <a class='btn2' title='Rediģēt' href='edit_my_prof.php?Pardevejs_ID={$Pardevejs_ID}&E_pasts_pardevejs={$_SESSION['user_name']}&T_numurs_pardevejs={$T_numurs_pardevejs}'><i class='far fa-edit' aria-hidden='true'></i></a>
                             </div>
+                            
                         ";
                     }
                 }else{
                     echo "Tabula nav datu ko attēlot";
+                    header("location:../admin/confirmation.php");
                 }
             ?>                       
         </div>
