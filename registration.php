@@ -82,7 +82,7 @@
                 <input type="text" name="Parole_pardevejs" required placeholder="Parole" >
                 
                 <input type="submit" name="add" value="Reģistrēt" class="form-btn">
-                <a class='btn2' title='Sākumlapa' href='index.html'><i class="fa-solid fa-backward"></i> Sākumlapa</a>
+                <a class='btn' title='Sākumlapa' href='index.html'><i class="fa-solid fa-backward"></i> Sākumlapa</a>
                 <p>Esi jau reģistrējies? <a href="login_master.php">Ienākt</a></p>
                  
             </form>

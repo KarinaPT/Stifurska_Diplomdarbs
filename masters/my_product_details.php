@@ -2,6 +2,7 @@
     require("../admin/config.php");
     session_start();
     if(isset($_SESSION['user_name'])){
+        
 
 ?>
 <!DOCTYPE html>
@@ -48,6 +49,11 @@
                         WHERE prece_ID = $prece_ID && pardevejs.E_pasts_pardevejs = '".$_SESSION['user_name']."'"; 
                         $atlasa_apraksts = mysqli_query($conn, $par_preceSQL) or die ("Nekorekts vaicājums");
                         while($row = mysqli_fetch_assoc($atlasa_apraksts)){
+                            $Nosaukums_prece = $row['Nosaukums_prece']; // сохраняем значение T_numurs в отдельной переменной
+                            $Cena = $row['Cena']; // сохраняем значение T_numurs в отдельной переменной
+                            $Statuss = $row['Statuss']; // сохраняем значение T_numurs в отдельной переменной
+                            $Apraksts_prece = $row['Apraksts_prece']; // сохраняем значение T_numurs в отдельной переменной
+                            $Ipatnibas_prece = $row['Ipatnibas_prece']; // сохраняем значение T_numurs в отдельной переменной
                             echo "
                                         <img src='{$row['Attela_prece']}'>
                                         <h3>{$row['Nosaukums_prece']}</h3>
@@ -57,15 +63,17 @@
                                         <p><b>Īpatnības: </b>{$row['Ipatnibas_prece']}</p>
                                         <p><b>Kategorija: </b>{$row['Nosaukums_kategorija']}</p>
                                         <p><b>Kategoriju apakšsadaļa: </b>{$row['Nosaukums_sadala']}</p>
-                                        
+                                        <a class='btn' title='Atpaķaļ' href='my_products.php'><i class='fa-solid fa-angles-left' aria-hidden='true'></i></a>
+                                        <a class='btn' title='Rediģēt' href='edit_my_prod.php?prece_ID={$prece_ID}&Nosaukums_prece={$Nosaukums_prece}&Cena={$Cena}
+                                        &Statuss={$Statuss}&Cena={$Cena}&Apraksts_prece={$Apraksts_prece}&Ipatnibas_prece={$Ipatnibas_prece}
+                                        '><i class='far fa-edit' aria-hidden='true'></i></a>            
                                 ";  
                                 
                         }
                     }else{
                         echo "Tabula nav datu ko attēlot";
                     }
-                ?>  
-                                        <input type="button" onclick="history.back();" value="Atpakaļ" class="btn ">
+                ?> 
                                         </div>
                                         
         </div>
