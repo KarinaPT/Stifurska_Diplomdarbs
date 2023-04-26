@@ -49,9 +49,9 @@
                     pardevejs.Brenda_nosaukums
                     FROM prece
                     JOIN kategorija
-                    ON Kategorija_ID = prece.ID_Kategorija_KApakssadala
+                    ON Kategorija_ID = prece.ID_Kategorija
                     LEFT JOIN k_apakssadala
-                    ON Kapakssadala_ID = prece.ID_KApakssadala
+                    ON Kapakssadala_ID = prece.IDKapakssadala
                     LEFT JOIN pardevejs
                     ON Pardevejs_ID = prece.ID_Pardevejs
                     WHERE prece_ID=$prece_ID"; 

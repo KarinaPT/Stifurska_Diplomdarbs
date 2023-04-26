@@ -14,7 +14,7 @@
       $Kapakssadala_ID = mysqli_real_escape_string($conn, $_POST['Kapakssadala_ID']);
       
     // Вставка данных о новом товаре в базу данных
-      mysqli_query($conn,"INSERT INTO `prece`(`Nosaukums_prece`, `Cena`, `Apraksts_prece`, `Attela_prece`, `Ipatnibas_prece`, `ID_Pardevejs`, `ID_KApakssadala`, `ID_Kategorija_KApakssadala`) 
+      mysqli_query($conn,"INSERT INTO `prece`(`Nosaukums_prece`, `Cena`, `Apraksts_prece`, `Attela_prece`, `Ipatnibas_prece`, `ID_Pardevejs`, `IDKapakssadala`, `ID_Kategorija`) 
       VALUES ('$Nosaukums_prece','$Cena','$Apraksts_prece','$Attela_prece','$Ipatnibas_prece','$Pardevejs_ID','$Kapakssadala_ID','$Kategorija_ID')");
       header('location:all_products.php'); // Перенаправление на страницу со списком всех товаров     
    }else{
