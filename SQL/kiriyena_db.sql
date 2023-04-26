@@ -25,6 +25,7 @@ CREATE TABLE IF NOT EXISTS `kiriyena_db`.`Administrators` (
   `T_numurs` VARCHAR(12) NULL,
   `Loma` VARCHAR(15) NOT NULL DEFAULT 'Administrators',
   `Parole` VARCHAR(50) NOT NULL,
+  `Attela_admin` TEXT NULL,
   PRIMARY KEY (`Administrators_ID`))
 ENGINE = InnoDB;
 
@@ -49,29 +50,22 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
+-- Table `kiriyena_db`.`K_apakssadala`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `kiriyena_db`.`K_apakssadala` (
+  `Kapakssadala_ID` INT NOT NULL AUTO_INCREMENT,
+  `Nosaukums_sadala` VARCHAR(30) NOT NULL,
+  PRIMARY KEY (`Kapakssadala_ID`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- Table `kiriyena_db`.`Kategorija`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `kiriyena_db`.`Kategorija` (
   `Kategorija_ID` INT NOT NULL AUTO_INCREMENT,
   `Nosaukums_kategorija` VARCHAR(30) NOT NULL,
   PRIMARY KEY (`Kategorija_ID`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `kiriyena_db`.`K_apakssadala`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `kiriyena_db`.`K_apakssadala` (
-  `Kapakssadala_ID` INT NOT NULL AUTO_INCREMENT,
-  `Nosaukums_sadala` VARCHAR(30) NOT NULL,
-  `ID_Kategorija` INT NOT NULL,
-  PRIMARY KEY (`Kapakssadala_ID`, `ID_Kategorija`),
- -- INDEX `fk_K_apakssadala_Kategorija1_idx` (`ID_Kategorija` ASC) VISIBLE,
-  CONSTRAINT `fk_K_apakssadala_Kategorija1`
-    FOREIGN KEY (`ID_Kategorija`)
-    REFERENCES `kiriyena_db`.`Kategorija` (`Kategorija_ID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
@@ -87,19 +81,25 @@ CREATE TABLE IF NOT EXISTS `kiriyena_db`.`Prece` (
   `Attela_prece` TEXT NULL,
   `Ipatnibas_prece` TEXT NULL,
   `ID_Pardevejs` INT NOT NULL,
-  `ID_KApakssadala` INT NOT NULL,
-  `ID_Kategorija_KApakssadala` INT NOT NULL,
-  PRIMARY KEY (`Prece_ID`, `ID_Pardevejs`, `ID_KApakssadala`, `ID_Kategorija_KApakssadala`),
- -- INDEX `fk_Prece_Pārdevējs_idx` (`ID_Pardevejs` ASC) VISIBLE,
- -- INDEX `fk_Prece_K_apakssadala1_idx` (`ID_KApakssadala` ASC, `ID_Kategorija_KApakssadala` ASC) VISIBLE,
+  `IDKapakssadala` INT NOT NULL,
+  `ID_Kategorija` INT NOT NULL,
+  PRIMARY KEY (`Prece_ID`, `ID_Pardevejs`, `IDKapakssadala`, `ID_Kategorija`),
+--  INDEX `fk_Prece_Pārdevējs_idx` (`ID_Pardevejs` ASC) VISIBLE,
+--  INDEX `fk_Prece_K_apakssadala1_idx` (`IDKapakssadala` ASC) VISIBLE,
+ -- INDEX `fk_Prece_Kategorija1_idx` (`ID_Kategorija` ASC) VISIBLE,
   CONSTRAINT `fk_Prece_Pārdevējs`
     FOREIGN KEY (`ID_Pardevejs`)
     REFERENCES `kiriyena_db`.`Pardevejs` (`Pardevejs_ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Prece_K_apakssadala1`
-    FOREIGN KEY (`ID_KApakssadala` , `ID_Kategorija_KApakssadala`)
-    REFERENCES `kiriyena_db`.`K_apakssadala` (`Kapakssadala_ID` , `ID_Kategorija`)
+    FOREIGN KEY (`IDKapakssadala`)
+    REFERENCES `kiriyena_db`.`K_apakssadala` (`Kapakssadala_ID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Prece_Kategorija1`
+    FOREIGN KEY (`ID_Kategorija`)
+    REFERENCES `kiriyena_db`.`Kategorija` (`Kategorija_ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
