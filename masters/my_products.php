@@ -21,7 +21,7 @@
         <a class="logo">Administrēšanas panelis</a>
         <nav class="navbar">
             <a href="about_me.php">Statistika/Profils</a>
-            <a href="my_products" class="active">Preces</a>
+            <a href="my_products.php" class="active">Preces</a>
             <a href="../logout.php"><i class="fa-solid fa-right-to-bracket"></i> Iziet</a>
         </nav>
     </header>

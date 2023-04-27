@@ -45,7 +45,7 @@ if (isset($_SESSION['user_name'])) {
         <header>
             <a class="logo">Administrēšanas panelis</a>
             <nav class="navbar">
-                <a href="about_me" class="active">Statistika/Profils</a>
+                <a href="about_me.php" class="active">Statistika/Profils</a>
                 <a href="my_products.php">Preces </a>
                 <a href="../logout.php"><i class="fa-solid fa-right-to-bracket"></i> Iziet</a>
             </nav>

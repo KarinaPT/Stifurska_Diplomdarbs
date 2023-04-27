@@ -1,6 +1,12 @@
 <?php
 require("../admin/config.php"); // Подключение файла с настройками подключения к базе данных
 session_start(); // Начало новой сессии
+$email = $_SESSION['user_name'];
+$query = "SELECT Pardevejs_ID FROM pardevejs WHERE E_pasts_pardevejs = '$email'";
+$result = mysqli_query($conn, $query);
+$user = mysqli_fetch_assoc($result);
+$Pardevejs_ID = $user['Pardevejs_ID'];
+
 if (isset($_SESSION['user_name'])) { // Проверка, авторизован ли пользователь в системе
     if (isset($_POST['add'])) { // Проверка, была ли нажата кнопка "Добавить"
         // Получение данных о новом товаре из формы
@@ -12,22 +18,14 @@ if (isset($_SESSION['user_name'])) { // Проверка, авторизован
         $Kategorija_ID = mysqli_real_escape_string($conn, $_POST['Kategorija_ID']);
         $Kapakssadala_ID = mysqli_real_escape_string($conn, $_POST['Kapakssadala_ID']);
 
-        $user_name = $_SESSION['user_name'];
-
-        // Retrieve the user's ID from the database
-        $par_user = mysqli_query($conn, "SELECT `Pardevejs_ID` FROM `pardevejs` WHERE `Loma` = '$user_name'");
-        $row_user = mysqli_fetch_assoc($par_user);
-        $user_id = $row_user['Pardevejs_ID'];
-
         // Вставка данных о новом товаре в базу данных
         mysqli_query($conn, "INSERT INTO `prece`(`Nosaukums_prece`, `Cena`, `Apraksts_prece`, `Attela_prece`, `Ipatnibas_prece`, `ID_Pardevejs`, `IDKapakssadala`, `ID_Kategorija`) 
-    VALUES ('$Nosaukums_prece','$Cena','$Apraksts_prece','$Attela_prece','$Ipatnibas_prece','$user_id','$Kapakssadala_ID','$Kategorija_ID')");
-        header('location:my_products.php'); // Перенаправление на страницу со списком всех товаров     
+          VALUES ('$Nosaukums_prece','$Cena','$Apraksts_prece','$Attela_prece','$Ipatnibas_prece','$Pardevejs_ID','$Kapakssadala_ID','$Kategorija_ID')");
+        header('location:all_products.php'); // Перенаправление на страницу со списком всех товаров     
     } else {
         // Получение данных из базы данных для формирования списков значений в форме добавления товара
         $kategorija = mysqli_query($conn, 'SELECT * FROM kategorija');
         $k_apakssadala = mysqli_query($conn, 'SELECT * FROM k_apakssadala');
-        $prece = mysqli_query($conn, 'SELECT * FROM prece');
     }
     ?>
     <!DOCTYPE html>
@@ -37,7 +35,7 @@ if (isset($_SESSION['user_name'])) { // Проверка, авторизован
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Preču administrācija</title>
+        <title>Preču administrēšana</title>
         <link rel="stylesheet" href="css/cssForMaster.css">
         <link rel="stylesheet" href="../assets/css/login.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
@@ -49,8 +47,8 @@ if (isset($_SESSION['user_name'])) { // Проверка, авторизован
         <header>
             <a class="logo">Administrēšanas panelis</a>
             <nav class="navbar">
-                <a href="about_me.php">Statistika/Profils</a>
-                <a href="my_products.php" class="active">Preces / Reģistrācija </a>
+                <a href="about_me.php" >Statistika/Profils</a>
+                <a href="my_products.php" class="active" >Preces / Reģistrācija </a>
                 <a href="../logout.php"><i class="fa-solid fa-right-to-bracket"></i> Iziet</a>
             </nav>
         </header>
@@ -97,6 +95,7 @@ if (isset($_SESSION['user_name'])) { // Проверка, авторизован
                     }
                     ?>
                 </select>
+
 
                 <input type="submit" name="add" value="Reģistrēt" class="form-btn">
                 <input type="button" onclick="history.back();" value="Atpakaļ" class="form-btn ">
