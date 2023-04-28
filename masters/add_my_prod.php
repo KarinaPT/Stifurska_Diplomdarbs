@@ -21,7 +21,7 @@ if (isset($_SESSION['user_name'])) { // Проверка, авторизован
         // Вставка данных о новом товаре в базу данных
         mysqli_query($conn, "INSERT INTO `prece`(`Nosaukums_prece`, `Cena`, `Apraksts_prece`, `Attela_prece`, `Ipatnibas_prece`, `ID_Pardevejs`, `IDKapakssadala`, `ID_Kategorija`) 
           VALUES ('$Nosaukums_prece','$Cena','$Apraksts_prece','$Attela_prece','$Ipatnibas_prece','$Pardevejs_ID','$Kapakssadala_ID','$Kategorija_ID')");
-        header('location:all_products.php'); // Перенаправление на страницу со списком всех товаров     
+        header('location:notification/add_confirm.php'); // Перенаправление на страницу со списком всех товаров     
     } else {
         // Получение данных из базы данных для формирования списков значений в форме добавления товара
         $kategorija = mysqli_query($conn, 'SELECT * FROM kategorija');
@@ -98,7 +98,7 @@ if (isset($_SESSION['user_name'])) { // Проверка, авторизован
 
 
                 <input type="submit" name="add" value="Reģistrēt" class="form-btn">
-                <input type="button" onclick="history.back();" value="Atpakaļ" class="form-btn ">
+                <input type="button" onclick="history.back();" value="Manas preces" class="form-btn ">
             </form>
 
             <!-- закрывающий тег для раздела страницы, который содержит информацию об авторских правах и дизайне веб-сайта. -->

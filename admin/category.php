@@ -63,7 +63,7 @@ if (isset($_SESSION['admin_name'])) {
                                 <?php
                             }
                         } else {
-                            echo "Tabula nav datu ko attēlot";
+                            echo "<tr><td colspan='4'>Tabulā nav ierakstu.</td></tr>";
                         }
                         ?>
                     </table>
@@ -106,7 +106,7 @@ if (isset($_SESSION['admin_name'])) {
                                 <?php
                             }
                         } else {
-                            echo "Tabula nav datu ko attēlot";
+                            echo "<tr><td colspan='4'>Tabulā nav ierakstu.</td></tr>";
                         }
                         ?>
                     </table>

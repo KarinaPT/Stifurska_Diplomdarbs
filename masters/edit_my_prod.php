@@ -115,6 +115,7 @@ if (isset($_SESSION['user_name'])) {
                     ?>
                 </select>
                 <input type="submit" name="update" value="Reģistrēt" class="form-btn">
+                <a class='btn' title='Atpakaļ' href='my_products.php'><i class="fa-solid fa-backward"></i> Manas preces</a>
 
             </form>
 
