@@ -3,7 +3,7 @@
 if (isset($_POST['submit'])) {
 
    // Подключение к базе данных
-   include 'admin/config.php';
+   require("admin/config.php");
    // Начало сессии
    session_start();
    // Получение данных из формы и защита от SQL-инъекций
@@ -11,7 +11,7 @@ if (isset($_POST['submit'])) {
    $Parole = md5($_POST['Parole']); // Получение значения поля "Parole" из формы и хэширование пароля с помощью функции md5() для безопасного хранения в базе данных
 
    // Формирование запроса на выборку пользователей из базы данных, где значение поля "E_pasts" равно введенному пользователем e-mail, а значение поля "Parole" равно хэшу введенного пароля
-   $select = " SELECT * FROM administrators WHERE E_pasts = '$E_pasts' && Parole = '$Parole' ";
+   $select = "SELECT * FROM administrators WHERE E_pasts = '$E_pasts' AND Parole = '$Parole'"; // выбираем только тех пользователей, у которых роль 'admin'
    // Выполнение запроса на выборку пользователей из базы данных с помощью функции mysqli_query() и сохранение результата выполнения в переменной $result.
    $result = mysqli_query($conn, $select);
 
@@ -20,20 +20,16 @@ if (isset($_POST['submit'])) {
 
       // Получение данных о пользователе
       $row = mysqli_fetch_array($result);
-      // Проверка, является ли пользователь администратором, через роль
-      if ($row['Loma'] == 'Administrātors') {
 
-         // Если пользователь является администратором, сохранение его имени в сессии и перенаправление на страницу статистики
-         $_SESSION['admin_name'] = $E_pasts;
-         header('location:admin/statistics.php');
+      // Если пользователь найден и имеет роль "admin", сохраняем его имя в сессии и перенаправляем на страницу статистики
+      $_SESSION['admin_name'] = $E_pasts;
+      header('location:admin/statistics.php');
 
-      }
    } else {
       // Если пользователь с введенными данными не найден, добавление ошибки в массив ошибок
-      $error[] = 'Nepareizs e-pasts vai parole!';
+      $error[] = 'Неправильный e-mail или пароль!';
    }
 }
-;
 ?>
 <!DOCTYPE html>
 <html lang="en">

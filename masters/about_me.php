@@ -21,6 +21,11 @@ if (isset($_SESSION['user_name'])) {
     <body>
         <header>
             <a class="logo">Administrēšanas panelis</a>
+            <button class="menu-toggle" aria-label="Toggle navigation menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
             <nav class="navbar">
                 <a href="about_me.php" class="active">Statistika/Profils</a>
                 <a href="my_products.php">Preces</a>
@@ -50,7 +55,7 @@ if (isset($_SESSION['user_name'])) {
                             <p><b>Telefona numurs: </b>{$row['T_numurs_pardevejs']}</p>
                             <p><b>Loma: </b>{$row['Loma']}</p>
                             <p><b>Apraksts: </b>{$row['Apraksts']}</p>   
-                            <a class='btn2' title='Rediģēt' href='edit_my_prof.php?Pardevejs_ID={$Pardevejs_ID}&E_pasts_pardevejs={$_SESSION['user_name']}&T_numurs_pardevejs={$T_numurs_pardevejs}'><i class='far fa-edit' aria-hidden='true'></i></a>
+                            <a class='btn' title='Rediģēt' href='edit_my_prof.php?Pardevejs_ID={$Pardevejs_ID}&E_pasts_pardevejs={$_SESSION['user_name']}&T_numurs_pardevejs={$T_numurs_pardevejs}'><i class='far fa-edit' aria-hidden='true'></i></a>
                             </div>
                             
                         ";
@@ -99,8 +104,9 @@ if (isset($_SESSION['user_name'])) {
                         <?php echo $data2['E_pasts'] ?>
                     </h3>
                     <p style="font-size:18px">E-pasts</p>
-                    <a class='btn2' href="https://mail.google.com/mail/?view=cm&to=<?php echo $data2['E_pasts']; ?>">Atvērt e-pastu</a>
-                    
+                    <a class='btn' href="https://mail.google.com/mail/?view=cm&to=<?php echo $data2['E_pasts']; ?>">Atvērt
+                        e-pastu</a>
+
                 </div>
             </div>
 
@@ -111,6 +117,13 @@ if (isset($_SESSION['user_name'])) {
             Kiriyena © 2023 Small start = Big deal</br>
             Designed by Kiriyena
         </footer>
+        <script>
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navbar = document.querySelector('.navbar');
+
+            menuToggle.addEventListener('click', () => {
+                navbar.classList.toggle('show');
+            });</script>
         <?php
 }
 ?>

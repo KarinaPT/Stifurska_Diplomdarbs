@@ -21,6 +21,11 @@ if (isset($_SESSION['user_name'])) {
     <body>
         <header>
             <a class="logo">Administrēšanas panelis</a>
+            <button class="menu-toggle" aria-label="Toggle navigation menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
             <nav class="navbar">
                 <a href="about_me.php">Statistika/Profils</a>
                 <a href="my_products.php" class="active">Preces</a>
@@ -87,6 +92,13 @@ if (isset($_SESSION['user_name'])) {
             Kiriyena © 2023 Small start = Big deal</br>
             Designed by Kiriyena
         </footer>
+        <script>
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navbar = document.querySelector('.navbar');
+
+            menuToggle.addEventListener('click', () => {
+                navbar.classList.toggle('show');
+            });</script>
         <?php
 }
 ?>

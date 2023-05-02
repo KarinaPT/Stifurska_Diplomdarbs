@@ -1,18 +1,17 @@
 <?php
-
 // Проверка наличия отправленной формы
 if (isset($_POST['submit'])) {
 
    // Подключение к базе данных
-   include 'admin/config.php';
+   require("admin/config.php");
    // Начало сессии
    session_start();
-   $E_pasts_pardevejs = mysqli_real_escape_string($conn, $_POST['E_pasts_pardevejs']); // Получение значения поля "E_pasts_pardevejs" из формы и защита от SQL-инъекций с помощью функции
+   // Получение данных из формы и защита от SQL-инъекций
+   $E_pasts_pardevejs = mysqli_real_escape_string($conn, $_POST['E_pasts_pardevejs']); // Получение значения поля "E_pasts" из формы и защита от SQL-инъекций с помощью функции
    $Parole_pardevejs = md5($_POST['Parole_pardevejs']); // Получение значения поля "Parole" из формы и хэширование пароля с помощью функции md5() для безопасного хранения в базе данных
 
-   // Формирование запроса на выборку пользователей из базы данных, где значение поля "E_pasts_pardevejs" равно введенному пользователем e-mail, а значение поля "Parole_pardevejs" равно хэшу введенного пароля
-   $select = " SELECT * FROM pardevejs WHERE E_pasts_pardevejs = '$E_pasts_pardevejs' && Parole_pardevejs = '$Parole_pardevejs' ";
-
+   // Формирование запроса на выборку пользователей из базы данных, где значение поля "E_pasts" равно введенному пользователем e-mail, а значение поля "Parole" равно хэшу введенного пароля
+   $select = "SELECT * FROM pardevejs WHERE E_pasts_pardevejs = '$E_pasts_pardevejs' AND Parole_pardevejs = '$Parole_pardevejs'"; // выбираем только тех пользователей, у которых роль 'admin'
    // Выполнение запроса на выборку пользователей из базы данных с помощью функции mysqli_query() и сохранение результата выполнения в переменной $result.
    $result = mysqli_query($conn, $select);
 
@@ -21,20 +20,16 @@ if (isset($_POST['submit'])) {
 
       // Получение данных о пользователе
       $row = mysqli_fetch_array($result);
-      // Проверка, является ли пользователь продавцом, через роль
-      if ($row['Loma'] == 'Pārdevējs') {
 
-         // Если пользователь является продавцом, сохранение его имени в сессии и перенаправление на страницу статистики
-         $_SESSION['user_name'] = $E_pasts_pardevejs;
-         header('location:masters/about_me.php');
+      // Если пользователь найден и имеет роль "admin", сохраняем его имя в сессии и перенаправляем на страницу статистики
+      $_SESSION['user_name'] = $E_pasts_pardevejs;
+      header('location:masters/about_me.php');
 
-      }
    } else {
       // Если пользователь с введенными данными не найден, добавление ошибки в массив ошибок
-      $error[] = 'Nepareizs e-pasts vai parole!';
+      $error[] = 'Неправильный e-mail или пароль!';
    }
 }
-;
 ?>
 <!DOCTYPE html>
 <html lang="en">
