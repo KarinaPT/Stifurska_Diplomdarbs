@@ -24,13 +24,12 @@ require("admin/config.php");
     <nav class="navbar navbar-expand-lg navbar-light shadow bg-dark">
         <div class="container d-flex justify-content-between align-items-center">
 
-            <a class="navbar-brand text-success logo h1 align-self-center" href="index.html">
+            <a class="navbar-brand text-success logo h1 align-self-center" href="index.php">
                 Kiriyena
             </a>
 
-            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
-                data-bs-target="#templatemo_main_nav" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#templatemo_main_nav"
+                aria-controls="templatemo_main_nav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
@@ -39,10 +38,10 @@ require("admin/config.php");
                 <div class="flex-fill">
                     <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="shop.html">Товары</a>
+                            <a class="nav-link" href="shop.php">Товары</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="masters.html">Мастера</a>
+                            <a class="nav-link active" href="masters.php">Мастера</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#contacts">Контакты</a>
@@ -73,18 +72,11 @@ require("admin/config.php");
                 <p class="mb-0">Šeit jūs varat atrast un uzzināt vairāk par izvēlēto pārdevēju</p>
             </div>
 
-          <!--  <div class="col-lg-9">
+            <div class="col-lg-9">
                 <div class="row">
-                    <div class="col-md-6 pb-4">
-                        <div class="d-flex">
-                            <select class="form-control">
-                                <option>Все товары</option>
-                                <option>Колличество товаров</option>
-                            </select>
-                        </div>
-                    </div>
+                    
                 </div>
-                <div class="row bg-light"> -->
+                <div class="row bg-light">
                     <?php
                     $pardevejs = "SELECT *
                             FROM pardevejs ";
@@ -99,13 +91,14 @@ require("admin/config.php");
                                         <div
                                             class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                             <ul class="list-unstyled">
-                                                <li><a class="btn btn-success text-white mt-2" href="info_masters.html"><i
-                                                            class="far fa-eye"></i></a></li>
+                                                <li><a class="btn btn-success text-white mt-2" href="info_masters.php?Pardevejs_ID=<?php echo $row['Pardevejs_ID']; ?>"><i class="far fa-eye"></i></a></li>
                                             </ul>
                                         </div>
                                     </div>
                                     <div class="card-body">
-                                        <a href="shop-single.html" class="h3 text-decoration-none"><?php echo $row['Brenda_nosaukums']; ?></a>
+                                        <a href="shop-single.html" class="h3 text-decoration-none">
+                                            <?php echo $row['Brenda_nosaukums']; ?>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -117,21 +110,7 @@ require("admin/config.php");
                     ?>
 
                 </div>
-                <div div="row">
-                    <ul class="pagination pagination-lg justify-content-end">
-                        <li class="page-item disabled">
-                            <a class="page-link active rounded-0 mr-3 shadow-sm border-top-0 border-left-0" href="#"
-                                tabindex="-1">1</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark"
-                                href="#">2</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark" href="#">3</a>
-                        </li>
-                    </ul>
-                </div>
+                
             </div>
 
         </div>
@@ -200,7 +179,10 @@ require("admin/config.php");
         </div>
 
     </footer>
-    <!-- End Footer -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Подключаем плагин Bootstrap -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
 
 </body>

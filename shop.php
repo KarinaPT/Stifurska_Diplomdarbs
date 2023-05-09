@@ -19,13 +19,12 @@
     <nav class="navbar navbar-expand-lg navbar-light shadow bg-dark">
         <div class="container d-flex justify-content-between align-items-center">
 
-            <a class="navbar-brand text-success logo h1 align-self-center" href="index.html">
+            <a class="navbar-brand text-success logo h1 align-self-center" href="index.php">
                 Kiriyena
             </a>
 
-            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
-                data-bs-target="#templatemo_main_nav" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#templatemo_main_nav"
+                aria-controls="templatemo_main_nav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
@@ -64,116 +63,91 @@
     <!-- Start Content -->
     <div class="container py-5 ">
         <div class="row">
-
             <div class="col-lg-3">
                 <h1 class="h2 pb-4 text-dark">Категории</h1>
                 <ul class="list-unstyled templatemo-accordion">
-                    <li class="pb-3">
-                        <a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">
-                            Косметика
-                            <i class="fa fa-fw fa-chevron-circle-down mt-1"></i>
-                        </a>
-                        <ul class="collapse show list-unstyled pl-3">
-                            <li><a class="text-decoration-none" href="#">Помады</a></li>
-                        </ul>
-                    </li>
-                    <li class="pb-3">
-                        <a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">
-                            Канцелярия
-                            <i class="pull-right fa fa-fw fa-chevron-circle-down mt-1"></i>
-                        </a>
-                        <ul id="collapseTwo" class="collapse list-unstyled pl-3">
-                            <li><a class="text-decoration-none" href="#">Тетради</a></li>
-                            <li><a class="text-decoration-none" href="#">Наклейки</a></li>
-                        </ul>
-                    </li>
-                    <li class="pb-3">
-                        <a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">
-                            Аксессуары
-                            <i class="pull-right fa fa-fw fa-chevron-circle-down mt-1"></i>
-                        </a>
-                        <ul id="collapseThree" class="collapse list-unstyled pl-3">
-                            <li><a class="text-decoration-none" href="#">Кольца</a></li>
-                            <li><a class="text-decoration-none" href="#">Браслеты</a></li>
-                            <li><a class="text-decoration-none" href="#">Комплекты</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="col-lg-9">
-                <!-- <div class="row">
-                    <div class="col-md-6 pb-4">
-                        <div class="d-flex">
-                            <select class="form-control">
-                                <option>Featured</option>
-                                <option>A to Z</option>
-                                <option>Item</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            -->
-                <div class="row bg-light">
                     <?php
                     require("admin/config.php");
-                    $preceSQL = "SELECT *
-                                FROM prece;";
-                    $atlasa_prece = mysqli_query($conn, $preceSQL) or die("Nekorekts vaicājums");
-                    if (mysqli_num_rows($atlasa_prece) > 0) {
-                        while ($row = mysqli_fetch_assoc($atlasa_prece)) {
-                            ?>
-                            <div class="col-md-4">
-                                <div class="card mb-4 product-wap rounded-0">
-                                    <div class="card rounded-0">
-                                        <img class="card-img rounded-0 img-fluid" src=<?php echo $row['Attela_prece']; ?>>
-                                        <div
-                                            class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
-                                            <ul class="list-unstyled">
-                                                <li><a class="btn btn-success text-white mt-2" href="single.html"><i
-                                                            class="far fa-eye"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="card-body">
-                                        <a href="shop-single.html" class="h3 text-decoration-none" >
-                                            <?php echo $row['Nosaukums_prece']; ?>
-                                        </a>
-                                        <p class="text-center mb-0">
-                                            <?php echo $row['Cena']; ?>€
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <?php
-                            if (mysqli_num_rows($atlasa_prece) % 3 == 0) {
-                                // Создать новый ряд после каждых 3-х колонок
-                                echo '</div><div class="row bg-light">';
-                            }
+                    // Проверяем, был ли выбран параметр "category" в URL
+                    if (isset($_GET['category'])) {
+                        $selectedCategory = $_GET['category'];
+                    } else {
+                        $selectedCategory = "";
+                    }
+                    // Выводим список категорий
+                    $preceKatSQL = "SELECT * FROM kategorija;";
+                    $atlasa_kat = mysqli_query($conn, $preceKatSQL) or die("Некорректный запрос");
+                    if (mysqli_num_rows($atlasa_kat) > 0) {
+                        while ($row = mysqli_fetch_assoc($atlasa_kat)) {
+                            $categoryId = $row['Kategorija_ID'];
+                            $categoryName = $row['Nosaukums_kategorija'];
+                            // Добавляем класс "active", если текущая категория выбрана
+                            $activeClass = ($selectedCategory == $categoryId) ? "active" : "";
+                            // Выводим ссылку на категорию
+                            echo '<li class="pb-3">';
+                            echo '<a class="collapsed d-flex justify-content-between h3 text-decoration-none ' . $activeClass . '" href="?category=' . $categoryId . '">';
+                            echo $categoryName;
+                            echo '</a>';
+                            echo '</li>';
                         }
                     } else {
-                        echo "<tr><td colspan='4'>Tabulā nav ierakstu.</td></tr>";
+                        echo "<tr><td colspan='4'>Нет записей в таблице.</td></tr>";
                     }
-                    ?>
-                </div>
-                <div div="row">
-                    <ul class="pagination pagination-lg justify-content-end">
-                        <li class="page-item disabled">
-                            <a class="page-link active rounded-0 mr-3 shadow-sm border-top-0 border-left-0" href="#"
-                                tabindex="-1">1</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark"
-                                href="#">2</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark" href="#">3</a>
-                        </li>
-                    </ul>
-                </div>
+                    ?>                                                                                                                      
+                </ul>
             </div>
+            <?php
+           
+            // Если выбрана категория, выводим список товаров, соответствующих этой категории
+            if ($selectedCategory != "") {
+                echo '<div class="col-lg-9">';
+                echo '<div class="row bg-light">';
+                $preceSQL = "SELECT prece.prece_ID, prece.Attela_prece,prece.Nosaukums_prece,prece.Cena
+                      FROM prece WHERE ID_Kategorija = $selectedCategory;";
+                $atlasa_prece = mysqli_query($conn, $preceSQL) or die("Nekorekts vaicājums");
+                if (mysqli_num_rows($atlasa_prece) > 0) {
+                    while ($row = mysqli_fetch_assoc($atlasa_prece)) {
+                        ?>
 
+                        <div class="col-md-4">
+                            <div class="card mb-4 product-wap rounded-0">
+                                <div class="card rounded-0">
+                                    <img class="card-img rounded-0 img-fluid" src=<?php echo $row['Attela_prece']; ?>>
+                                    <div
+                                        class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
+                                        <ul class="list-unstyled">
+                                            <li><a class="btn btn-success text-white mt-2"
+                                                    href="single.php?prece_ID=<?php echo $row['prece_ID']; ?>"><i
+                                                        class="far fa-eye"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <a href="shop-single.html" class="h3 text-decoration-none">
+                                        <?php echo $row['Nosaukums_prece']; ?>
+                                    </a>
+                                    <p class="text-center mb-0">
+                                        <?php echo $row['Cena']; ?>€
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <?php
+                        if (mysqli_num_rows($atlasa_prece) % 3 == 0) {
+                            // Создать новый ряд после каждых 3-х колонок
+                            echo '</div><div class="row bg-light">';
+                        }
+                    }
+                } else {
+                    echo "<tr><td colspan='4'>Tabulā nav ierakstu.</td></tr>";
+                }
+                echo '</div></div>';
+            }
+            ?>
+            
         </div>
+
+    </div>
     </div>
     <!-- End Content -->
 
@@ -232,7 +206,10 @@
             </div>
         </div>
     </footer>
-    <!-- End Footer -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Подключаем плагин Bootstrap -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
 
 

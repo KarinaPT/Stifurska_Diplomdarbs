@@ -44,7 +44,9 @@ if (isset($_SESSION['user_name'])) {
                 if (mysqli_num_rows($atlasa_lietotajs) > 0) {
                     while ($row = mysqli_fetch_assoc($atlasa_lietotajs)) {
                         $T_numurs_pardevejs = $row['T_numurs_pardevejs']; // сохраняем значение T_numurs в отдельной переменной
-                        $Pardevejs_ID = $row['Pardevejs_ID']; // сохраняем значение Administrators_ID в отдельной переменной
+                        $Pardevejs_ID = $row['Pardevejs_ID'];
+                        $Attela_URL = $row['Attela_URL']; 
+                        $Apraksts = $row['Apraksts'];// сохраняем значение Administrators_ID в отдельной переменной
                         echo "
                             <div class='box'>
                             <img src='{$row['Attela_URL']}'>
@@ -55,8 +57,9 @@ if (isset($_SESSION['user_name'])) {
                             <p><b>Telefona numurs: </b>{$row['T_numurs_pardevejs']}</p>
                             <p><b>Loma: </b>{$row['Loma']}</p>
                             <p><b>Apraksts: </b>{$row['Apraksts']}</p>   
-                            <a class='btn' title='Rediģēt' href='edit_my_prof.php?Pardevejs_ID={$Pardevejs_ID}&E_pasts_pardevejs={$_SESSION['user_name']}&T_numurs_pardevejs={$T_numurs_pardevejs}'><i class='far fa-edit' aria-hidden='true'></i></a>
-                            </div>
+                            <a class='btn' title='Rediģēt' href='edit_my_prof.php?Pardevejs_ID={$Pardevejs_ID}&E_pasts_pardevejs={$_SESSION['user_name']}&T_numurs_pardevejs={$T_numurs_pardevejs}
+                            &Attela_URL={$Attela_URL}&Apraksts={$Apraksts}'>Rediģēt Profilu</a>
+                           
                             
                         ";
                     }

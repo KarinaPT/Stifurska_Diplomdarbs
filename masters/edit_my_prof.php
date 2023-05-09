@@ -5,12 +5,14 @@ session_start();
 $Pardevejs_ID = $_GET['Pardevejs_ID'];
 $E_pasts_pardevejs = $_GET['E_pasts_pardevejs'];
 $T_numurs_pardevejs = $_GET['T_numurs_pardevejs'];
+$Apraksts = $_GET['Apraksts'];
 if (isset($_SESSION['user_name'])) {
 
     if (isset($_POST['update'])) {
 
         $new_E_pasts_pardevejs = mysqli_real_escape_string($conn, $_POST['E_pasts_pardevejs']);
         $new_T_numurs_pardevejs = mysqli_real_escape_string($conn, $_POST['T_numurs_pardevejs']);
+        $new_Apraksts = mysqli_real_escape_string($conn, $_POST['Apraksts']);
 
         // Проверяем, есть ли уже другой пользователь с таким же email
         $check_query = "SELECT * FROM pardevejs WHERE E_pasts_pardevejs = '" . $new_E_pasts_pardevejs . "' AND Pardevejs_ID != '" . $Pardevejs_ID . "'";
@@ -20,7 +22,8 @@ if (isset($_SESSION['user_name'])) {
             $error[] = 'Пользователь с таким email уже существует';
         } else {
             // Иначе, обновляем запись в базе данных
-            mysqli_query($conn, "UPDATE `pardevejs` SET `E_pasts_pardevejs`='" . $new_E_pasts_pardevejs . "', `T_numurs_pardevejs`='" . $new_T_numurs_pardevejs . "' WHERE `Pardevejs_ID`='" . $Pardevejs_ID . "'");
+            mysqli_query($conn, "UPDATE `pardevejs` SET `E_pasts_pardevejs`='" . $new_E_pasts_pardevejs . "', `T_numurs_pardevejs`='" . $new_T_numurs_pardevejs . "'
+            , `Apraksts`='" . $new_Apraksts . "' WHERE `Pardevejs_ID`='" . $Pardevejs_ID . "'");
             header("location:about_me.php");
         }
     }
@@ -66,7 +69,7 @@ if (isset($_SESSION['user_name'])) {
                 <input type="East_ps" name="E_pasts_pardevejs" required value="<?php echo $E_pasts_pardevejs ?>">
                 <input type="tel" name="T_numurs_pardevejs" required
                     value="<?php echo ($T_numurs_pardevejs && $T_numurs_pardevejs[0] === '+') ? $T_numurs_pardevejs : '+371'; ?>">
-
+                    <textarea name="Apraksts" placeholder="Apraksts" style="height:200px;"><?php echo $Apraksts ?></textarea>
                 <input type="submit" name="update" value="Reģistrēt" class="form-btn">
                 <input type="button" onclick="history.back();" value="Atpakaļ" class="form-btn ">
             </form>

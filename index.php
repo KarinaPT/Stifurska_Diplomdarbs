@@ -1,4 +1,6 @@
-
+<?php
+require("admin/config.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,13 +24,12 @@
     <nav class="navbar navbar-expand-lg navbar-light shadow bg-dark">
         <div class="container d-flex justify-content-between align-items-center">
 
-            <a class="navbar-brand text-success logo h1 align-self-center" href="index.html">
+            <a class="navbar-brand text-success logo h1 align-self-center" href="index.php">
                 Kiriyena
             </a>
 
-            <button class="navbar-toggler border-0 bg-light" type="button" data-bs-toggle="collapse"
-                data-bs-target="#templatemo_main_nav" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#templatemo_main_nav"
+                aria-controls="templatemo_main_nav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
@@ -37,10 +38,10 @@
                 <div class="flex-fill">
                     <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="shop.html">Товары</a>
+                            <a class="nav-link" href="shop.php">Товары</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="masters.html">Мастера</a>
+                            <a class="nav-link" href="masters.php">Мастера</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#contacts">Контакты</a>
@@ -67,11 +68,7 @@
 
     <!-- Start Banner Hero -->
     <div id="template-mo-zay-hero-carousel" class="carousel slide" data-bs-ride="carousel">
-        <ol class="carousel-indicators">
-            <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="0" class="active"></li>
-            <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="1"></li>
-            <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="2"></li>
-        </ol>
+
         <div class="carousel-inner">
             <div class="carousel-item active">
                 <div class="container">
@@ -120,7 +117,7 @@
                         </div>
                         <div class="col-lg-6 mb-0 d-flex align-items-center">
                             <div class="text-align-left">
-                                <h1 class="h1 text-dark ">Становись одним из нас </h1>
+                                <h1 class="h1 text-dark "><b>Становись одним из нас</b></h1>
                                 <p class="text-black">
                                     На Kiriyena ты можешь разместить свою продукцию и начать свой пусть вместе с нами.
                                     Регестрируйся, знакомься с правилами и иди к своей цели.
@@ -131,14 +128,26 @@
                 </div>
             </div>
         </div>
-        <a class="carousel-control-prev text-decoration-none w-auto ps-3" href="#template-mo-zay-hero-carousel"
-            role="button" data-bs-slide="prev">
-            <i class="fas fa-chevron-left"></i>
-        </a>
-        <a class="carousel-control-next text-decoration-none w-auto pe-3" href="#template-mo-zay-hero-carousel"
-            role="button" data-bs-slide="next">
-            <i class="fas fa-chevron-right"></i>
-        </a>
+        <script>// Находим карусель по ее ID
+            var carousel = document.getElementById('template-mo-zay-hero-carousel');
+
+            // Запускаем автоматическое перелистывание каждые 5 секунд
+            setInterval(function () {
+                // Находим активный слайд
+                var activeSlide = carousel.querySelector('.carousel-item.active');
+
+                // Находим следующий слайд
+                var nextSlide = activeSlide.nextElementSibling;
+
+                // Если следующего слайда нет, то переключаем на первый слайд
+                if (!nextSlide) {
+                    nextSlide = carousel.querySelector('.carousel-item:first-child');
+                }
+
+                // Переключаем на следующий слайд
+                activeSlide.classList.remove('active');
+                nextSlide.classList.add('active');
+            }, 5000); // переключение каждые 5 секунд</script>
     </div>
     <!-- End Banner Hero -->
 
@@ -147,46 +156,37 @@
     <section class="container py-5 ">
         <div class="row text-center pt-3 ">
             <div class="col-lg-6 m-auto">
-                <h1 class="h1 text-dark ">Каталог товаров</h1>
+                <h1 class="h1 text-dark ">Kategoriju saraksts</h1>
                 <p class="text-black">
-                    Ознаколься с нашим каталогом, он поможет тебе найти то, что тебе по вкусу.
+                    Iepazīsties ar mūsu katalogu, tas palīdzēs atrast to, kas tev nepieciešams.
                 </p>
             </div>
         </div>
         <div class="row ">
-            <div class="col-12 col-md-4 p-5 mt-3">
-                <a href="#"><img src="./assets/img/cat_makeup.jpg" class="rounded-circle img-fluid border"></a>
-                <h5 class="text-center mt-3 mb-3">Kosmētika</h5>
-                <p class="text-center"><a class="btn btn-success">Apskatīt</a></p>
-            </div>
-            <div class="col-12 col-md-4 p-5 mt-3">
-                <a href="#"><img src="./assets/img/cat_forOffice.jpg" class="rounded-circle img-fluid border"></a>
-                <h2 class="h5 text-center mt-3 mb-3">Koncelejas preces</h2>
-                <p class="text-center"><a class="btn btn-success">Apskatīt</a></p>
-            </div>
-            <div class="col-12 col-md-4 p-5 mt-3">
-                <a href="#"><img src="./assets/img/cat_games.jpg" class="rounded-circle img-fluid border"></a>
-                <h2 class="h5 text-center mt-3 mb-3">Video spēles (Roku darbs)</h2>
-                <p class="text-center"><a class="btn btn-success">Apskatīt</a></p>
-            </div>
-            <div class="col-12 col-md-4 p-5 mt-3">
-                <a href="#"><img src="./assets/img/cat_iz.jpg" class="rounded-circle img-fluid border"></a>
-                <h2 class="h5 text-center mt-3 mb-3">Izšuvumi</h2>
-                <p class="text-center"><a class="btn btn-success">Apskatīt</a></p>
-            </div>
-            <div class="col-12 col-md-4 p-5 mt-3">
-                <a href="#"><img src="./assets/img/cat_jew.jpg" class="rounded-circle img-fluid border"></a>
-                <h2 class="h5 text-center mt-3 mb-3">Aksesuāri</h2>
-                <p class="text-center"><a class="btn btn-success">Apskatīt</a></p>
-            </div>
-            <div class="col-12 col-md-4 p-5 mt-3">
-                <a href="#"><img src="./assets/img/cat_games.jpg" class="rounded-circle img-fluid border"></a>
-                <h2 class="h5 text-center mt-3 mb-3">Ražošana pēc Jūsu vēlmēm</h2>
-                <p class="text-center"><a class="btn btn-success">Apskatīt</a></p>
-            </div>
-            <p align="right"><a class="btn btn-success" href="shop.html">Apskatīt visus</a></p>
+            <?php
+            $kategorijaSQL = "SELECT * FROM kategorija";
+            $atlasa_kategorija = mysqli_query($conn, $kategorijaSQL) or die("Nekorekts vaicājums");
 
+            if (mysqli_num_rows($atlasa_kategorija) > 0) {
+                while ($row = mysqli_fetch_assoc($atlasa_kategorija)) {
+                    ?>
+                    <div class="col-12 col-md-4 p-5 mt-3">
+                        <a href="#"><img src=<?php echo $row['Kat_attela']; ?> class="rounded-circle img-fluid border"></a>
+                        <h5 class="text-center mt-3 mb-3">
+                            <?php echo $row['Nosaukums_kategorija']; ?>
+                        </h5>
+                        <p class="text-center"><a class="btn btn-success">Apskatīt</a></p>
+                    </div>
+                    <?php
+                }
+            } else {
+                echo "<tr><td colspan='4'>Tabulā nav ierakstu.</td></tr>";
+            }
+            ?>
+        </div>
 
+        <p align="right"><a class="btn btn-success" href="shop.php">Apskatīt visus</a></p>
+        
     </section>
     <!-- End Categories of The Month -->
 
@@ -196,63 +196,48 @@
         <div class="container py-5">
             <div class="row text-center py-3">
                 <div class="col-lg-6 m-auto">
-                    <h1 class="h1 text-dark ">Наши мастера</h1>
+                    <h1 class="h1 text-dark ">Mūsu pārdevēji</h1>
                     <p class="text-black">
-                        Ознакомься с намиши мастерами, может быть кто-то из них, тебе понравится больше.
+                        Iepazīsties ar mūsu pārdevējiem, varbūt kāds no tiem tev patiks vairāk.
                     </p>
                 </div>
             </div>
             <div class="row">
-                <div class="col-12 col-md-4 mb-4">
-                    <div class="card h-100">
-                        <a href="shop-single.html">
-                            <img src="./assets/img/business_1.jpg" class="card-img-top" alt="...">
-                        </a>
-                        <div class="card-body">
-                            <a href="shop-single.html" class="h2 text-decoration-none text-dark">CuriousANTI</a>
-                            <p class="card-text">
-                                Меня зовут ANTI, здесь вы найдете мои предметы ручной работы и дизайны, основанные на
-                                различных мультсериалах,
-                                которые подходят для тех, кто ищет что-то творческое, уникальное и доступное.
-                            </p>
-                            <p class="text-muted">Reviews (39)</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-4 mb-4">
-                    <div class="card h-100">
-                        <a href="shop-single.html">
-                            <img src="./assets/img/business_2.jpg" class="card-img-top" alt="...">
-                        </a>
-                        <div class="card-body">
-                            <a href="shop-single.html" class="h2 text-decoration-none text-dark">Bluff cosmetics</a>
-                            <p class="card-text">
-                                -
-                            </p>
-                            <p class="text-muted">Reviews (10)</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-4 mb-4">
-                    <div class="card h-100">
-                        <a href="shop-single.html">
-                            <img src="./assets/img/business_3.png" class="card-img-top" alt="...">
-                        </a>
-                        <div class="card-body">
-                            <a href="shop-single.html" class="h2 text-decoration-none text-dark">Kiriyena Store</a>
-                            <p class="card-text">
-                                Любишь играть и ручные работы? Тогда тебе ко мне, у меня ты сможешь найти кастомные
-                                карты, открытки и декор для дома.
-                                А может быть ты ищешь подарок для друзей или родных? Тогда ты можешь связаться со мной,
-                                мы вместе придумает/подберем актуальный подарок.
-                            </p>
-                            <p class="text-muted">Reviews (10)</p>
+                <?php
 
+                $pardevejsSQL = "SELECT pardevejs.Pardevejs_ID, pardevejs.Brenda_nosaukums,pardevejs.Apraksts, pardevejs.Attela_URL, COUNT(prece.Prece_ID) as Preces_skaits 
+                FROM pardevejs 
+                LEFT JOIN prece ON pardevejs.Pardevejs_ID = prece.ID_Pardevejs
+                GROUP BY pardevejs.Pardevejs_ID";
+                $atlasa_pardevejs = mysqli_query($conn, $pardevejsSQL) or die("Nekorekts vaicājums");
+
+                if (mysqli_num_rows($atlasa_pardevejs) > 0) {
+                    while ($row = mysqli_fetch_assoc($atlasa_pardevejs)) {
+                        ?>
+                        <div class="col-12 col-md-4 mb-4">
+                            <div class="card h-100">
+                                <a href="shop-single.html">
+                                    <img src=<?php echo $row['Attela_URL']; ?> class="card-img-top" alt="...">
+                                </a>
+                                <div class="card-body">
+                                    <a href="shop-single.html" class="h2 text-decoration-none text-dark">
+                                        <?php echo $row['Brenda_nosaukums']; ?>
+                                    </a>
+    
+                                    <p class="text-muted">Preču skaits (
+                                        <?php echo $row['Preces_skaits']; ?>)
+                                    </p>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
+                        <?php
+                    }
+                } else {
+                    echo "<tr><td colspan='4'>Tabulā nav ierakstu.</td></tr>";
+                }
+                ?>
             </div>
-            <p align="right"><a class="btn btn-success" href="masters.html">Apskatīt visus</a></p>
+            <p align="right"><a class="btn btn-success" href="masters.php">Apskatīt visus</a></p>
         </div>
     </section>
     <!-- End Featured Product -->
@@ -324,6 +309,11 @@
     <!-- End Footer -->
 
     <!-- Start Script -->
+    <!-- Подключаем библиотеку jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Подключаем плагин Bootstrap -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
     <!-- End Script -->
 </body>

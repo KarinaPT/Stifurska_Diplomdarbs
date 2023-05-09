@@ -61,9 +61,9 @@ if (isset($_POST['add'])) { // Проверка, была ли нажата кн
                                     ссылка на страницу всех товаров,
                                     ссылка на страницу всех продавцов ,
                                     ссылка на страницу категорий товаров -->
-            <a href="index.html">Sākumlapa</a>
-            <a href="shop.html">Preces</a>
-            <a href="masters.html">Pārdevēji</a>
+            <a href="index.php">Sākumlapa</a>
+            <a href="shop.php">Preces</a>
+            <a href="masters.php">Pārdevēji</a>
             <a href="login_master.php"></i>Pieslēgties</a>
             <a href="login_admin.php"><i
                     class="fa-solid fa-user-lock"></i></a><!--ссылка на страницу выхода из административной панели с иконкой.  "Актирная"-->

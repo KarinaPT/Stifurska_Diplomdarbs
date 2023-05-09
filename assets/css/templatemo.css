@@ -122,6 +122,7 @@ body, ul, li, p, a, label, input, div {
   width: 2.6em;
   height: 2.6em;
   line-height: 2.6em;
+  
 }
 #tempaltemo_footer ul.footer-icons li:hover {
   background-color: #cfd6e1;
@@ -144,14 +145,25 @@ body, ul, li, p, a, label, input, div {
   width: 6px;
   height: 6px;
 }
+.navbar-toggler {
+  background-color: #A66A2C;
+  border-color: rgb(137, 133, 133);
+}
+.navbar-toggler-icon {
+  background-color: #A66A2C;
+}
 
 @media (min-width: 576px) {
   .tempaltemo-carousel .h1 { font-size: 1em !important;}
+  
 }
 
 /*// Medium devices (tablets, 768px and up)*/
 @media (min-width: 768px) {
   #templatemo_main_nav .navbar-nav {max-width: 450px;}
+
+  
+  
  }
 
 /* Large devices (desktops, 992px and up)*/
