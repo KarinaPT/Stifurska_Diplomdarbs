@@ -1,4 +1,5 @@
 <?php
+    header('Content-Type: text/html; charset=utf-8');
     require("config.php"); // Ievietoju failu ar konfigurācijas informāciju, kas palīdz savienoties ar datu bāzi
     session_start();  // Sākam PHP sesiju, lai atzīmētu lietotāju, kas ir pieteicies
     // Ja administrātora vārds ir definēts sesijā, lietotājs ir autorizējies
@@ -25,6 +26,11 @@
     <header>
         <!-- Attēlojam lapas nosaukumu / LOGO -->
         <a class="logo">Administrēšanas panelis</a>
+        <button class="menu-toggle" aria-label="Toggle navigation menu">
+         <span></span>
+         <span></span>
+         <span></span>
+      </button>
         <!-- Attēlojam navigācijas joslu ar saitēm uz citām lapām -->
         <nav class="navbar">
             <a href="#" class="active">Statistika/Profils</a>
@@ -62,7 +68,7 @@
                             <p><b>E-pasts: </b>{$row['E_pasts']}</p>
                             <p><b>Telefona numurs: </b>{$t_numurs}</p>
                             <p><b>Loma: </b>{$row['Loma']}</p>
-                            <a class='btn2' title='Rediģēt' href='edit_profile.php?Administrators_ID={$Administrators_ID}&
+                            <a class='btn' title='Rediģēt' href='edit_profile.php?Administrators_ID={$Administrators_ID}&
                             E_pasts={$_SESSION['admin_name']}&T_numurs={$t_numurs}'><i class='far fa-edit' aria-hidden='true'></i></a>  
                             </div>
                                           
@@ -133,6 +139,13 @@
         Kiriyena © 2023 Small start = Big deal</br>
         Designed by Kiriyena
     </footer>
+    <script>
+      const menuToggle = document.querySelector('.menu-toggle');
+      const navbar = document.querySelector('.navbar');
+
+      menuToggle.addEventListener('click', () => {
+         navbar.classList.toggle('show');
+      });</script>
 
 <?php
     }

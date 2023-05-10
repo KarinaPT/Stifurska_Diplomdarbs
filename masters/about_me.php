@@ -59,6 +59,7 @@ if (isset($_SESSION['user_name'])) {
                             <p><b>Apraksts: </b>{$row['Apraksts']}</p>   
                             <a class='btn' title='Rediģēt' href='edit_my_prof.php?Pardevejs_ID={$Pardevejs_ID}&E_pasts_pardevejs={$_SESSION['user_name']}&T_numurs_pardevejs={$T_numurs_pardevejs}
                             &Attela_URL={$Attela_URL}&Apraksts={$Apraksts}'>Rediģēt Profilu</a>
+                            <a class='btn' title='Rediģēt' href='edit_password.php?Pardevejs_ID={$Pardevejs_ID}'>Rediģēt parole</a>
                            
                             
                         ";

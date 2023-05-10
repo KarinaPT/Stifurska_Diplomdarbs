@@ -18,10 +18,36 @@ if (isset($_SESSION['user_name'])) { // Проверка, авторизован
         $Kategorija_ID = mysqli_real_escape_string($conn, $_POST['Kategorija_ID']);
         $Kapakssadala_ID = mysqli_real_escape_string($conn, $_POST['Kapakssadala_ID']);
 
-        // Вставка данных о новом товаре в базу данных
-        mysqli_query($conn, "INSERT INTO `prece`(`Nosaukums_prece`, `Cena`, `Apraksts_prece`, `Attela_prece`, `Ipatnibas_prece`, `ID_Pardevejs`, `IDKapakssadala`, `ID_Kategorija`) 
-          VALUES ('$Nosaukums_prece','$Cena','$Apraksts_prece','$Attela_prece','$Ipatnibas_prece','$Pardevejs_ID','$Kapakssadala_ID','$Kategorija_ID')");
-        header('location:my_products.php'); // Перенаправление на страницу со списком всех товаров     
+        $file = $_FILES['image'];
+        $fileName = $file['name'];
+        $fileTmpName = $file['tmp_name'];
+        $fileSize = $file['size'];
+        $fileError = $file['error'];
+        $fileExt = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+        $allowedExt = array('jpg', 'jpeg', 'png', 'gif');
+        if (in_array($fileExt, $allowedExt)) {
+            if ($fileError === 0) {
+                if ($fileSize < 500000) {
+                    $newFileName = uniqid('', true) . "." . $fileExt;
+                    $fileDestination = '../uploads/' . $newFileName;
+                    move_uploaded_file($fileTmpName, $fileDestination);
+
+                    // Вставка данных о новом товаре в базу данных
+                    mysqli_query($conn, "INSERT INTO `prece`(`Nosaukums_prece`, `Cena`, `Apraksts_prece`, `Attela_prece`, `Ipatnibas_prece`, `ID_Pardevejs`, `IDKapakssadala`, `ID_Kategorija`) 
+        VALUES ('$Nosaukums_prece','$Cena','$Apraksts_prece','$fileDestination','$Ipatnibas_prece','$Pardevejs_ID','$Kapakssadala_ID','$Kategorija_ID')");
+                    header('location:my_products.php'); // Перенаправление на страницу со списком всех товаров     
+                } else {
+                    $error[] = 'Faila izmērs ir pārāk liels';
+                    header("Refresh: 1; url=" . $_SERVER['HTTP_REFERER']);
+                }
+            } else {
+                $error[] = 'Neizdevās augšupielādēt failu';
+                header("Refresh: 1; url=" . $_SERVER['HTTP_REFERER']);
+            }
+        } else {
+            $error[] = 'Atļautie faila formāti ir: JPG, JPEG, PNG, GIF';
+            header("Refresh: 1; url=" . $_SERVER['HTTP_REFERER']);
+        }
     } else {
         // Получение данных из базы данных для формирования списков значений в форме добавления товара
         $kategorija = mysqli_query($conn, 'SELECT * FROM kategorija');
@@ -47,22 +73,32 @@ if (isset($_SESSION['user_name'])) { // Проверка, авторизован
         <header>
             <a class="logo">Administrēšanas panelis</a>
             <nav class="navbar">
-                <a href="about_me.php" >Statistika/Profils</a>
-                <a href="my_products.php" class="active" >Preces / Reģistrācija </a>
+                <a href="about_me.php">Statistika/Profils</a>
+                <a href="my_products.php" class="active">Preces / Reģistrācija </a>
                 <a href="../logout.php"><i class="fa-solid fa-right-to-bracket"></i> Iziet</a>
             </nav>
         </header>
 
         <div class="form-container">
-            <form action="" method="post">
+            <form action="" method="post" enctype="multipart/form-data">
                 <h3>Reģistrācija</h3>
+                <?php
+                // Проверка наличия ошибок и вывод их на страницу
+                if (isset($error)) {
+                    foreach ($error as $error) {
+                        echo '<span class="error-msg">' . $error . '</span>';
+                    }
+                    ;
+                }
+                ;
+                ?>
                 <input type="text" name="Nosaukums_prece" required placeholder="Nosaukums">
                 <!--Это текстовое поле требует от пользователя ввести название товара и является обязательным для заполнения.  "placeholder" указывает, что ожидается ввод названия товара.-->
                 <input type="text" name="Cena" required
                     placeholder="Cena"><!--Это текстовое поле требует от пользователя ввести цену товара и является обязательным для заполнения.  "placeholder" указывает, что ожидается ввод названия товара.-->
                 <textarea name="Apraksts_prece" placeholder="Apraksts" style="height:200px;"></textarea>
                 <!--Эта строка создает текстовое поле для ввода описания продукта. Высота 200 пикселей-->
-                <input type="text" name="Attela_prece" placeholder="Attēls URL">
+                <input type="file" name="image" accept="image/*">
                 <!--Это текстовое поле требует от пользователя ввести ссылку на фотографию на товара.  "placeholder" указывает, что ожидается ввод названия товара.-->
                 <textarea name="Ipatnibas_prece" required placeholder="Īpatnības" style="height: 200px;"></textarea>
                 <!--Эта строка создает текстовое поле для ввода ос продукта. Высота 200 пикселей-->
