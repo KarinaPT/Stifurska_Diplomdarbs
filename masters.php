@@ -38,19 +38,19 @@ require("admin/config.php");
                 <div class="flex-fill">
                     <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="shop.php">Товары</a>
+                            <a class="nav-link" href="shop.php">Preces</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="masters.php">Мастера</a>
+                            <a class="nav-link" href="masters.php">Pārdevēji</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#contacts">Контакты</a>
+                            <a class="nav-link" href="#contacts">Kontakti</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Наша политика</a>
+                            <a class="nav-link" href="policy.php">Mūsu politika</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="login_master.php">Вход</a>
+                            <a class="nav-link" href="login_master.php">Pieslēgties</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="login_admin.php"><i class="fa-solid fa-user-lock"></i></a>
@@ -68,13 +68,13 @@ require("admin/config.php");
         <div class="row">
 
             <div class="col-lg-3">
-                <h1 class="h2 pb-4 text-dark">Pārdevēji</h1>
+                <h1 class="h2  text-dark">Pārdevēji</h1>
                 <p class="mb-0">Šeit jūs varat atrast un uzzināt vairāk par izvēlēto pārdevēju</p>
             </div>
 
             <div class="col-lg-9">
                 <div class="row">
-                    
+
                 </div>
                 <div class="row bg-light">
                     <?php
@@ -87,11 +87,29 @@ require("admin/config.php");
                             <div class="col-md-4 ">
                                 <div class="card mb-4 product-wap rounded-0 ">
                                     <div class="card rounded-0">
-                                        <img class="card-img rounded-0 img-fluid" src=<?php echo $row['Attela_URL']; ?>>
+                                        <?php
+                                        $image_path = '';
+
+                                        if (file_exists('admin/' . $row['Attela_URL'])) {
+                                            $image_path = 'admin/' . $row['Attela_URL'];
+                                        } elseif (file_exists('masters/' . $row['Attela_URL'])) {
+                                            $image_path = 'masters/' . $row['Attela_URL'];
+                                        } elseif (file_exists($row['Attela_URL'])) {
+                                            $image_path = $row['Attela_URL'];
+                                        }
+
+                                        if ($image_path) {
+                                            echo '<img src="' . $image_path . '" title="Fotoattēls" class="card-img-top fixed-size-img-list-shop" alt="...">';
+                                        } else {
+                                            echo 'Image not found.';
+                                        }
+                                        ?>
                                         <div
                                             class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                             <ul class="list-unstyled">
-                                                <li><a class="btn btn-success text-white mt-2" href="info_masters.php?Pardevejs_ID=<?php echo $row['Pardevejs_ID']; ?>"><i class="far fa-eye"></i></a></li>
+                                                <li><a title="Apskatīt" class="btn btn-success text-white mt-2"
+                                                        href="info_masters.php?Pardevejs_ID=<?php echo $row['Pardevejs_ID']; ?>"><i
+                                                            class="far fa-eye"></i></a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -110,75 +128,14 @@ require("admin/config.php");
                     ?>
 
                 </div>
-                
+
             </div>
 
         </div>
     </div>
 
     <!-- Start Footer -->
-    <footer class="bg-dark" id="tempaltemo_footer">
-        <div class="container">
-            <div class="row">
-
-                <div class="col-md-4 pt-5">
-                    <h2 class="h2 text-success border-bottom pb-3 border-light logo">Kiriyena</h2>
-                    <ul class="list-unstyled text-light footer-link-list">
-                        <a class="text-decoration-none  ">Kiriyena — это международная торговая <br>площадка,
-                            объединяющая людей,
-                            которые<br> хотят создавать, продавать, покупать и коллекционировать уникальные вещи.
-                            А еще<br> мы сообщество людей, которые заботятся о малом бизнесе, людях и нашей планете.
-                        </a>
-                    </ul>
-                </div>
-
-                <div class="col-md-4 pt-5">
-                    <h2 class="h2 text-light border-bottom pb-3 border-light">Uzņemums</h2>
-                    <ul class="list-unstyled text-light footer-link-list">
-                        <li><a class="text-decoration-none" href="shop.html">Товары</a></li>
-                        <li><a class="text-decoration-none" href="masters.html">Мастера</a></li>
-                        <li><a class="text-decoration-none" href="#">Наша политика</a></li>
-                    </ul>
-                </div>
-
-                <div class="col-md-4 pt-5">
-                    <h2 id="contacts" class="h2 text-light border-bottom pb-3 border-light">Контакты</h2>
-                    <ul class="list-unstyled text-light footer-link-list">
-                        <li>
-                            <i class="fa-solid fa-info brownicon"></i>
-                            <a class="text-decoration-none">Если у Вас есть какие-то вопросы или Вы хотите что-то
-                                уточнить, можете написать Нам или позвонить!</a>
-                        </li>
-                        <li>
-                            <i class="fa-solid fa-phone-flip brownicon"></i>
-                            <a class="text-decoration-none">+3712945681</a>
-                        </li>
-                        <li>
-                            <i class="fa-solid fa-envelope brownicon"></i>
-                            <a class="text-decoration-none">infokiriyena@gmail.com</a>
-                        </li>
-                    </ul>
-                </div>
-
-            </div>
-
-
-        </div>
-
-        <div class="w-100  py-3">
-            <div class="container">
-                <div class="row pt-2">
-                    <div class="col-12">
-                        <p class="text-center text-light">
-                            Kiriyena &copy; 2023 Small start = Big deal <br>
-                            Designed by <a rel="sponsored" href="#" target="_blank">Kiriyena</a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </footer>
+    <?php include 'footer.php'; ?>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <!-- Подключаем плагин Bootstrap -->

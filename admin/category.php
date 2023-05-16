@@ -43,7 +43,7 @@ if (isset($_SESSION['admin_name'])) {
                     <table>
                         <tr>
                             <th>Kategorijas nosaukumus</th>
-                            <th><a class='btn2' href="add_category.php">Pievienot kategoriju</a></th>
+                            <th><a class='btn2' title="Pievienot kategoriju" href="add_category.php">Pievienot kategoriju</a></th>
                             <th></th>
                         </tr>
 
@@ -59,8 +59,8 @@ if (isset($_SESSION['admin_name'])) {
                                         <?php echo $row['Nosaukums_kategorija']; ?>
                                     </td>
                                     <td>
-                                        <a class='btn2' href="delete_cat.php?Kategorija_ID=<?php echo $row['Kategorija_ID']; ?>"><i
-                                                class="fa fa-trash" aria-hidden="true" title="Dzēst"></i></a>
+                                        <a class='btn2' title="Dzēst" href="delete_cat.php?Kategorija_ID=<?php echo $row['Kategorija_ID']; ?>"><i
+                                                class="fa fa-trash" aria-hidden="true" ></i></a>
 
                                     </td>
                                 </tr>
@@ -85,7 +85,7 @@ if (isset($_SESSION['admin_name'])) {
                     <table>
                         <tr>
                             <th>Apakšsadaļu nosaukumus</th>
-                            <th><a class='btn2' href="add_subtitle.php">Pievienot Apakšsadaļu</a></th>
+                            <th><a class='btn2' title="Pievienot Apakšsadaļu" href="add_subtitle.php">Pievienot Apakšsadaļu</a></th>
                             <th></th>
                         </tr>
 
@@ -101,9 +101,9 @@ if (isset($_SESSION['admin_name'])) {
                                         <?php echo $row['Nosaukums_sadala']; ?>
                                     </td>
                                     <td>
-                                        <a class='btn2'
+                                        <a class='btn2' title="Dzēst"
                                             href="delete_subtitle.php?Kapakssadala_ID=<?php echo $row['Kapakssadala_ID']; ?>"><i
-                                                class="fa fa-trash" aria-hidden="true" title="Dzēst"></i></a>
+                                                class="fa fa-trash" aria-hidden="true" ></i></a>
 
                                     </td>
                                 </tr>

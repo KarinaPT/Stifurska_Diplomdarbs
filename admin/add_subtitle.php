@@ -64,8 +64,8 @@ if (isset($_SESSION['admin_name'])) {
                 ;
                 ?>
                 <input type="text" name="Nosaukums_sadala" required placeholder="Kategorijas apakšsadaļas nosaukums">
-                <input type="submit" name="add" value="Reģistrēt" class="form-btn">
-                <input type="button" onclick="history.back();" value="Atpakaļ" class="form-btn ">
+                <input type="submit" title="Reģistrēt" name="add" value="Reģistrēt" class="form-btn">
+                <input type="button" onclick="history.back();" title="Atpakaļ" value="Atpakaļ" class="form-btn ">
             </form>
 
 

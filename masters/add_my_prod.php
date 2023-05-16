@@ -27,19 +27,19 @@ if (isset($_SESSION['user_name'])) { // Проверка, авторизован
         $allowedExt = array('jpg', 'jpeg', 'png', 'gif');
         if (in_array($fileExt, $allowedExt)) {
             if ($fileError === 0) {
-                if ($fileSize < 500000) {
-                    $newFileName = uniqid('', true) . "." . $fileExt;
-                    $fileDestination = '../uploads/' . $newFileName;
-                    move_uploaded_file($fileTmpName, $fileDestination);
+                    if ($fileSize < 500000) {
+                        $newFileName = uniqid('', true) . "." . $fileExt;
+                        $fileDestination = 'uploads/' . $newFileName;
+                        move_uploaded_file($fileTmpName, $fileDestination);
 
-                    // Вставка данных о новом товаре в базу данных
-                    mysqli_query($conn, "INSERT INTO `prece`(`Nosaukums_prece`, `Cena`, `Apraksts_prece`, `Attela_prece`, `Ipatnibas_prece`, `ID_Pardevejs`, `IDKapakssadala`, `ID_Kategorija`) 
+                        // Вставка данных о новом товаре в базу данных
+                        mysqli_query($conn, "INSERT INTO `prece`(`Nosaukums_prece`, `Cena`, `Apraksts_prece`, `Attela_prece`, `Ipatnibas_prece`, `ID_Pardevejs`, `IDKapakssadala`, `ID_Kategorija`) 
         VALUES ('$Nosaukums_prece','$Cena','$Apraksts_prece','$fileDestination','$Ipatnibas_prece','$Pardevejs_ID','$Kapakssadala_ID','$Kategorija_ID')");
-                    header('location:my_products.php'); // Перенаправление на страницу со списком всех товаров     
-                } else {
-                    $error[] = 'Faila izmērs ir pārāk liels';
-                    header("Refresh: 1; url=" . $_SERVER['HTTP_REFERER']);
-                }
+                        header('location:my_products.php'); // Перенаправление на страницу со списком всех товаров     
+                    } else {
+                        $error[] = 'Faila izmērs ir pārāk liels';
+                        header("Refresh: 1; url=" . $_SERVER['HTTP_REFERER']);
+                    }
             } else {
                 $error[] = 'Neizdevās augšupielādēt failu';
                 header("Refresh: 1; url=" . $_SERVER['HTTP_REFERER']);
@@ -94,11 +94,11 @@ if (isset($_SESSION['user_name'])) { // Проверка, авторизован
                 ?>
                 <input type="text" name="Nosaukums_prece" required placeholder="Nosaukums">
                 <!--Это текстовое поле требует от пользователя ввести название товара и является обязательным для заполнения.  "placeholder" указывает, что ожидается ввод названия товара.-->
-                <input type="text" name="Cena" required
+                <input type="number" step="00.01" name="Cena" required
                     placeholder="Cena"><!--Это текстовое поле требует от пользователя ввести цену товара и является обязательным для заполнения.  "placeholder" указывает, что ожидается ввод названия товара.-->
                 <textarea name="Apraksts_prece" placeholder="Apraksts" style="height:200px;"></textarea>
                 <!--Эта строка создает текстовое поле для ввода описания продукта. Высота 200 пикселей-->
-                <input type="file" name="image" accept="image/*">
+                <input type="file" name="image" required accept="image/*" title="Fotoattēls">
                 <!--Это текстовое поле требует от пользователя ввести ссылку на фотографию на товара.  "placeholder" указывает, что ожидается ввод названия товара.-->
                 <textarea name="Ipatnibas_prece" required placeholder="Īpatnības" style="height: 200px;"></textarea>
                 <!--Эта строка создает текстовое поле для ввода ос продукта. Высота 200 пикселей-->
@@ -133,8 +133,8 @@ if (isset($_SESSION['user_name'])) { // Проверка, авторизован
                 </select>
 
 
-                <input type="submit" name="add" value="Reģistrēt" class="form-btn">
-                <input type="button" onclick="history.back();" value="Manas preces" class="form-btn ">
+                <input type="submit" title="Reģistrēt" name="add" value="Reģistrēt" class="form-btn">
+                <input type="button" onclick="history.back();" title="Atpakaļ" value="Manas preces" class="form-btn ">
             </form>
 
             <!-- закрывающий тег для раздела страницы, который содержит информацию об авторских правах и дизайне веб-сайта. -->

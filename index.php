@@ -38,19 +38,19 @@ require("admin/config.php");
                 <div class="flex-fill">
                     <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="shop.php">Товары</a>
+                            <a class="nav-link" href="shop.php">Preces</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="masters.php">Мастера</a>
+                            <a class="nav-link" href="masters.php">Pārdevēji</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#contacts">Контакты</a>
+                            <a class="nav-link" href="#contacts">Kontakti</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Наша политика</a>
+                            <a class="nav-link" href="policy.php">Mūsu politika</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="login_master.php">Вход</a>
+                            <a class="nav-link" href="login_master.php">Pieslēgties</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="login_admin.php"><i class="fa-solid fa-user-lock"></i></a>
@@ -74,14 +74,16 @@ require("admin/config.php");
                 <div class="container">
                     <div class="row p-5">
                         <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
-                            <img class="img-fluid" src="./assets/img/start1.png" alt="">
+                            <img class="img-fluid" title='Ilustrācija' src="./assets/img/start1.png" alt="">
                         </div>
                         <div class="col-lg-6 mb-0 d-flex align-items-center">
                             <div class="text-align-left align-self-center">
                                 <h1 class="h1 text-success"><b>Kiriyena</b></h1>
                                 <p class="text-black">
-                                    Kiriyena это торговая площадка для уникальных вещей.
-                                    Здесь можно найти множество необычных товаров, которые создают начинающие мастера.
+
+                                    Kiriyena ir tirdzniecības platforma, kas specializējas uz unikālu precu piedāvājumu.
+                                    Šeit jūs varat atrast plašu sortimentu no interesantām un unikālām precēm, kuras
+                                    radījuši talantīgi un kreatīvi sākuma līmeņa meistari.
 
                                 </p>
                             </div>
@@ -93,15 +95,17 @@ require("admin/config.php");
                 <div class="container">
                     <div class="row p-5">
                         <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
-                            <img class="img-fluid" src="./assets/img/start2.png" alt="">
+                            <img class="img-fluid" title='Ilustrācija' src="./assets/img/start2.png" alt="">
                         </div>
                         <div class="col-lg-6 mb-0 d-flex align-items-center">
                             <div class="text-align-left">
-                                <h1 class="h1 text-dark "><b>Поддержка независимых мастеров</b></h1>
+                                <h1 class="h1 text-dark "><b>Kiriyena atbalsta neatkarīgos pārdevējus</b></h1>
                                 <h3 class="h2 text-black"></h3>
                                 <p class="text-black">
-                                    Kiriyena не супермаркет. Здесь миллионы людей продают то, что им нравится.
-                                    А вы можете найти для себя что-то необычное и связаться с ними напрямую.
+                                    Kiriyena nav supermarkets. Šeit miljoni cilvēku piedāvā savus unikālos produktus,
+                                    kuriem ir īpaša vērtība un pievilcība pircējiem. Jūs arī varat atrast kaut ko
+                                    neierasto un sazināties tieši ar pārdevējiem, kas ļauj iegūt vairāk informācijas par
+                                    produktu un labāk saprast tā īpašības un kvalitāti.
 
                                 </p>
                             </div>
@@ -113,14 +117,16 @@ require("admin/config.php");
                 <div class="container">
                     <div class="row p-5">
                         <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
-                            <img class="img-fluid" src="./assets/img/start3.png" alt="">
+                            <img class="img-fluid" title='Ilustrācija' src="./assets/img/start3.png" alt="">
                         </div>
                         <div class="col-lg-6 mb-0 d-flex align-items-center">
                             <div class="text-align-left">
-                                <h1 class="h1 text-dark "><b>Становись одним из нас</b></h1>
+                                <h1 class="h1 text-dark "><b>Kļūsti par vienu no mums</b></h1>
                                 <p class="text-black">
-                                    На Kiriyena ты можешь разместить свою продукцию и начать свой пусть вместе с нами.
-                                    Регестрируйся, знакомься с правилами и иди к своей цели.
+                                    Kiriyena ir ideāla platforma, lai izveidotu savu biznesu un sāktu savu radošo
+                                    ceļojumu. Reģistrējieties mūsu vietnē, iepazīstieties ar noteikumiem un virzieties
+                                    pret savu mērķi. Mēs palīdzēsim jums realizēt savas sapņu idejas un sasniegt
+                                    lieliskus rezultātus.
                                 </p>
                             </div>
                         </div>
@@ -159,23 +165,32 @@ require("admin/config.php");
                 <h1 class="h1 text-dark ">Kategoriju saraksts</h1>
                 <p class="text-black">
                     Iepazīsties ar mūsu katalogu, tas palīdzēs atrast to, kas tev nepieciešams.
+                    <br />
+                    "Top 3" kategorijas!
                 </p>
             </div>
         </div>
         <div class="row ">
             <?php
-            $kategorijaSQL = "SELECT * FROM kategorija";
+            $kategorijaSQL = "SELECT kategorija.Kategorija_ID, kategorija.Nosaukums_kategorija, kategorija.Kat_attela, COUNT(prece.Prece_ID) as Preces_skaits 
+            FROM kategorija 
+            LEFT JOIN prece ON kategorija.Kategorija_ID = prece.ID_Kategorija 
+            GROUP BY kategorija.Kategorija_ID  
+            ORDER BY Preces_skaits DESC 
+            LIMIT 3";
+
             $atlasa_kategorija = mysqli_query($conn, $kategorijaSQL) or die("Nekorekts vaicājums");
 
             if (mysqli_num_rows($atlasa_kategorija) > 0) {
                 while ($row = mysqli_fetch_assoc($atlasa_kategorija)) {
                     ?>
                     <div class="col-12 col-md-4 p-5 mt-3">
-                        <a href="#"><img src=<?php echo $row['Kat_attela']; ?> class="rounded-circle img-fluid border"></a>
+                        <a href="shop.php"><img  title='Ilustrācija' src="admin/<?php echo $row['Kat_attela']; ?>"
+                                class="rounded-circle img-fluid border"></a>
                         <h5 class="text-center mt-3 mb-3">
                             <?php echo $row['Nosaukums_kategorija']; ?>
                         </h5>
-                        <p class="text-center"><a class="btn btn-success">Apskatīt</a></p>
+                       
                     </div>
                     <?php
                 }
@@ -185,8 +200,8 @@ require("admin/config.php");
             ?>
         </div>
 
-        <p align="right"><a class="btn btn-success" href="shop.php">Apskatīt visus</a></p>
-        
+        <p align="right"><a class="btn btn-success"  title="Preču saraksts" href="shop.php">Apskatīt visus</a></p>
+
     </section>
     <!-- End Categories of The Month -->
 
@@ -198,17 +213,20 @@ require("admin/config.php");
                 <div class="col-lg-6 m-auto">
                     <h1 class="h1 text-dark ">Mūsu pārdevēji</h1>
                     <p class="text-black">
-                        Iepazīsties ar mūsu pārdevējiem, varbūt kāds no tiem tev patiks vairāk.
+                        Iepazīsties ar mūsu pārdevējiem, varbūt kāds no tiem tev patiks vairāk.<br />
+                        "Top 3" pārdevēji
                     </p>
                 </div>
             </div>
             <div class="row">
                 <?php
 
-                $pardevejsSQL = "SELECT pardevejs.Pardevejs_ID, pardevejs.Brenda_nosaukums,pardevejs.Apraksts, pardevejs.Attela_URL, COUNT(prece.Prece_ID) as Preces_skaits 
-                FROM pardevejs 
-                LEFT JOIN prece ON pardevejs.Pardevejs_ID = prece.ID_Pardevejs
-                GROUP BY pardevejs.Pardevejs_ID";
+                $pardevejsSQL = "SELECT pardevejs.Pardevejs_ID, pardevejs.Brenda_nosaukums, pardevejs.Apraksts, pardevejs.Attela_URL, COUNT(prece.Prece_ID) as Preces_skaits 
+                    FROM pardevejs 
+                    LEFT JOIN prece ON pardevejs.Pardevejs_ID = prece.ID_Pardevejs
+                    GROUP BY pardevejs.Pardevejs_ID
+                    ORDER BY Preces_skaits DESC
+                    LIMIT 3";
                 $atlasa_pardevejs = mysqli_query($conn, $pardevejsSQL) or die("Nekorekts vaicājums");
 
                 if (mysqli_num_rows($atlasa_pardevejs) > 0) {
@@ -216,14 +234,31 @@ require("admin/config.php");
                         ?>
                         <div class="col-12 col-md-4 mb-4">
                             <div class="card h-100">
-                                <a href="shop-single.html">
-                                    <img src=<?php echo $row['Attela_URL']; ?> class="card-img-top" alt="...">
+                                
+                                <a href="info_masters.php?Pardevejs_ID=<?php echo $row['Pardevejs_ID']; ?>" class="h2 text-decoration-none text-dark">
+                                    <?php
+                                    $image_path = '';
+
+                                    if (file_exists('admin/' . $row['Attela_URL'])) {
+                                        $image_path = 'admin/' . $row['Attela_URL'];
+                                    } elseif (file_exists('masters/' . $row['Attela_URL'])) {
+                                        $image_path = 'masters/' . $row['Attela_URL'];
+                                    }elseif (file_exists($row['Attela_URL'])) {
+                                        $image_path = $row['Attela_URL'];
+                                    }
+
+                                    if ($image_path) {
+                                        echo '<img src="' . $image_path . '"  title="Logo" class="card-img-top  fixed-size-img-index" alt="...">';
+                                    } else {
+                                        echo 'Problēma ar logotipa iegūšanu.';
+                                    }
+                                    ?>
                                 </a>
                                 <div class="card-body">
-                                    <a href="shop-single.html" class="h2 text-decoration-none text-dark">
+                                    <a class="h2 text-decoration-none text-dark">
                                         <?php echo $row['Brenda_nosaukums']; ?>
                                     </a>
-    
+
                                     <p class="text-muted">Preču skaits (
                                         <?php echo $row['Preces_skaits']; ?>)
                                     </p>
@@ -237,75 +272,14 @@ require("admin/config.php");
                 }
                 ?>
             </div>
-            <p align="right"><a class="btn btn-success" href="masters.php">Apskatīt visus</a></p>
+            <p align="right"><a class="btn btn-success" title="Pārdevēju saraksts" href="masters.php">Apskatīt visus</a></p>
         </div>
     </section>
     <!-- End Featured Product -->
 
 
     <!-- Start Footer -->
-    <footer class="bg-dark" id="tempaltemo_footer">
-        <div class="container">
-            <div class="row">
-
-                <div class="col-md-4 pt-5">
-                    <h2 class="h2 text-success border-bottom pb-3 border-light logo">Kiriyena</h2>
-                    <ul class="list-unstyled text-light footer-link-list">
-                        <a class="text-decoration-none  ">Kiriyena — это международная торговая <br>площадка,
-                            объединяющая людей,
-                            которые<br> хотят создавать, продавать, покупать и коллекционировать уникальные вещи.
-                            А еще<br> мы сообщество людей, которые заботятся о малом бизнесе, людях и нашей планете.
-                        </a>
-                    </ul>
-                </div>
-
-                <div class="col-md-4 pt-5">
-                    <h2 class="h2 text-light border-bottom pb-3 border-light">Uzņemums</h2>
-                    <ul class="list-unstyled text-light footer-link-list">
-                        <li><a class="text-decoration-none" href="shop.html">Товары</a></li>
-                        <li><a class="text-decoration-none" href="masters.html">Мастера</a></li>
-                        <li><a class="text-decoration-none" href="#">Наша политика</a></li>
-                    </ul>
-                </div>
-
-                <div class="col-md-4 pt-5">
-                    <h2 id="contacts" class="h2 text-light border-bottom pb-3 border-light">Контакты</h2>
-                    <ul class="list-unstyled text-light footer-link-list">
-                        <li>
-                            <i class="fa-solid fa-info brownicon"></i>
-                            <a class="text-decoration-none">Если у Вас есть какие-то вопросы или Вы хотите что-то
-                                уточнить, можете написать Нам или позвонить!</a>
-                        </li>
-                        <li>
-                            <i class="fa-solid fa-phone-flip brownicon"></i>
-                            <a class="text-decoration-none">+3712945681</a>
-                        </li>
-                        <li>
-                            <i class="fa-solid fa-envelope brownicon"></i>
-                            <a class="text-decoration-none">infokiriyena@gmail.com</a>
-                        </li>
-                    </ul>
-                </div>
-
-            </div>
-
-
-        </div>
-
-        <div class="w-100  py-3">
-            <div class="container">
-                <div class="row pt-2">
-                    <div class="col-12">
-                        <p class="text-center text-light">
-                            Kiriyena &copy; 2023 Small start = Big deal <br>
-                            Designed by <a rel="sponsored" href="#" target="_blank">Kiriyena</a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </footer>
+    <?php include 'footer.php'; ?>
     <!-- End Footer -->
 
     <!-- Start Script -->

@@ -45,7 +45,7 @@ session_start();
                         <th>Nosaukums</th>
                         <th>Cena</th>
                         <th>Pārdevējs</th>
-                        <th><a class='btn2' href="add_prod.php">Pievienot jaunu prece</a></th>
+                        <th><a class='btn2' title='Pievienot jaunu prece' href="add_prod.php">Pievienot jaunu prece</a></th>
                         <th></th>
                     </tr>
 
@@ -71,8 +71,8 @@ session_start();
                                     <?php echo $row['Brenda_nosaukums']; ?>
                                 </td>
                                 <td>
-                                    <a class='btn2' href="delete_prod.php?prece_ID=<?php echo $row['prece_ID']; ?>"><i
-                                            class="fa fa-trash" aria-hidden="true" title="Dzēst"></i></a>
+                                    <a title="Dzēst" class='btn2' href="delete_prod.php?prece_ID=<?php echo $row['prece_ID']; ?>"><i
+                                            class="fa fa-trash" aria-hidden="true"></i></a>
                                     <form action='about_prod.php' method='post'>
                                         <button type='submit' class='btn2' name='Apskatīt' value=<?php echo $row['prece_ID']; ?>
                                             title="Detalizēts preču apraksts">

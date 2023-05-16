@@ -22,6 +22,36 @@ if (isset($_SESSION['user_name'])) {
         $Kapakssadala_ID = mysqli_real_escape_string($conn, $_POST['Kapakssadala_ID']);
         $Kategorija_ID = mysqli_real_escape_string($conn, $_POST['Kategorija_ID']);
 
+        $newPhotoPath = null;
+        if (!empty($_FILES['newPhoto']['name'])) {
+            $file = $_FILES['newPhoto'];
+            $fileName = $file['name'];
+            $fileTmpName = $file['tmp_name'];
+            $fileSize = $file['size'];
+            $fileError = $file['error'];
+            $fileType = $file['type'];
+
+            $fileExt = explode('.', $fileName);
+            $fileActualExt = strtolower(end($fileExt));
+
+            $allowed = array('jpg', 'jpeg', 'png', 'gif');
+
+            if (in_array($fileActualExt, $allowed)) {
+                if ($fileError === 0) {
+                    if ($fileSize < 5000000) {
+                        $newPhotoPath = "uploads/" . uniqid('', true) . "." . $fileActualExt;
+                        move_uploaded_file($fileTmpName, $newPhotoPath);
+                    } else {
+                        $error[] = "Faila izmērs ir pārāk liels";
+                    }
+                } else {
+                    $error[] = "Radās kļūda, ielādējot failu";
+                }
+            } else {
+                $error[] = "Faila formāts nav atļauts";
+            }
+        }
+
         $query = "UPDATE `prece`
                 LEFT JOIN `kategorija` ON `prece`.`ID_Kategorija` = `kategorija`.`Kategorija_ID`
                 LEFT JOIN `k_apakssadala` ON `prece`.`IDKapakssadala` = `k_apakssadala`.`Kapakssadala_ID`
@@ -31,8 +61,13 @@ if (isset($_SESSION['user_name'])) {
                     `prece`.`Apraksts_prece`='" . $Apraksts_prece . "', 
                     `prece`.`Ipatnibas_prece`='" . $Ipatnibas_prece . "', 
                     `prece`.`ID_Kategorija`='" . $Kategorija_ID . "', 
-                    `prece`.`IDKapakssadala`='" . $Kapakssadala_ID . "'
-                WHERE `prece`.`prece_ID`='" . $prece_ID . "'";
+                    `prece`.`IDKapakssadala`='" . $Kapakssadala_ID . "'";
+
+        if (!is_null($newPhotoPath)) {
+            $query .= ", `Attela_prece`='" . $newPhotoPath . "'";
+        }
+        
+        $query .= " WHERE `prece_ID`='" . $prece_ID . "'";
 
         if (mysqli_query($conn, $query)) {
             header("location:my_products.php");
@@ -74,8 +109,8 @@ if (isset($_SESSION['user_name'])) {
 
         <div class="form-container">
 
-            <form action="" method="post">
-                <h3>Veikt rediģēšanu</h3>
+            <form action="" method="post"  enctype="multipart/form-data">
+                <h3>REDIĢĒT</h3>
 
 
                 <input type="text" name="Nosaukums_prece"
@@ -84,6 +119,7 @@ if (isset($_SESSION['user_name'])) {
                 <input type="text" name="Statuss" value="<?php echo $Statuss; ?>">
                 <textarea name="Apraksts_prece" style="height: 200px;"><?php echo $Apraksts_prece; ?>"</textarea>
                 <textarea name="Ipatnibas_prece" style="height: 200px;"><?php echo $Ipatnibas_prece; ?></textarea>
+                <input type="file" name="newPhoto" title="Fotoattēls" accept=".jpg,.jpeg,.png,.gif">
                 <select name="Kategorija_ID">
                     <?php
                     $kat_query = "SELECT `Kategorija_ID`, `Nosaukums_kategorija` FROM `kategorija` WHERE `Nosaukums_kategorija` = '" . $Nosaukums_kategorija . "'";
@@ -114,8 +150,8 @@ if (isset($_SESSION['user_name'])) {
                     }
                     ?>
                 </select>
-                <input type="submit" name="update" value="Reģistrēt" class="form-btn">
-                <a class='btn' title='Atpakaļ' href='my_products.php'><i class="fa-solid fa-backward"></i> Manas preces</a>
+                <input type="submit" name="update" title="Rediģēt" value="Rediģēt" class="form-btn">
+                <a class='btn' title='Atpakaļ' href='my_products.php'>Manas preces</a>
 
             </form>
 

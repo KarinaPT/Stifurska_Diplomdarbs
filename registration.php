@@ -12,22 +12,41 @@ if (isset($_POST['add'])) { // Проверка, была ли нажата кн
     $Attela_URL = mysqli_real_escape_string($conn, $_POST['Attela_URL']);
     $Parole_pardevejs = md5($_POST['Parole_pardevejs']);
 
-    $select = " SELECT * FROM pardevejs WHERE E_pasts_pardevejs = '$E_pasts_pardevejs' ";
+    // Handle image upload
+    $file = $_FILES['image'];
+    $fileName = $file['name'];
+    $fileTmpName = $file['tmp_name'];
+    $fileSize = $file['size'];
+    $fileError = $file['error'];
+    $fileExt = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+    $allowedExt = array('jpg', 'jpeg', 'png', 'gif');
 
-    $result = mysqli_query($conn, $select);
-
-    if (mysqli_num_rows($result) > 0) {
-
-        $error[] = 'Tāds E-pasts jau ir';
+    if (in_array($fileExt, $allowedExt)) {
+        if ($fileError === 0) {
+                if ($fileSize < 500000) { // maximum file size allowed
+                    $newFileName = uniqid('', true) . "." . $fileExt;
+                    $fileDestination = 'admin/uploads/' . $newFileName;
+                    move_uploaded_file($fileTmpName, $fileDestination);
+                    // Insert data to database
+                    $select = " SELECT * FROM pardevejs WHERE E_pasts_pardevejs = '$E_pasts_pardevejs' ";
+                    $result = mysqli_query($conn, $select);
+                    if (mysqli_num_rows($result) > 0) {
+                        $error[] = 'Šī e-pasta adrese jau tiek izmantota.';
+                    } else {
+                        mysqli_query($conn, "INSERT INTO `pardevejs`(`Vards_pardevejs`, `Uzvards_pardevejs`, `E_pasts_pardevejs`, `T_numurs_pardevejs`, `Apraksts`, `Brenda_nosaukums`, `Attela_URL`, `Parole_pardevejs`) 
+                              VALUES ('$Vards_pardevejs','$Uzvards_pardevejs','$E_pasts_pardevejs','$T_numurs_pardevejs','$Apraksts','$Brenda_nosaukums','$fileDestination','$Parole_pardevejs')");
+                        header('location:admin/welcome.php');
+                    }
+                } else {
+                    $error[] = 'Faila izmērs ir pārāk liels';
+                }
+        } else {
+            $error[] = 'Nepareizs faila formāts';
+        }
     } else {
-
-        // Вставка данных о новом товаре в базу данных
-        mysqli_query($conn, "INSERT INTO `pardevejs`(`Vards_pardevejs`, `Uzvards_pardevejs`, `E_pasts_pardevejs`, `T_numurs_pardevejs`, `Apraksts`, `Brenda_nosaukums`, `Attela_URL`, `Parole_pardevejs`) 
-                VALUES ('$Vards_pardevejs','$Uzvards_pardevejs','$E_pasts_pardevejs','$T_numurs_pardevejs','$Apraksts','$Brenda_nosaukums','$Attela_URL','$Parole_pardevejs')");
-        header('location:admin/welcome.php'); // Перенаправление на страницу со списком всех товаров     
+        $error[] = 'Atļautie faila formāti ir: JPG, JPEG, PNG, GIF';
     }
 }
-;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -71,7 +90,7 @@ if (isset($_POST['add'])) { // Проверка, была ли нажата кн
     </header>
 
     <div class="form-container">
-        <form action="" method="post">
+        <form action="" method="post" enctype="multipart/form-data">
             <h3>Reģistrācija</h3>
             <?php
             // Проверка наличия ошибок и вывод их на страницу
@@ -87,17 +106,17 @@ if (isset($_POST['add'])) { // Проверка, была ли нажата кн
             <!--Это текстовое поле требует от пользователя ввести название товара и является обязательным для заполнения.  "placeholder" указывает, что ожидается ввод названия товара.-->
             <input type="text" name="Uzvards_pardevejs" required
                 placeholder="Uzvārds"><!--Это текстовое поле требует от пользователя ввести цену товара и является обязательным для заполнения.  "placeholder" указывает, что ожидается ввод названия товара.-->
-            <input name="E_pasts_pardevejs" required
+            <input type="email" name="E_pasts_pardevejs" required
                 placeholder="E-pasts"><!--Эта строка создает текстовое поле для ввода описания продукта. Высота 200 пикселей-->
             <input type="text" name="T_numurs_pardevejs" placeholder="Telefona numurs (Nav obligāts)">
             <!--Это текстовое поле требует от пользователя ввести ссылку на фотографию на товара.  "placeholder" указывает, что ожидается ввод названия товара.-->
             <textarea name="Apraksts" placeholder="Apraksts (Nav obligāts)" style="height: 200px;"></textarea>
             <!--Эта строка создает текстовое поле для ввода ос продукта. Высота 200 пикселей-->
             <input type="text" name="Brenda_nosaukums" required placeholder="Brenda nosaukums">
-            <input type="text" name="Attela_URL" placeholder="Attēls URL (Nav obligāts)">
-            <input type="text" name="Parole_pardevejs" required placeholder="Parole">
+            <input type="file" name="image" required title="Logo">
+            <input type="password" name="Parole_pardevejs" required placeholder="Parole">
             <input type="submit" name="add" value="Reģistrēt" class="form-btn">
-            <a class='btn' title='Sākumlapa' href='index.html'><i class="fa-solid fa-backward"></i> Sākumlapa</a>
+            <a class='btn' title='Sākumlapa' href='index.php'>Sākumlapa</a>
             <p>Esi jau reģistrējies? <a href="login_master.php">Ienākt</a></p>
 
         </form>

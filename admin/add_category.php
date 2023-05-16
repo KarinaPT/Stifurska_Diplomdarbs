@@ -17,33 +17,33 @@ if (isset($_SESSION['admin_name'])) {
 
         if (in_array($fileExt, $allowedExt)) {
             if ($fileError === 0) {
-                if ($fileSize < 500000) { // maximum file size allowed
-                    $newFileName = uniqid('', true) . "." . $fileExt;
-                    $fileDestination = '../uploads/' . $newFileName;
-                    // check if category already exists
-                    $select = "SELECT * FROM kategorija WHERE Nosaukums_kategorija = '$Nosaukums_kategorija'";
-                    $result = mysqli_query($conn, $select);
-                    if (mysqli_num_rows($result) > 0) {
-                        $error[] = 'Tāda kategotija jau ir';
-                    } else {
-                        // save the file path to database
-                        mysqli_query($conn, "INSERT INTO `kategorija` (`Nosaukums_kategorija`, `Kat_attela`) 
+                    if ($fileSize < 500000) { // maximum file size allowed
+                        $newFileName = uniqid('', true) . "." . $fileExt;
+                        $fileDestination = 'uploads/' . $newFileName;
+                        // check if category already exists
+                        $select = "SELECT * FROM kategorija WHERE Nosaukums_kategorija = '$Nosaukums_kategorija'";
+                        $result = mysqli_query($conn, $select);
+                        if (mysqli_num_rows($result) > 0) {
+                            $error[] = 'Tāda kategotija jau ir';
+                        } else {
+                            // save the file path to database
+                            mysqli_query($conn, "INSERT INTO `kategorija` (`Nosaukums_kategorija`, `Kat_attela`) 
                         VALUES ('$Nosaukums_kategorija', '$fileDestination')");
-                        move_uploaded_file($fileTmpName, $fileDestination);
-                        header('location:category.php');
+                            move_uploaded_file($fileTmpName, $fileDestination);
+                            header('location:category.php');
+                        }
+                    } else {
+                        $error[] = 'Faila izmērs ir pārāk liels';
                     }
-                } else {
-                    $error[] = 'Faila izmērs ir pārāk liels';
-                }
             } else {
-                $error[] = 'Nepareizs faila formāts';
+                $error[] = 'Neizdevās augšupielādēt failu';
+                header("Refresh: 1; url=" . $_SERVER['HTTP_REFERER']);
             }
         } else {
             $error[] = 'Atļautie faila formāti ir: JPG, JPEG, PNG, GIF';
+            header("Refresh: 1; url=" . $_SERVER['HTTP_REFERER']);
         }
     }
-    ;
-
 
     ?>
     <!DOCTYPE html>

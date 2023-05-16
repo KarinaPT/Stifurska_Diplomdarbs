@@ -23,30 +23,30 @@
                 Kiriyena
             </a>
 
-            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
-                data-bs-target="#templatemo_main_nav" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#templatemo_main_nav"
+                aria-controls="templatemo_main_nav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
 
             <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between"
                 id="templatemo_main_nav">
                 <div class="flex-fill">
                     <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="shop.php">Товары</a>
+                            <a class="nav-link" href="shop.php">Preces</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="masters.php">Мастера</a>
+                            <a class="nav-link" href="masters.php">Pārdevēji</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#contacts">Контакты</a>
+                            <a class="nav-link" href="#contacts">Kontakti</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Наша политика</a>
+                            <a class="nav-link" href="policy.php">Mūsu politika</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="login_master.php">Вход</a>
+                            <a class="nav-link" href="login_master.php">Pieslēgties</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="login_admin.php"><i class="fa-solid fa-user-lock"></i></a>
@@ -70,6 +70,8 @@
             FROM pardevejs
             WHERE Pardevejs_ID=$Pardevejs_ID";
 
+            $precesCountSQL = "SELECT COUNT(*) AS precesCount FROM prece WHERE Pardevejs_ID = $Pardevejs_ID";
+
             $atlasaPardevejs = mysqli_query($conn, $pardevejsSQL) or die("Nekorekts vaicājums");
             if (mysqli_num_rows($atlasaPardevejs) > 0) {
                 while ($row = mysqli_fetch_assoc($atlasaPardevejs)) {
@@ -77,8 +79,23 @@
                     <div class="row">
                         <div class="col-lg-5 mt-5">
                             <div class="card mb-3">
-                                <img class="card-img img-fluid-main" src=<?php echo $row['Attela_URL']; ?> alt="Card image cap"
-                                    id="product-detail">
+                                <?php
+                                $image_path = '';
+
+                                if (file_exists('admin/' . $row['Attela_URL'])) {
+                                    $image_path = 'admin/' . $row['Attela_URL'];
+                                } elseif (file_exists('masters/' . $row['Attela_URL'])) {
+                                    $image_path = 'masters/' . $row['Attela_URL'];
+                                } elseif (file_exists($row['Attela_URL'])) {
+                                    $image_path = $row['Attela_URL'];
+                                }
+
+                                if ($image_path) {
+                                    echo '<img src="' . $image_path . '" title="Logo" class="card-img-top fixed-size-img-prof" alt="...">';
+                                } else {
+                                    echo 'Image not found.';
+                                }
+                                ?>
                             </div>
                         </div>
                         <div class="col-lg-7 mt-5">
@@ -90,7 +107,7 @@
                                     </h1>
                                     <ul class="list-inline">
                                         <li class="list-inline-item">
-                                            <h5><b>Бренд:</b></h5>
+                                            <h5><b>Ražotājs:</b></h5>
                                         </li>
                                         <li class="list-inline-item">
                                             <p class="text-black"><strong>
@@ -100,7 +117,7 @@
                                     </ul>
                                     <ul class="list-inline">
                                         <li class="list-inline-item">
-                                            <h5><b>Имя продавца:</b></h5>
+                                            <h5><b>Pārdevēja vārds:</b></h5>
                                         </li>
                                         <li class="list-inline-item">
                                             <p class="text-black"><strong>
@@ -110,7 +127,7 @@
                                     </ul>
                                     <ul class="list-inline">
                                         <li class="list-inline-item">
-                                            <h5><b>Почта:</b></h5>
+                                            <h5><b>E-pasts:</b></h5>
                                         </li>
                                         <li class="list-inline-item">
                                             <p class="text-black"><strong>
@@ -120,7 +137,7 @@
                                     </ul>
                                     <ul class="list-inline">
                                         <li class="list-inline-item">
-                                            <h5><b>Номер телефона:</b></h5>
+                                            <h5><b>Telefona numurs:</b></h5>
                                         </li>
                                         <li class="list-inline-item">
                                             <p class="text-black"><strong>
@@ -128,16 +145,9 @@
                                                 </strong></p>
                                         </li>
                                     </ul>
-                                    <ul class="list-inline">
-                                        <li class="list-inline-item">
-                                            <h5><b>Количество товаров:</b></h5>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <p class="text-black"><strong>14</strong></p>
-                                        </li>
-                                    </ul>
+  
 
-                                    <h5><b>Описание:</b></h5>
+                                    <h5><b>Apraksts:</b></h5>
                                     <p class="text-black">
                                         <?php echo $row['Apraksts']; ?>
                                     </p>
@@ -145,9 +155,9 @@
                                     <form action="" method="GET">
                                         <div class="row pb-3">
                                             <div class="col d-grid">
-                                                <a href="https://mail.google.com/mail/?view=cm&to=<?php echo $row['E_pasts_pardevejs']; ?>"
+                                                <a title="Sazināties" href="https://mail.google.com/mail/?view=cm&to=<?php echo $row['E_pasts_pardevejs']; ?>"
                                                     target="_blank" class="btn btn-success btn-lg">
-                                                    Связаться с продавцом
+                                                    Sazinies ar pārdevēju
                                                 </a>
                                             </div>
                                         </div>
@@ -173,7 +183,7 @@
         <div class="row">
 
             <div class="col-lg-3">
-                <h1 class="h2 pb-4 text-dark">Ознакольмя с его товарами</h1>
+                <h1 class="h2 pb-4 text-dark">Apskatiet pārdevēja preces</h1>
             </div>
 
             <div class="col-lg-9">
@@ -193,10 +203,10 @@
                     <div class="row bg-light">
                         <?php
                         require("admin/config.php");
-                        $prece = "SELECT *
-        FROM prece
-        JOIN pardevejs ON Pardevejs_ID = ID_Pardevejs
-        WHERE Pardevejs_ID = $Pardevejs_ID";
+                        $prece = "SELECT prece.prece_ID, prece.Attela_prece,prece.Nosaukums_prece,prece.Cena
+                          FROM prece
+                          JOIN pardevejs ON Pardevejs_ID = ID_Pardevejs
+                            WHERE Pardevejs_ID = $Pardevejs_ID";
                         $atlasaPrece = mysqli_query($conn, $prece) or die("Nekorekts vaicājums");
                         $count = 0;
                         if (mysqli_num_rows($atlasaPrece) > 0) {
@@ -205,11 +215,27 @@
                                 <div class="col-md-4">
                                     <div class="card mb-4 product-wap rounded-0 ">
                                         <div class="card rounded-0">
-                                            <img class="card-img rounded-0 img-fluid" src=<?php echo $row['Attela_prece']; ?>>
+                                            <?php
+                                            $image_path = '';
+
+                                            if (file_exists('admin/' . $row['Attela_prece'])) {
+                                                $image_path = 'admin/' . $row['Attela_prece'];
+                                            } elseif (file_exists('masters/' . $row['Attela_prece'])) {
+                                                $image_path = 'masters/' . $row['Attela_prece'];
+                                            }
+
+                                            if ($image_path) {
+                                                echo '<img src="' . $image_path . '" title="Fotoattēls" class="card-img-top fixed-size-img-list" alt="...">';
+                                            } else {
+                                                echo 'Image not found.';
+                                            }
+                                            ?>
+
                                             <div
                                                 class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                                 <ul class="list-unstyled">
-                                                    <li><a class="btn btn-success text-white mt-2" href="single.html"><i
+                                                    <li><a title="Apskatīt" class="btn btn-success text-white mt-2"
+                                                            href="single.php?prece_ID=<?php echo $row['prece_ID']; ?>"><i
                                                                 class="far fa-eye"></i></a></li>
                                                 </ul>
                                             </div>
@@ -243,63 +269,14 @@
     <!-- End Content -->
 
     <!-- Start Footer -->
-    <footer class="bg-dark" id="tempaltemo_footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 pt-5">
-                    <h2 class="h2 text-success border-bottom pb-3 border-light logo">Kiriyena</h2>
-                    <ul class="list-unstyled text-light footer-link-list">
-                        <a class="text-decoration-none  ">Kiriyena — это международная торговая <br>площадка,
-                            объединяющая людей,
-                            которые<br> хотят создавать, продавать, покупать и коллекционировать уникальные вещи.
-                            А еще<br> мы сообщество людей, которые заботятся о малом бизнесе, людях и нашей планете.
-                        </a>
-                    </ul>
-                </div>
-                <div class="col-md-4 pt-5">
-                    <h2 class="h2 text-light border-bottom pb-3 border-light">Uzņemums</h2>
-                    <ul class="list-unstyled text-light footer-link-list">
-                        <li><a class="text-decoration-none" href="shop.html">Товары</a></li>
-                        <li><a class="text-decoration-none" href="masters.html">Мастера</a></li>
-                        <li><a class="text-decoration-none" href="#">Наша политика</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-4 pt-5">
-                    <h2 id="contacts" class="h2 text-light border-bottom pb-3 border-light">Контакты</h2>
-                    <ul class="list-unstyled text-light footer-link-list">
-                        <li>
-                            <i class="fa-solid fa-info brownicon"></i>
-                            <a class="text-decoration-none">Если у Вас есть какие-то вопросы или Вы хотите что-то
-                                уточнить, можете написать Нам или позвонить!</a>
-                        </li>
-                        <li>
-                            <i class="fa-solid fa-phone-flip brownicon"></i>
-                            <a class="text-decoration-none">+3712945681</a>
-                        </li>
-                        <li>
-                            <i class="fa-solid fa-envelope brownicon"></i>
-                            <a class="text-decoration-none">infokiriyena@gmail.com</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="w-100  py-3">
-            <div class="container">
-                <div class="row pt-2">
-                    <div class="col-12">
-                        <p class="text-center text-light">
-                            Kiriyena &copy; 2023 Small start = Big deal <br>
-                            Designed by <a rel="sponsored" href="#" target="_blank">Kiriyena</a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <?php include 'footer.php'; ?>
     <!-- End Footer -->
 
     <!-- Start Script -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Подключаем плагин Bootstrap -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
     <!-- End Script -->
 </body>

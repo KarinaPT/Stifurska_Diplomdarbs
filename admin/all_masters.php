@@ -45,7 +45,7 @@ if (isset($_SESSION['admin_name'])) {
                             <th>Brenda nosaukums</th>
                             <th>Vārds</th>
                             <th>E-pasts</th>
-                            <th><a class='btn2' href="add_master.php">Pievienot jaunu pārdevēju</a></th>
+                            <th><a class='btn2' title="Pievienot jaunu pārdevēju" href="add_master.php">Pievienot jaunu pārdevēju</a></th>
                             <th></th>
                         </tr>
 
@@ -68,10 +68,10 @@ if (isset($_SESSION['admin_name'])) {
                                         <?php echo $row['E_pasts_pardevejs']; ?>
                                     </td>
                                     <td>
-                                        <a class='btn2' href="delete_master.php?Pardevejs_ID=<?php echo $row['Pardevejs_ID']; ?>"><i
-                                                class="fa fa-trash" aria-hidden="true" title="Dzēst"></i></a>
+                                        <a title="Dzēst" class='btn2' href="delete_master.php?Pardevejs_ID=<?php echo $row['Pardevejs_ID']; ?>"><i
+                                                class="fa fa-trash" aria-hidden="true" ></i></a>
                                         <form action='about_master.php' method='post'>
-                                            <button type='submit' class='btn2' name='Apskatīt' value=<?php echo $row['Pardevejs_ID']; ?> title="Detalizēts preču apraksts">
+                                            <button type='submit' class='btn2' name='Apskatīt' value=<?php echo $row['Pardevejs_ID']; ?> title="Detalizēts apraksts">
                                                 <a><i class="far fa-clipboard" aria-hidden="true"></i></a>
                                             </button>
                                         </form>

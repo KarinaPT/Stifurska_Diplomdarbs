@@ -47,9 +47,18 @@ if (isset($_SESSION['user_name'])) {
                         $Pardevejs_ID = $row['Pardevejs_ID'];
                         $Attela_URL = $row['Attela_URL']; 
                         $Apraksts = $row['Apraksts'];// сохраняем значение Administrators_ID в отдельной переменной
+
+                        $image_path = '';
+                        if (file_exists($row['Attela_URL'])) {
+                            $image_path = $row['Attela_URL'];
+                        } elseif (file_exists('../admin/' . $row['Attela_URL'])) {
+                            $image_path = '../admin/' . $row['Attela_URL'];
+                        }elseif (file_exists('../' . $row['Attela_URL'])) {
+                            $image_path = '../' . $row['Attela_URL'];
+                        }
                         echo "
                             <div class='box'>
-                            <img src='{$row['Attela_URL']}'>
+                            <img src='{$image_path}' class='fixed-size-img-prof' title='Logo'>
                             <h3>{$row['Brenda_nosaukums']}</h3>
                             <p><b>Vārds: </b>{$row['Vards_pardevejs']}</p>
                             <p><b>Uzvārds: </b>{$row['Uzvards_pardevejs']}</p>
@@ -57,9 +66,9 @@ if (isset($_SESSION['user_name'])) {
                             <p><b>Telefona numurs: </b>{$row['T_numurs_pardevejs']}</p>
                             <p><b>Loma: </b>{$row['Loma']}</p>
                             <p><b>Apraksts: </b>{$row['Apraksts']}</p>   
-                            <a class='btn' title='Rediģēt' href='edit_my_prof.php?Pardevejs_ID={$Pardevejs_ID}&E_pasts_pardevejs={$_SESSION['user_name']}&T_numurs_pardevejs={$T_numurs_pardevejs}
+                            <a class='btn' title='Rediģēt Profilu' href='edit_my_prof.php?Pardevejs_ID={$Pardevejs_ID}&E_pasts_pardevejs={$_SESSION['user_name']}&T_numurs_pardevejs={$T_numurs_pardevejs}
                             &Attela_URL={$Attela_URL}&Apraksts={$Apraksts}'>Rediģēt Profilu</a>
-                            <a class='btn' title='Rediģēt' href='edit_password.php?Pardevejs_ID={$Pardevejs_ID}'>Rediģēt parole</a>
+                            <a class='btn' title='Rediģēt parole' href='edit_password.php?Pardevejs_ID={$Pardevejs_ID}'>Rediģēt parole</a>
                            
                             
                         ";
@@ -108,7 +117,7 @@ if (isset($_SESSION['user_name'])) {
                         <?php echo $data2['E_pasts'] ?>
                     </h3>
                     <p style="font-size:18px">E-pasts</p>
-                    <a class='btn' href="https://mail.google.com/mail/?view=cm&to=<?php echo $data2['E_pasts']; ?>">Atvērt
+                    <a class='btn' title='Sazināties' href="https://mail.google.com/mail/?view=cm&to=<?php echo $data2['E_pasts']; ?>">Atvērt
                         e-pastu</a>
 
                 </div>

@@ -62,14 +62,14 @@
                         Saitē tiek padoti trīs parametri: Administrators_ID, E_pasts un T_numurs. */
                         echo "                                                                               
                             <div class='box'>
-                            <img src='{$row['Attela_admin']}'>
+                            <img title='Foto' src='{$row['Attela_admin']}'>
                             <p><b>Vārds: </b>{$row['Vards']}</p>
                             <p><b>Uzvārds: </b>{$row['Uzvards']}</p>
                             <p><b>E-pasts: </b>{$row['E_pasts']}</p>
                             <p><b>Telefona numurs: </b>{$t_numurs}</p>
                             <p><b>Loma: </b>{$row['Loma']}</p>
                             <a class='btn' title='Rediģēt' href='edit_profile.php?Administrators_ID={$Administrators_ID}&
-                            E_pasts={$_SESSION['admin_name']}&T_numurs={$t_numurs}'><i class='far fa-edit' aria-hidden='true'></i></a>  
+                            E_pasts={$_SESSION['admin_name']}&T_numurs={$t_numurs}'>Rediģēt kontaktinformāciju </a>  
                             </div>
                                           
                         ";

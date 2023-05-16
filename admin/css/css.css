@@ -377,6 +377,40 @@ footer {
 
 }
 
+@media (min-width: 1080px) {
+    .fixed-size-img-prof {
+      width: 525px;
+      /* Замените на желаемую ширину */
+      height: 525px;
+      /* Замените на желаемую высоту */
+      object-fit: cover;
+    }
+  
+    .fixed-size-img {
+      width: 490px;
+      /* Замените на желаемую ширину */
+      height: 490px;
+      /* Замените на желаемую высоту */
+      object-fit: cover;
+    }
+  
+    .fixed-size-img-list {
+      width: 295px;
+      /* Замените на желаемую ширину */
+      height: 295px;
+      /* Замените на желаемую высоту */
+      object-fit: cover;
+    }
+  
+    .fixed-size-img-list-shop {
+      width: 302px;
+      /* Замените на желаемую ширину */
+      height: 302px;
+      /* Замените на желаемую высоту */
+      object-fit: cover;
+    }
+  }
+
 @media screen and (max-width: 740px) {
     html {
         font-size: 100%;

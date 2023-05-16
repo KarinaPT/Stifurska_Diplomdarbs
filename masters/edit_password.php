@@ -55,8 +55,8 @@ if (isset($_SESSION['user_name'])) {
                 ;
                 ?>
                 <input type="password" name="Parole_pardevejs" required placeholder="Parole">
-                <input type="submit" name="update" value="Reģistrēt" class="form-btn">
-                <input type="button" onclick="history.back();" value="Atpakaļ" class="form-btn ">
+                <input type="submit" title="Rediģēt" name="update" value="Rediģēt" class="form-btn">
+                <input type="button" onclick="history.back();" title="Statistika" value="Atpakaļ" class="form-btn ">
             </form>
 
 

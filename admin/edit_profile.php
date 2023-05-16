@@ -17,7 +17,7 @@ if(isset($_SESSION['admin_name'])){
         $check_result = mysqli_query($conn, $check_query);
         if(mysqli_num_rows($check_result) > 0){
             // Если есть, выводим сообщение об ошибке
-            $error[] = 'Пользователь с таким email уже существует';
+            $error[] = 'Šī e-pasta adrese jau tiek izmantota!';
         } else {
             // Иначе, обновляем запись в базе данных
             mysqli_query($conn, "UPDATE `administrators` SET `E_pasts`='".$new_E_pasts."', `T_numurs`='".$new_T_numurs."' WHERE `Administrators_ID`='".$Administrators_ID."'");
@@ -63,8 +63,8 @@ if(isset($_SESSION['admin_name'])){
             ?>
             <input type="E_pasts" name="E_pasts" required  value="<?php echo $E_pasts ?>">
             <input type="tel" name="T_numurs" required value="<?php echo ($T_numurs && $T_numurs[0] === '+') ? $T_numurs : '+371'; ?>">
-            <input type="submit" name="update" value="Reģistrēt" class="form-btn">
-            <input type="button" onclick="history.back();" value="Atpakaļ" class="form-btn ">
+            <input type="submit" title='Rediģēt' name="update" value="Rediģēt" class="form-btn">
+            <input type="button" onclick="history.back();" title='Statistika' value="Atpakaļ" class="form-btn ">
         </form>
 
 

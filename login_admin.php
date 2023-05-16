@@ -27,7 +27,7 @@ if (isset($_POST['submit'])) {
 
    } else {
       // Если пользователь с введенными данными не найден, добавление ошибки в массив ошибок
-      $error[] = 'Неправильный e-mail или пароль!';
+      $error[] = 'Nepareiza e-pasta adrese vai parole!';
    }
 }
 ?>
@@ -90,7 +90,7 @@ if (isset($_POST['submit'])) {
          <!--  поле для ввода e-mail адреса пользователя, обязательное для заполнения, с подсказкой "E-pasts" внутри поля.-->
          <input type="password" name="Parole" required placeholder="Parole">
          <!--  поле для ввода пароля, обязательное для заполнения, с подсказкой "Parole" внутри поля. Введенный текст скрыт символами звездочек или точек. -->
-         <input type="submit" name="submit" value="Pieslēgties" class="form-btn">
+         <input type="submit" name="submit" title='Pieslēgties' value="Pieslēgties" class="form-btn">
          <!-- кнопка отправки формы с названием "Pieslēgties"-->
       </form>
 

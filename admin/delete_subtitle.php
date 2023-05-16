@@ -7,9 +7,17 @@
 	$id=$_GET['Kapakssadala_ID']; // Получение ID удаляемой записи из URL-адреса
 	
 	if(isset($_POST['confirm'])){ // Если кнопка "Jā" была нажата
-	    mysqli_query($conn,"DELETE FROM `k_apakssadala` WHERE `Kapakssadala_ID`='$id'"); // Удаление записи из базы данных
-	    // echo "<script>alert('Ieraksts veiksmīgi izdzēsts!')</script>";  Вывод сообщения об успешном удалении записи
-	    echo "<meta http-equiv='refresh' content='0; url=category.php'>"; // Перенаправление на страницу всех категорий
+		$query = "DELETE FROM `k_apakssadala` WHERE `Kapakssadala_ID`='$id'"; // Удаление записи из базы данных
+		if (mysqli_query($conn, $query)) {
+			// Удаление записи из базы данных
+			echo "<div class='success-message'>Ieraksts veiksmīgi izdzēsts!</div>";
+			header("refresh:2;url=category.php");
+		} else {
+			// Ошибка при удалении записи
+			echo "<div class='error-message'>Neizdevās izdzēst ierakstu: šis ID tiek izmantots</div>";
+			echo "<div class='error-message'>Jūs tiksiet pāradresēts uz iepriekšējo lapu pēc 3 sekundēm.</div>";
+			header("refresh:2;url=category.php");
+		}
 	}
 ?>
 

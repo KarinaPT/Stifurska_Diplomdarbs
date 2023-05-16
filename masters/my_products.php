@@ -41,7 +41,7 @@ if (isset($_SESSION['user_name'])) {
                         <tr>
                             <th>Nosaukums</th>
                             <th>Cena</th>
-                            <th><a class='btn2' href="add_my_prod.php">Pievienot jaunu prece</a></th>
+                            <th><a class='btn2' title='Pievienot jaunu prece' href="add_my_prod.php">Pievienot jaunu prece</a></th>
                             <th></th>
                         </tr>
 
@@ -66,8 +66,8 @@ if (isset($_SESSION['user_name'])) {
                                         <?php echo $row['Cena']; ?>€
                                     </td>
                                     <td>
-                                        <a class='btn2' href="delete_my_prod.php?prece_ID=<?php echo $row['prece_ID']; ?>"><i
-                                                class="fa fa-trash" aria-hidden="true" title="Dzēst"></i></a>
+                                        <a title="Dzēst" class='btn2' href="delete_my_prod.php?prece_ID=<?php echo $row['prece_ID']; ?>"><i
+                                                class="fa fa-trash" aria-hidden="true"></i></a>
                                         <form action='my_product_details.php' method='post'>
                                             <button type='submit' class='btn2' name='Apskatīt' value=<?php echo $row['prece_ID']; ?>
                                                 title="Detalizēts preču apraksts">

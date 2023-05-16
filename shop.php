@@ -33,19 +33,19 @@
                 <div class="flex-fill">
                     <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
                         <li class="nav-item">
-                            <a class="nav-link active" href="#">Товары</a>
+                            <a class="nav-link" href="shop.php">Preces</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="masters.php">Мастера</a>
+                            <a class="nav-link" href="masters.php">Pārdevēji</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#contacts">Контакты</a>
+                            <a class="nav-link" href="#contacts">Kontakti</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Наша политика</a>
+                            <a class="nav-link" href="policy.php">Mūsu politika</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="login_master.php">Вход</a>
+                            <a class="nav-link" href="login_master.php">Pieslēgties</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="login_admin.php"><i class="fa-solid fa-user-lock"></i></a>
@@ -64,7 +64,8 @@
     <div class="container py-5 ">
         <div class="row">
             <div class="col-lg-3">
-                <h1 class="h2 pb-4 text-dark">Категории</h1>
+                <h1 class="h2 text-dark">Kategorijas</h1>
+                <p class="mb-0 pb-4">Lūdzu, izvēlieties kategoriju, lai apskatītu preču sarakstu.</p>
                 <ul class="list-unstyled templatemo-accordion">
                     <?php
                     require("admin/config.php");
@@ -91,13 +92,13 @@
                             echo '</li>';
                         }
                     } else {
-                        echo "<tr><td colspan='4'>Нет записей в таблице.</td></tr>";
+                        echo "<tr><td colspan='4'>Tabulā nav ierakstu.</td></tr>";
                     }
-                    ?>                                                                                                                      
+                    ?>
                 </ul>
             </div>
             <?php
-           
+
             // Если выбрана категория, выводим список товаров, соответствующих этой категории
             if ($selectedCategory != "") {
                 echo '<div class="col-lg-9">';
@@ -106,24 +107,40 @@
                       FROM prece WHERE ID_Kategorija = $selectedCategory;";
                 $atlasa_prece = mysqli_query($conn, $preceSQL) or die("Nekorekts vaicājums");
                 if (mysqli_num_rows($atlasa_prece) > 0) {
+                    $count = 0;
                     while ($row = mysqli_fetch_assoc($atlasa_prece)) {
+                        $count++;
                         ?>
-
+            
                         <div class="col-md-4">
                             <div class="card mb-4 product-wap rounded-0">
                                 <div class="card rounded-0">
-                                    <img class="card-img rounded-0 img-fluid" src=<?php echo $row['Attela_prece']; ?>>
+                                    <?php
+                                  $image_path = '';
+            
+                                  if (file_exists('admin/' . $row['Attela_prece'])) {
+                                      $image_path = 'admin/' . $row['Attela_prece'];
+                                  } elseif (file_exists('masters/' . $row['Attela_prece'])) {
+                                      $image_path = 'masters/' . $row['Attela_prece'];
+                                  }
+                                  
+                                  if ($image_path) {
+                                      echo '<img src="' . $image_path . '"  title="Fotoattēls" class="card-img-top fixed-size-img-list-shop" alt="...">';
+                                  } else {
+                                      echo 'Image not found.';
+                                  }
+                                    ?>
+            
                                     <div
                                         class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                         <ul class="list-unstyled">
-                                            <li><a class="btn btn-success text-white mt-2"
+                                            <li><a title="Apskatīt" class="btn btn-success text-white mt-2"
                                                     href="single.php?prece_ID=<?php echo $row['prece_ID']; ?>"><i
                                                         class="far fa-eye"></i></a></li>
                                         </ul>
                                     </div>
                                 </div>
                                 <div class="card-body">
-                                    <a href="shop-single.html" class="h3 text-decoration-none">
                                         <?php echo $row['Nosaukums_prece']; ?>
                                     </a>
                                     <p class="text-center mb-0">
@@ -133,7 +150,7 @@
                             </div>
                         </div>
                         <?php
-                        if (mysqli_num_rows($atlasa_prece) % 3 == 0) {
+                        if ($count % 3 == 0) {
                             // Создать новый ряд после каждых 3-х колонок
                             echo '</div><div class="row bg-light">';
                         }
@@ -144,73 +161,20 @@
                 echo '</div></div>';
             }
             ?>
-            
+
         </div>
 
-    </div>
     </div>
     <!-- End Content -->
 
     <!-- Start Footer -->
-    <footer class="bg-dark" id="tempaltemo_footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 pt-5">
-                    <h2 class="h2 text-success border-bottom pb-3 border-light logo">Kiriyena</h2>
-                    <ul class="list-unstyled text-light footer-link-list">
-                        <a class="text-decoration-none  ">Kiriyena — это международная торговая <br>площадка,
-                            объединяющая людей,
-                            которые<br> хотят создавать, продавать, покупать и коллекционировать уникальные вещи.
-                            А еще<br> мы сообщество людей, которые заботятся о малом бизнесе, людях и нашей планете.
-                        </a>
-                    </ul>
-                </div>
-                <div class="col-md-4 pt-5">
-                    <h2 class="h2 text-light border-bottom pb-3 border-light">Uzņemums</h2>
-                    <ul class="list-unstyled text-light footer-link-list">
-                        <li><a class="text-decoration-none" href="shop.html">Товары</a></li>
-                        <li><a class="text-decoration-none" href="masters.html">Мастера</a></li>
-                        <li><a class="text-decoration-none" href="#">Наша политика</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-4 pt-5">
-                    <h2 id="contacts" class="h2 text-light border-bottom pb-3 border-light">Контакты</h2>
-                    <ul class="list-unstyled text-light footer-link-list">
-                        <li>
-                            <i class="fa-solid fa-info brownicon"></i>
-                            <a class="text-decoration-none">Если у Вас есть какие-то вопросы или Вы хотите что-то
-                                уточнить, можете написать Нам или позвонить!</a>
-                        </li>
-                        <li>
-                            <i class="fa-solid fa-phone-flip brownicon"></i>
-                            <a class="text-decoration-none">+3712945681</a>
-                        </li>
-                        <li>
-                            <i class="fa-solid fa-envelope brownicon"></i>
-                            <a class="text-decoration-none">infokiriyena@gmail.com</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="w-100  py-3">
-            <div class="container">
-                <div class="row pt-2">
-                    <div class="col-12">
-                        <p class="text-center text-light">
-                            Kiriyena &copy; 2023 Small start = Big deal <br>
-                            Designed by <a rel="sponsored" href="#" target="_blank">Kiriyena</a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <?php include 'footer.php'; ?>
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <!-- Подключаем плагин Bootstrap -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
 
-
+    </body>
 </html>

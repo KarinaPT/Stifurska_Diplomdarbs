@@ -30,21 +30,21 @@ if (isset($_SESSION['admin_name'])) { // Проверка, авторизова�
             $fileError = $file['error'];
             $fileExt = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
             $allowedExt = array('jpg', 'jpeg', 'png', 'gif');
+            
             if (in_array($fileExt, $allowedExt)) {
                 if ($fileError === 0) {
-                    if ($fileSize < 500000) {
-                        $newFileName = uniqid('', true) . "." . $fileExt;
-                        $fileDestination = '../uploads/' . $newFileName;
-                        // Вставка данных о новом товаре в базу данных
-                        mysqli_query($conn, "INSERT INTO `pardevejs`(`Vards_pardevejs`, `Uzvards_pardevejs`, `E_pasts_pardevejs`, `T_numurs_pardevejs`, `Apraksts`, `Brenda_nosaukums`, `Attela_URL`, `Parole_pardevejs`) 
-                            VALUES ('$Vards_pardevejs','$Uzvards_pardevejs','$E_pasts_pardevejs','$T_numurs_pardevejs','$Apraksts','$Brenda_nosaukums','$fileDestination','$Parole_pardevejs')");
-                        move_uploaded_file($fileTmpName, $fileDestination);
-                        header('location:all_masters.php');
-                    } else {
-                        $error[] = 'Faila izmērs ir pārāk liels';
-                        header("Refresh: 1; url=" . $_SERVER['HTTP_REFERER']);
-
-                    }
+                        if ($fileSize < 500000) {
+                            $newFileName = uniqid('', true) . "." . $fileExt;
+                            $fileDestination = 'uploads/' . $newFileName;
+                            // Вставка данных о новом товаре в базу данных
+                            mysqli_query($conn, "INSERT INTO `pardevejs`(`Vards_pardevejs`, `Uzvards_pardevejs`, `E_pasts_pardevejs`, `T_numurs_pardevejs`, `Apraksts`, `Brenda_nosaukums`, `Attela_URL`, `Parole_pardevejs`) 
+                                VALUES ('$Vards_pardevejs','$Uzvards_pardevejs','$E_pasts_pardevejs','$T_numurs_pardevejs','$Apraksts','$Brenda_nosaukums','$fileDestination','$Parole_pardevejs')");
+                            move_uploaded_file($fileTmpName, $fileDestination);
+                            header('location:all_masters.php');
+                        } else {
+                            $error[] = 'Faila izmērs ir pārāk liels';
+                            header("Refresh: 1; url=" . $_SERVER['HTTP_REFERER']);
+                        }
                 } else {
                     $error[] = 'Neizdevās augšupielādēt failu';
                     header("Refresh: 1; url=" . $_SERVER['HTTP_REFERER']);
@@ -110,18 +110,18 @@ if (isset($_SESSION['admin_name'])) { // Проверка, авторизова�
                 <!--Это текстовое поле требует от пользователя ввести название товара и является обязательным для заполнения.  "placeholder" указывает, что ожидается ввод названия товара.-->
                 <input type="text" name="Uzvards_pardevejs" required
                     placeholder="Uzvārds"><!--Это текстовое поле требует от пользователя ввести цену товара и является обязательным для заполнения.  "placeholder" указывает, что ожидается ввод названия товара.-->
-                <input name="E_pasts_pardevejs" required
+                <input type="email" name="E_pasts_pardevejs" required
                     placeholder="E-pasts"><!--Эта строка создает текстовое поле для ввода описания продукта. Высота 200 пикселей-->
                 <input type="text" name="T_numurs_pardevejs" placeholder="T.numurs">
                 <!--Это текстовое поле требует от пользователя ввести ссылку на фотографию на товара.  "placeholder" указывает, что ожидается ввод названия товара.-->
-                <textarea name="Apraksts" placeholder="Apraksts" style="height: 200px;"></textarea>
+                <textarea   name="Apraksts" placeholder="Apraksts" style="height: 200px;"></textarea>
                 <!--Эта строка создает текстовое поле для ввода ос продукта. Высота 200 пикселей-->
                 <input type="text" name="Brenda_nosaukums" required placeholder="Brenda nosaukums">
-                <input type="file" name="image" accept="image/*">
+                <input type="file" name="image" accept="image/*" title="Logo" required  max-width="400" max-height="400 ">
                 <!-- Этот элемент позволяет выбирать изображение с компьютера пользователя -->
                 <input type="password" name="Parole_pardevejs" required placeholder="Parole">
-                <input type="submit" name="add" value="Reģistrēt" class="form-btn">
-                <input type="button" onclick="history.back();" value="Atpakaļ" class="form-btn ">
+                <input type="submit" name="add" value="Reģistrēt"  title="Reģistrēt" class="form-btn">
+                <input type="button" onclick="history.back();" title="Pārdevējs" value="Atpakaļ" class="form-btn ">
             </form>
 
             <!-- закрывающий тег для раздела страницы, который содержит информацию об авторских правах и дизайне веб-сайта. -->

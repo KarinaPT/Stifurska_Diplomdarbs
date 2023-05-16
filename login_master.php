@@ -27,7 +27,7 @@ if (isset($_POST['submit'])) {
 
    } else {
       // Если пользователь с введенными данными не найден, добавление ошибки в массив ошибок
-      $error[] = 'Неправильный e-mail или пароль!';
+      $error[] = 'Nepareiza e-pasta adrese vai parole!';
    }
 }
 ?>
@@ -90,10 +90,11 @@ if (isset($_POST['submit'])) {
             placeholder="E-pasts"><!--  поле для ввода e-mail адреса пользователя, обязательное для заполнения, с подсказкой "E-pasts" внутри поля.-->
          <input type="password" name="Parole_pardevejs" required
             placeholder="Parole"><!--  поле для ввода пароля, обязательное для заполнения, с подсказкой "Parole" внутри поля. Введенный текст скрыт символами звездочек или точек. -->
-         <input type="submit" name="submit" value="Pieslēgties" class="form-btn">
+         <input type="submit" title='Pieslēgties' name="submit" value="Pieslēgties" class="form-btn">
          <!-- кнопка отправки формы с названием "Pieslēgties"-->
-         <a class='btn' title='Sākumlapa' href='index.html'><i class="fa-solid fa-backward"></i> Sākumlapa</a>
-         <p>Jūs vēl neesat reģistrējies? <a href="registration.php">Reģistrēties</a></p>
+         <a class='btn' title='Sākumlapa' href='index.php'>Sākumlapa</a>
+         <p>Jūs vēl neesat reģistrējies? <a  title='Reģistrēties' href="registration.php">Reģistrēties</a></p>
+      
 
       </form>
 
