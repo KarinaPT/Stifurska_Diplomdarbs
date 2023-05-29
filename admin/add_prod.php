@@ -152,14 +152,11 @@ if (isset($_SESSION['admin_name'])) { // Проверка, авторизова�
                 </select>
 
                 <input type="submit" name="add" title='Reģistrēt' value="Reģistrēt" class="form-btn">
-                <input type="button" onclick="history.back();" title='Preces' value="Atpakaļ" class="form-btn ">
+                <a href="all_products.php" title="Atpakaļ" class="btn">Atpakaļ</a>
             </form>
 
             <!-- закрывающий тег для раздела страницы, который содержит информацию об авторских правах и дизайне веб-сайта. -->
-            <footer>
-                Kiriyena © 2023 Small start = Big deal</br>
-                Designed by Kiriyena
-            </footer>
+            <?php include 'footer_adm.php'; ?>
             <?php
 }
 ?>

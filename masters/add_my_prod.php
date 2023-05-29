@@ -138,10 +138,7 @@ if (isset($_SESSION['user_name'])) { // Проверка, авторизован
             </form>
 
             <!-- закрывающий тег для раздела страницы, который содержит информацию об авторских правах и дизайне веб-сайта. -->
-            <footer>
-                Kiriyena © 2023 Small start = Big deal</br>
-                Designed by Kiriyena
-            </footer>
+            <?php include '../admin/footer_adm.php'; ?>
             <?php
 }
 ?>

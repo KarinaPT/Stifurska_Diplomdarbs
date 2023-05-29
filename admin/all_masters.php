@@ -92,10 +92,7 @@ if (isset($_SESSION['admin_name'])) {
 
         </section>
 
-        <footer>
-            Kiriyena © 2023 Small start = Big deal</br>
-            Designed by Kiriyena
-        </footer>
+        <?php include 'footer_adm.php'; ?>
         <script>
             const menuToggle = document.querySelector('.menu-toggle');
             const navbar = document.querySelector('.navbar');

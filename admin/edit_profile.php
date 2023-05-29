@@ -61,17 +61,14 @@ if(isset($_SESSION['admin_name'])){
                     };
                 };
             ?>
-            <input type="E_pasts" name="E_pasts" required  value="<?php echo $E_pasts ?>">
+            <input type="email" name="E_pasts" required  value="<?php echo $E_pasts ?>">
             <input type="tel" name="T_numurs" required value="<?php echo ($T_numurs && $T_numurs[0] === '+') ? $T_numurs : '+371'; ?>">
             <input type="submit" title='Rediģēt' name="update" value="Rediģēt" class="form-btn">
-            <input type="button" onclick="history.back();" title='Statistika' value="Atpakaļ" class="form-btn ">
+            <a href="statistics.php" title="Atpakaļ" class="btn">Atpakaļ</a>
         </form>
 
 
-    <footer>
-        Kiriyena © 2023 Small start = Big deal</br>
-        Designed by Kiriyena
-    </footer>
+        <?php include 'footer_adm.php'; ?>
 <?php
    }
 ?>

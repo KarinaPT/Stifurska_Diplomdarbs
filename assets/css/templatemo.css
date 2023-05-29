@@ -108,6 +108,12 @@ div {
   color: #F5F6ED;
 }
 
+#templatemo_main_nav  a.active {
+  text-transform: uppercase;
+  color: #A66A2C;
+  font-weight: bold;
+}
+
 #templatemo_main_nav a:hover {
   color: #A66A2C;
 }
@@ -324,9 +330,9 @@ div {
   }
 
   .fixed-size-img-index {
-    width: 415px;
+    width: 413px;
     /* Замените на желаемую ширину */
-    height: 415px;
+    height: 413px;
     /* Замените на желаемую высоту */
     object-fit: cover;
   }

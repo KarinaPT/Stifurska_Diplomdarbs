@@ -38,17 +38,23 @@ if (isset($_SESSION['user_name'])) {
 
             if (in_array($fileActualExt, $allowed)) {
                 if ($fileError === 0) {
-                    if ($fileSize < 5000000) {
+                    if ($fileSize < 500000) {
                         $newPhotoPath = "uploads/" . uniqid('', true) . "." . $fileActualExt;
                         move_uploaded_file($fileTmpName, $newPhotoPath);
                     } else {
                         $error[] = "Faila izmērs ir pārāk liels";
+                        $newPhotoPath = null; // Установите $newPhotoPath в null, чтобы избежать обновления пути файла
+                        header("Refresh: 1; url=" . $_SERVER['HTTP_REFERER']);
                     }
                 } else {
                     $error[] = "Radās kļūda, ielādējot failu";
+                    $newPhotoPath = null; // Установите $newPhotoPath в null, чтобы избежать обновления пути файла
+                    header("Refresh: 1; url=" . $_SERVER['HTTP_REFERER']);
                 }
             } else {
                 $error[] = "Faila formāts nav atļauts";
+                $newPhotoPath = null; // Установите $newPhotoPath в null, чтобы избежать обновления пути файла
+                header("Refresh: 1; url=" . $_SERVER['HTTP_REFERER']);
             }
         }
 
@@ -66,13 +72,18 @@ if (isset($_SESSION['user_name'])) {
         if (!is_null($newPhotoPath)) {
             $query .= ", `Attela_prece`='" . $newPhotoPath . "'";
         }
-        
+
         $query .= " WHERE `prece_ID`='" . $prece_ID . "'";
 
         if (mysqli_query($conn, $query)) {
-            header("location:my_products.php");
+            if (!empty($error)) {
+                foreach ($error as $errorMsg) {
+                }
+            } else {
+                header('location:my_products.php');
+            }
         } else {
-            echo "Error updating record: " . mysqli_error($conn) . " with query: " . $query;
+            $errorMsg = "Ошибка при обновлении данных: " . mysqli_error($conn) . " with query: " . $query;
         }
 
     }
@@ -109,17 +120,36 @@ if (isset($_SESSION['user_name'])) {
 
         <div class="form-container">
 
-            <form action="" method="post"  enctype="multipart/form-data">
+            <form action="" method="post" enctype="multipart/form-data">
                 <h3>REDIĢĒT</h3>
+                <?php
 
+                if (!empty($error)) {
+                    foreach ($error as $errorMsg) {
+                        echo '<span class="error-msg">' . $errorMsg . '</span>';
+                    }
+                }
+                ?>
 
                 <input type="text" name="Nosaukums_prece"
                     value="<?php echo $Nosaukums_prece; ?>"><!--Это текстовое поле требует от пользователя ввести цену товара и является обязательным для заполнения.  "placeholder" указывает, что ожидается ввод названия товара.-->
                 <input type="text" name="Cena" value="<?php echo $Cena; ?>">
-                <input type="text" name="Statuss" value="<?php echo $Statuss; ?>">
-                <textarea name="Apraksts_prece" style="height: 200px;"><?php echo $Apraksts_prece; ?>"</textarea>
+                <textarea name="Apraksts_prece" style="height: 200px;"><?php echo $Apraksts_prece; ?></textarea>
                 <textarea name="Ipatnibas_prece" style="height: 200px;"><?php echo $Ipatnibas_prece; ?></textarea>
                 <input type="file" name="newPhoto" title="Fotoattēls" accept=".jpg,.jpeg,.png,.gif">
+                <select name="Statuss">
+                    <?php
+                    $status_query = "SHOW COLUMNS FROM `prece` LIKE 'statuss'";
+                    $status_result = mysqli_query($conn, $status_query);
+                    $row = mysqli_fetch_assoc($status_result);
+                    $enum_values = explode("','", preg_replace("/(enum|set)\('(.+?)'\)/", "\\2", $row['Type']));
+
+                    foreach ($enum_values as $value) {
+                        $selected = ($value == $selected_status) ? 'selected' : '';
+                        echo "<option value='$value' $selected>$value</option>";
+                    }
+                    ?>
+                </select>
                 <select name="Kategorija_ID">
                     <?php
                     $kat_query = "SELECT `Kategorija_ID`, `Nosaukums_kategorija` FROM `kategorija` WHERE `Nosaukums_kategorija` = '" . $Nosaukums_kategorija . "'";
@@ -158,10 +188,7 @@ if (isset($_SESSION['user_name'])) {
 
         </div>
 
-        <footer>
-            Kiriyena © 2023 Small start = Big deal</br>
-            Designed by Kiriyena
-        </footer>
+        <?php include '../admin/footer_adm.php'; ?>
         <?php
 }
 ?>

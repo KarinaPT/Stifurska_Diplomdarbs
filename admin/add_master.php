@@ -121,14 +121,11 @@ if (isset($_SESSION['admin_name'])) { // Проверка, авторизова�
                 <!-- Этот элемент позволяет выбирать изображение с компьютера пользователя -->
                 <input type="password" name="Parole_pardevejs" required placeholder="Parole">
                 <input type="submit" name="add" value="Reģistrēt"  title="Reģistrēt" class="form-btn">
-                <input type="button" onclick="history.back();" title="Pārdevējs" value="Atpakaļ" class="form-btn ">
+                <a href="all_masters.php" title="Atpakaļ" class="btn">Atpakaļ</a>
             </form>
 
             <!-- закрывающий тег для раздела страницы, который содержит информацию об авторских правах и дизайне веб-сайта. -->
-            <footer>
-                Kiriyena © 2023 Small start = Big deal</br>
-                Designed by Kiriyena
-            </footer>
+            <?php include 'footer_adm.php'; ?>
             <?php
 }
 ?>

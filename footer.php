@@ -1,6 +1,8 @@
-
-<footer class="bg-dark" id="tempaltemo_footer" >
-  <!-- Код вашего футера -->
+<?php
+require("admin/config.php");
+?>
+<footer class="bg-dark" id="tempaltemo_footer">
+    <!-- Код вашего футера -->
     <div class="container">
         <div class="row">
 
@@ -17,7 +19,7 @@
             </div>
 
             <div class="col-md-4 pt-5">
-                <h2 class="h2 text-light border-bottom pb-3 border-light">Uzņemums</h2>
+                <h2 class="h2 text-light border-bottom pb-3 border-light">Uzņēmums</h2>
                 <ul class="list-unstyled text-light footer-link-list">
                     <li><a class="text-decoration-none" href="shop.php">Preces</a></li>
                     <li><a class="text-decoration-none" href="masters.php">Pārdevēji</a></li>
@@ -33,14 +35,27 @@
                         <a class="text-decoration-none">Ja Jums ir jautājumi vai vēlaties kaut ko precizēt, varat
                             sazināties ar mums!</a>
                     </li>
-                    <li>
-                        <i class="fa-solid fa-phone-flip brownicon"></i>
-                        <a class="text-decoration-none">+3712945681</a>
-                    </li>
-                    <li>
-                        <i class="fa-solid fa-envelope brownicon"></i>
-                        <a class="text-decoration-none">infokiriyena@gmail.com</a>
-                    </li>
+                    <?php
+                    $admim = "SELECT *
+                            FROM administrators ";
+                    $atlasa_admim = mysqli_query($conn, $admim) or die("Nekorekts vaicājums");
+                    if (mysqli_num_rows($atlasa_admim) > 0) {
+                        while ($row = mysqli_fetch_assoc($atlasa_admim)) {
+                            ?>
+                            <li>
+                                <i class="fa-solid fa-phone-flip brownicon"></i>
+                                <a class="text-decoration-none"><?php echo $row['T_numurs']; ?></a>
+                            </li>
+                            <li>
+                                <i class="fa-solid fa-envelope brownicon"></i>
+                                <a class="text-decoration-none"><?php echo $row['E_pasts']; ?></a>
+                            </li>
+                            <?php
+                        }
+                    } else {
+                        echo "<tr><td colspan='4'>Tabulā nav ierakstu.</td></tr>";
+                    }
+                    ?>
                 </ul>
             </div>
 
@@ -55,7 +70,6 @@
                 <div class="col-12">
                     <p class="text-center text-light">
                         Kiriyena &copy; 2023 Small start = Big deal <br>
-                        Designed by <a rel="sponsored" href="#" target="_blank">Kiriyena</a>
                     </p>
                 </div>
             </div>
@@ -68,17 +82,17 @@
 
 
 <script>
- window.addEventListener("load", function () {
-    document.getElementById("tempaltemo_footer").style.visibility = "visible"; // показать footer
-    var contentHeight = document.body.clientHeight;
-    var windowHeight = window.innerHeight;
-    if (contentHeight < windowHeight) {
-        document.getElementById("tempaltemo_footer").style.position = "fixed";
-        document.getElementById("tempaltemo_footer").style.bottom = "0";
-        document.getElementById("tempaltemo_footer").style.left = "0";
-        document.getElementById("tempaltemo_footer").style.width = "100%";
-    } else {
-        document.getElementById("tempaltemo_footer").style.position = "relative";
-    }
-});
+    window.addEventListener("load", function () {
+        document.getElementById("tempaltemo_footer").style.visibility = "visible"; // показать footer
+        var contentHeight = document.body.clientHeight;
+        var windowHeight = window.innerHeight;
+        if (contentHeight < windowHeight) {
+            document.getElementById("tempaltemo_footer").style.position = "fixed";
+            document.getElementById("tempaltemo_footer").style.bottom = "0";
+            document.getElementById("tempaltemo_footer").style.left = "0";
+            document.getElementById("tempaltemo_footer").style.width = "100%";
+        } else {
+            document.getElementById("tempaltemo_footer").style.position = "relative";
+        }
+    });
 </script>

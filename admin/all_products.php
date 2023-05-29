@@ -45,7 +45,7 @@ session_start();
                         <th>Nosaukums</th>
                         <th>Cena</th>
                         <th>Pārdevējs</th>
-                        <th><a class='btn2' title='Pievienot jaunu prece' href="add_prod.php">Pievienot jaunu prece</a></th>
+                        <th><a class='btn2' title='Pievienot jaunu prece' href="add_prod.php">Pievienot jaunu preci</a></th>
                         <th></th>
                     </tr>
 
@@ -97,10 +97,7 @@ session_start();
 
     </section>
 
-    <footer>
-        Kiriyena © 2023 Small start = Big deal</br>
-        Designed by Kiriyena
-    </footer>
+    <?php include 'footer_adm.php'; ?>
     <script>
         const menuToggle = document.querySelector('.menu-toggle');
         const navbar = document.querySelector('.navbar');

@@ -34,6 +34,7 @@ if (isset($_SESSION['admin_name'])) {
                         }
                     } else {
                         $error[] = 'Faila izmērs ir pārāk liels';
+                        header("Refresh: 1; url=" . $_SERVER['HTTP_REFERER']);
                     }
             } else {
                 $error[] = 'Neizdevās augšupielādēt failu';
@@ -88,14 +89,11 @@ if (isset($_SESSION['admin_name'])) {
                 <input type="text" name="Nosaukums_kategorija" required placeholder="Kategorija">
                 <input type="file" name="image" required>
                 <input type="submit" name="add" value="Reģistrēt" class="form-btn">
-                <input type="button" onclick="history.back();" value="Atpakaļ" class="form-btn ">
+                <a href="category.php" title="Atpakaļ" class="btn">Atpakaļ</a>
             </form>
 
 
-            <footer>
-                Kiriyena © 2023 Small start = Big deal</br>
-                Designed by Kiriyena
-            </footer>
+            <?php include 'footer_adm.php'; ?>
             <?php
 }
 ?>

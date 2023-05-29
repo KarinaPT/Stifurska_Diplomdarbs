@@ -216,6 +216,22 @@
    /*Внутренние отступы у рамки сообщения об ошибке - 10px */
 }
 
+@media screen and (min-width: 1600px) and (max-width: 1920px) and (min-height: 900px) and (max-height: 1080px) {
+   .container {
+     margin-top: 150px;
+     margin-bottom: 150px;
+     /* Увеличьте значения отступов сверху и снизу по вашему выбору */
+   }
+
+   .form-container {
+      margin-top: 130px;
+      margin-bottom: 130px;
+      /* Увеличьте значения отступов сверху и снизу по вашему выбору */
+    }
+
+  
+}
+
 /* Media  768px */
 @media screen and (max-width: 768px) {
    form {
@@ -259,3 +275,4 @@
       margin-top: 100px;
    }
 }
+

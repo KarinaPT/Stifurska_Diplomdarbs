@@ -3,19 +3,34 @@
 require("../admin/config.php");
 session_start();
 $Pardevejs_ID = $_GET['Pardevejs_ID'];
+
 if (isset($_SESSION['user_name'])) {
-
     if (isset($_POST['update'])) {
+        $old_password = $_POST['Old_password'];
+        $new_password = $_POST['New_password'];
+        $confirm_password = $_POST['Confirm_password'];
 
-        $new_password = md5($_POST['Parole_pardevejs']);
-       
-            // Иначе, обновляем запись в базе данных
-            mysqli_query($conn, "UPDATE `pardevejs` SET `Parole_pardevejs`='" . $new_password . "'
-             WHERE `Pardevejs_ID`='" . $Pardevejs_ID . "'");
-            header("location:../admin/confirmation.php");
-        
+        // Проверяем, соответствует ли введенный старый пароль текущему паролю в базе данных
+        $query = "SELECT `Parole_pardevejs` FROM `pardevejs` WHERE `Pardevejs_ID`='" . $Pardevejs_ID . "'";
+        $result = mysqli_query($conn, $query);
+        $row = mysqli_fetch_assoc($result);
+        $current_password = $row['Parole_pardevejs'];
+
+        if (md5($old_password) == $current_password) {
+            // Проверяем, совпадают ли новый пароль и подтверждение пароля
+            if ($new_password == $confirm_password) {
+                // Обновляем запись в базе данных
+                $new_password = md5($new_password);
+                mysqli_query($conn, "UPDATE `pardevejs` SET `Parole_pardevejs`='" . $new_password . "'
+                 WHERE `Pardevejs_ID`='" . $Pardevejs_ID . "'");
+                header("location:../admin/confirmation.php");
+            } else {
+                $error[] = "Jaunā parole un apstiprinājuma parole nesakrīt.";
+            }
+        } else {
+            $error[] = "Ievadītā vecā parole nav pareiza.";
+        }
     }
-
     ?>
     <!DOCTYPE html>
     <html lang="en">
@@ -50,20 +65,17 @@ if (isset($_SESSION['user_name'])) {
                     foreach ($error as $error) {
                         echo '<span class="error-msg">' . $error . '</span>';
                     }
-                    ;
                 }
-                ;
                 ?>
-                <input type="password" name="Parole_pardevejs" required placeholder="Parole">
+                <input type="password" name="Old_password" required placeholder="Vecā parole">
+                <input type="password" name="New_password" required placeholder="Jaunā parole">
+                <input type="password" name="Confirm_password" required placeholder="Apstiprināt jauno paroli">
                 <input type="submit" title="Rediģēt" name="update" value="Rediģēt" class="form-btn">
-                <input type="button" onclick="history.back();" title="Statistika" value="Atpakaļ" class="form-btn ">
+                <a href="about_me.php" title="Atpakaļ" class="btn">Atpakaļ</a>
             </form>
 
 
-            <footer>
-                Kiriyena © 2023 Small start = Big deal</br>
-                Designed by Kiriyena
-            </footer>
+            <?php include '../admin/footer_adm.php'; ?>
             <?php
 }
 ?>

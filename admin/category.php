@@ -36,7 +36,7 @@ if (isset($_SESSION['admin_name'])) {
         </header>
 
         <section id="forInfo">
-            <div class="row">
+        <div class="row" style="padding-bottom: 5px;">
                 <div class="info">
                     <div class="head-info head-color">Kategoriju administrēšana: <br>
                     </div>
@@ -59,7 +59,7 @@ if (isset($_SESSION['admin_name'])) {
                                         <?php echo $row['Nosaukums_kategorija']; ?>
                                     </td>
                                     <td>
-                                        <a class='btn2' title="Dzēst" href="delete_cat.php?Kategorija_ID=<?php echo $row['Kategorija_ID']; ?>"><i
+                                        <a class='btn2' href="delete_cat.php?Kategorija_ID=<?php echo $row['Kategorija_ID']; ?>"><i
                                                 class="fa fa-trash" aria-hidden="true" ></i></a>
 
                                     </td>
@@ -122,10 +122,7 @@ if (isset($_SESSION['admin_name'])) {
 
         </section>
 
-        <footer>
-            Kiriyena © 2023 Small start = Big deal</br>
-            Designed by Kiriyena
-        </footer>
+        <?php include 'footer_adm.php'; ?>
         <script>
             const menuToggle = document.querySelector('.menu-toggle');
             const navbar = document.querySelector('.navbar');

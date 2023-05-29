@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Kiriyena - Товары</title>
+    <title>Kiriyena</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="./assets/img/favicon.png" type="image/x-icon">
@@ -37,7 +37,7 @@
                             <a class="nav-link" href="shop.php">Preces</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="masters.php">Pārdevēji</a>
+                            <a class="nav-link active" href="masters.php">Pārdevēji</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#contacts">Kontakti</a>
@@ -93,7 +93,7 @@
                                 if ($image_path) {
                                     echo '<img src="' . $image_path . '" title="Logo" class="card-img-top fixed-size-img-prof" alt="...">';
                                 } else {
-                                    echo 'Image not found.';
+                                    echo 'Attēls nav atrasts.';
                                 }
                                 ?>
                             </div>
@@ -227,7 +227,7 @@
                                             if ($image_path) {
                                                 echo '<img src="' . $image_path . '" title="Fotoattēls" class="card-img-top fixed-size-img-list" alt="...">';
                                             } else {
-                                                echo 'Image not found.';
+                                                echo 'Attēls nav atrasts.';
                                             }
                                             ?>
 
@@ -245,7 +245,7 @@
                                                 <?php echo $row['Nosaukums_prece']; ?>
                                             </a>
                                             <p class="text-center mb-0">
-                                                <?php echo $row['Cena']; ?>
+                                                <?php echo $row['Cena']; ?>€
                                             </p>
                                         </div>
                                     </div>

@@ -117,7 +117,7 @@ if (isset($_SESSION['user_name'])) {
                         <?php echo $data2['E_pasts'] ?>
                     </h3>
                     <p style="font-size:18px">E-pasts</p>
-                    <a class='btn' title='Sazināties' href="https://mail.google.com/mail/?view=cm&to=<?php echo $data2['E_pasts']; ?>">Atvērt
+                    <a class='btn' title='Sazināties'  target="_blank" href="https://mail.google.com/mail/?view=cm&to=<?php echo $data2['E_pasts']; ?>">Atvērt
                         e-pastu</a>
 
                 </div>
@@ -126,10 +126,7 @@ if (isset($_SESSION['user_name'])) {
 
         </section>
 
-        <footer>
-            Kiriyena © 2023 Small start = Big deal</br>
-            Designed by Kiriyena
-        </footer>
+        <?php include '../admin/footer_adm.php'; ?>
         <script>
             const menuToggle = document.querySelector('.menu-toggle');
             const navbar = document.querySelector('.navbar');

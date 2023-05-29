@@ -5,7 +5,7 @@ require("admin/config.php");
 <html lang="en">
 
 <head>
-    <title>Kiriyena Shop </title>
+    <title>Kiriyena</title>
     </title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -41,7 +41,7 @@ require("admin/config.php");
                             <a class="nav-link" href="shop.php">Preces</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="masters.php">Pārdevēji</a>
+                            <a class="nav-link active" href="masters.php">Pārdevēji</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#contacts">Kontakti</a>
@@ -101,7 +101,7 @@ require("admin/config.php");
                                         if ($image_path) {
                                             echo '<img src="' . $image_path . '" title="Fotoattēls" class="card-img-top fixed-size-img-list-shop" alt="...">';
                                         } else {
-                                            echo 'Image not found.';
+                                            echo 'Attēls nav atrasts.';
                                         }
                                         ?>
                                         <div

@@ -200,6 +200,7 @@ span {
     display: flex;
     flex-wrap: wrap;
     gap: 1.5rem;
+    padding-bottom: 120px;
 }
 
 #forInfo .row .info {
@@ -639,6 +640,25 @@ footer {
 
 }
 
+@media screen and (min-width: 1600px) and (max-width: 1920px) and (min-height: 900px) and (max-height: 1080px) {
+    #description .box-container {
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 0;
+      padding-right: 0;
+      width: 30%;
+    }
+  
+    #description h1 {
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+      width: max-content;
+    }
+
+  
+    
+  }
 
 @media screen and (min-width: 769px) and (max-width: 992px) {
     /* Здесь стили для устройств с минимальной шириной экрана 769px и максимальной шириной экрана 992px */

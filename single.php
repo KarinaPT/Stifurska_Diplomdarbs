@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Kiriyena - Дтали товара</title>
+    <title>Kiriyena</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="./assets/img/favicon.png" type="image/x-icon">
@@ -33,7 +33,7 @@
                 <div class="flex-fill">
                     <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="shop.php">Preces</a>
+                            <a class="nav-link active" href="shop.php">Preces</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="masters.php">Pārdevēji</a>
@@ -95,7 +95,7 @@
                                 if ($image_path) {
                                     echo '<img src="' . $image_path . '" class="card-img-top fixed-size-img-prof" alt="...">';
                                 } else {
-                                    echo 'Image not found.';
+                                    echo 'Attēls nav atrasts.';
                                 }
                                 ?>
                             </div>
@@ -115,7 +115,7 @@
                                             </li>
                                             <li class="list-inline-item">
                                                 <p class="text-muted"><strong>
-                                                        <?php echo $row['Cena']; ?>
+                                                        <?php echo $row['Cena']; ?>€
                                                     </strong></p>
                                             </li>
                                         </ul>
@@ -154,9 +154,8 @@
                                         </ul>
 
                                         <h5><b>Piegāde:</b></h5>
-                                        <p class="text-black">Lai uzzinātu par maksājuma un ātrās piegādes iespējām, lūdzu,
-                                            sazinieties ar meistaru.
-                                            Ja jums ir papildu jautājumi, jūs varat sazināties arī ar pārdevēju
+                                        <p class="text-black">Lai uzzinātu par piegādes veidiem, lūdzu, sazinieties ar pārdevēju. <BR/>
+                                        Ja ir citas jautājumi, rakstiet administratoram (skatiet lapas apakšu)
                                         </p>
 
                                         <form action="" method="GET">

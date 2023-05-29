@@ -5,7 +5,7 @@ require("admin/config.php");
 <html lang="en">
 
 <head>
-    <title>Kiriyena Shop </title>
+    <title>Kiriyena</title>
     </title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -67,93 +67,71 @@ require("admin/config.php");
 
 
     <!-- Start Banner Hero -->
+
     <div id="template-mo-zay-hero-carousel" class="carousel slide" data-bs-ride="carousel">
-
         <div class="carousel-inner">
-            <div class="carousel-item active">
-                <div class="container">
-                    <div class="row p-5">
-                        <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
-                            <img class="img-fluid" title='Ilustrācija' src="./assets/img/start1.png" alt="">
-                        </div>
-                        <div class="col-lg-6 mb-0 d-flex align-items-center">
-                            <div class="text-align-left align-self-center">
-                                <h1 class="h1 text-success"><b>Kiriyena</b></h1>
-                                <p class="text-black">
+            <?php
+            require("admin/config.php");
+            $sql = "SELECT * FROM Kiriyena";
+            $result = mysqli_query($conn, $sql);
 
-                                    Kiriyena ir tirdzniecības platforma, kas specializējas uz unikālu precu piedāvājumu.
-                                    Šeit jūs varat atrast plašu sortimentu no interesantām un unikālām precēm, kuras
-                                    radījuši talantīgi un kreatīvi sākuma līmeņa meistari.
-
-                                </p>
+            // Проверка наличия результатов и вывод их на экран
+            if (mysqli_num_rows($result) > 0) {
+                $active = true;
+                while ($row = mysqli_fetch_assoc($result)) {
+                    $activeClass = $active ? 'active' : ''; // Добавляем класс 'active' только первому слайду
+                    ?>
+                    <div class="carousel-item <?php echo $activeClass; ?>">
+                        <div class="container">
+                            <div class="row p-5">
+                                <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
+                                    <img class="img-fluid" title='Ilustrācija'
+                                        src="assets/img/<?php echo $row['Kiriyena_attela']; ?>" alt="">
+                                </div>
+                                <div class="col-lg-6 mb-0 d-flex align-items-center">
+                                    <div class="text-align-left align-self-center">
+                                        <h1 class="h1 text-success"><b>
+                                                <?php echo $row['Kiriyena_nosaukums']; ?>
+                                            </b></h1>
+                                        <p class="text-black">
+                                            <?php echo $row['Kiriyena_apraksts']; ?>
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <div class="container">
-                    <div class="row p-5">
-                        <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
-                            <img class="img-fluid" title='Ilustrācija' src="./assets/img/start2.png" alt="">
-                        </div>
-                        <div class="col-lg-6 mb-0 d-flex align-items-center">
-                            <div class="text-align-left">
-                                <h1 class="h1 text-dark "><b>Kiriyena atbalsta neatkarīgos pārdevējus</b></h1>
-                                <h3 class="h2 text-black"></h3>
-                                <p class="text-black">
-                                    Kiriyena nav supermarkets. Šeit miljoni cilvēku piedāvā savus unikālos produktus,
-                                    kuriem ir īpaša vērtība un pievilcība pircējiem. Jūs arī varat atrast kaut ko
-                                    neierasto un sazināties tieši ar pārdevējiem, kas ļauj iegūt vairāk informācijas par
-                                    produktu un labāk saprast tā īpašības un kvalitāti.
-
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <div class="container">
-                    <div class="row p-5">
-                        <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
-                            <img class="img-fluid" title='Ilustrācija' src="./assets/img/start3.png" alt="">
-                        </div>
-                        <div class="col-lg-6 mb-0 d-flex align-items-center">
-                            <div class="text-align-left">
-                                <h1 class="h1 text-dark "><b>Kļūsti par vienu no mums</b></h1>
-                                <p class="text-black">
-                                    Kiriyena ir ideāla platforma, lai izveidotu savu biznesu un sāktu savu radošo
-                                    ceļojumu. Reģistrējieties mūsu vietnē, iepazīstieties ar noteikumiem un virzieties
-                                    pret savu mērķi. Mēs palīdzēsim jums realizēt savas sapņu idejas un sasniegt
-                                    lieliskus rezultātus.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <script>// Находим карусель по ее ID
-            var carousel = document.getElementById('template-mo-zay-hero-carousel');
-
-            // Запускаем автоматическое перелистывание каждые 5 секунд
-            setInterval(function () {
-                // Находим активный слайд
-                var activeSlide = carousel.querySelector('.carousel-item.active');
-
-                // Находим следующий слайд
-                var nextSlide = activeSlide.nextElementSibling;
-
-                // Если следующего слайда нет, то переключаем на первый слайд
-                if (!nextSlide) {
-                    nextSlide = carousel.querySelector('.carousel-item:first-child');
+                    <?php
+                    $active = false; // Отключаем класс 'active' для остальных слайдов
                 }
+            } else {
+                echo "Нет доступных записей в базе данных.";
+            }
+            ?>
+        </div>
+    </div>
 
-                // Переключаем на следующий слайд
-                activeSlide.classList.remove('active');
-                nextSlide.classList.add('active');
-            }, 5000); // переключение каждые 5 секунд</script>
+
+    <script>// Находим карусель по ее ID
+        var carousel = document.getElementById('template-mo-zay-hero-carousel');
+
+        // Запускаем автоматическое перелистывание каждые 5 секунд
+        setInterval(function () {
+            // Находим активный слайд
+            var activeSlide = carousel.querySelector('.carousel-item.active');
+
+            // Находим следующий слайд
+            var nextSlide = activeSlide.nextElementSibling;
+
+            // Если следующего слайда нет, то переключаем на первый слайд
+            if (!nextSlide) {
+                nextSlide = carousel.querySelector('.carousel-item:first-child');
+            }
+
+            // Переключаем на следующий слайд
+            activeSlide.classList.remove('active');
+            nextSlide.classList.add('active');
+        }, 5000); // переключение каждые 5 секунд</script>
     </div>
     <!-- End Banner Hero -->
 
@@ -185,12 +163,12 @@ require("admin/config.php");
                 while ($row = mysqli_fetch_assoc($atlasa_kategorija)) {
                     ?>
                     <div class="col-12 col-md-4 p-5 mt-3">
-                        <a href="shop.php"><img  title='Ilustrācija' src="admin/<?php echo $row['Kat_attela']; ?>"
+                        <a href="shop.php"><img title='Ilustrācija' src="admin/<?php echo $row['Kat_attela']; ?>"
                                 class="rounded-circle img-fluid border"></a>
                         <h5 class="text-center mt-3 mb-3">
                             <?php echo $row['Nosaukums_kategorija']; ?>
                         </h5>
-                       
+
                     </div>
                     <?php
                 }
@@ -200,7 +178,7 @@ require("admin/config.php");
             ?>
         </div>
 
-        <p align="right"><a class="btn btn-success"  title="Preču saraksts" href="shop.php">Apskatīt visus</a></p>
+        <p align="right"><a class="btn btn-success" title="Preču saraksts" href="shop.php">Apskatīt visus</a></p>
 
     </section>
     <!-- End Categories of The Month -->
@@ -234,8 +212,9 @@ require("admin/config.php");
                         ?>
                         <div class="col-12 col-md-4 mb-4">
                             <div class="card h-100">
-                                
-                                <a href="info_masters.php?Pardevejs_ID=<?php echo $row['Pardevejs_ID']; ?>" class="h2 text-decoration-none text-dark">
+
+                                <a href="info_masters.php?Pardevejs_ID=<?php echo $row['Pardevejs_ID']; ?>"
+                                    class="h2 text-decoration-none text-dark">
                                     <?php
                                     $image_path = '';
 
@@ -243,7 +222,7 @@ require("admin/config.php");
                                         $image_path = 'admin/' . $row['Attela_URL'];
                                     } elseif (file_exists('masters/' . $row['Attela_URL'])) {
                                         $image_path = 'masters/' . $row['Attela_URL'];
-                                    }elseif (file_exists($row['Attela_URL'])) {
+                                    } elseif (file_exists($row['Attela_URL'])) {
                                         $image_path = $row['Attela_URL'];
                                     }
 
@@ -272,7 +251,8 @@ require("admin/config.php");
                 }
                 ?>
             </div>
-            <p align="right"><a class="btn btn-success" title="Pārdevēju saraksts" href="masters.php">Apskatīt visus</a></p>
+            <p align="right"><a class="btn btn-success" title="Pārdevēju saraksts" href="masters.php">Apskatīt visus</a>
+            </p>
         </div>
     </section>
     <!-- End Featured Product -->

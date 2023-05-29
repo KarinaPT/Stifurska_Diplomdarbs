@@ -84,11 +84,8 @@ if (isset($_SESSION['admin_name'])) {
         <?php
 
         ?>
-
-        <footer>
-            Kiriyena © 2023 Small start = Big deal</br>
-            Designed by Kiriyena
-        </footer>
+    <?php include 'footer_adm.php'; ?>
+    
         <?php
 }
 ?>

@@ -41,7 +41,7 @@ if (isset($_SESSION['user_name'])) {
                         <tr>
                             <th>Nosaukums</th>
                             <th>Cena</th>
-                            <th><a class='btn2' title='Pievienot jaunu prece' href="add_my_prod.php">Pievienot jaunu prece</a></th>
+                            <th><a class='btn2' title='Pievienot jaunu prece' href="add_my_prod.php">Pievienot jaunu preci</a></th>
                             <th></th>
                         </tr>
 
@@ -88,10 +88,7 @@ if (isset($_SESSION['user_name'])) {
             </div>
         </section>
 
-        <footer>
-            Kiriyena © 2023 Small start = Big deal</br>
-            Designed by Kiriyena
-        </footer>
+        <?php include '../admin/footer_adm.php'; ?> 
         <script>
             const menuToggle = document.querySelector('.menu-toggle');
             const navbar = document.querySelector('.navbar');

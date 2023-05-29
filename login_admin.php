@@ -52,7 +52,7 @@ if (isset($_POST['submit'])) {
 <body>
    <!-- (header) веб-страницы административной панели -->
    <header>
-      <a class="logo">Administratora pieteikšanās forma</a><!--логотип административной панели (Название) -->
+      <a class="logo"> <span style="font-weight: bold; color: white;">Administratora</span> pieteikšanās forma</a><!--логотип административной панели (Название) -->
       <button class="menu-toggle" aria-label="Toggle navigation menu">
          <span></span>
          <span></span>
@@ -65,7 +65,8 @@ if (isset($_POST['submit'])) {
                                     ссылка на страницу категорий товаров -->
          <a href="index.php">Sākumlapa</a>
          <a href="shop.php">Preces</a>
-         <a href="masters.php">Pārdevēji</a>>
+         <a href="masters.php">Pārdevēji</a>
+         <a href="policy.php">Mūsu politika</a>
          <a href="login_master.php"></i>Pieslēgties</a>
          <a href="#" class="active"><i
                class="fa-solid fa-user-lock"></i></a><!--ссылка на страницу выхода из административной панели с иконкой.  "Актирная"-->
@@ -95,10 +96,7 @@ if (isset($_POST['submit'])) {
       </form>
 
    </div>
-   <footer>
-      Kiriyena © 2023 Small start = Big deal</br>
-      Designed by Kiriyena
-   </footer>
+   <?php include 'admin/footer_adm.php'; ?>
    
    <script>
       const menuToggle = document.querySelector('.menu-toggle');

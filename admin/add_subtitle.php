@@ -65,14 +65,11 @@ if (isset($_SESSION['admin_name'])) {
                 ?>
                 <input type="text" name="Nosaukums_sadala" required placeholder="Kategorijas apakšsadaļas nosaukums">
                 <input type="submit" title="Reģistrēt" name="add" value="Reģistrēt" class="form-btn">
-                <input type="button" onclick="history.back();" title="Atpakaļ" value="Atpakaļ" class="form-btn ">
+                <a href="category.php" title="Atpakaļ" class="btn">Atpakaļ</a>
             </form>
 
 
-            <footer>
-                Kiriyena © 2023 Small start = Big deal</br>
-                Designed by Kiriyena
-            </footer>
+            <?php include 'footer_adm.php'; ?>
             <?php
 }
 ?>
