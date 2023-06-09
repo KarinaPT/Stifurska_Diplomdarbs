@@ -1,33 +1,27 @@
 <?php
-// Проверка наличия отправленной формы
+// Pārbauda, vai nospiesta forma ar pogu "submit"
 if (isset($_POST['submit'])) {
 
-   // Подключение к базе данных
-   require("admin/config.php");
-   // Начало сессии
-   session_start();
-   // Получение данных из формы и защита от SQL-инъекций
-   $E_pasts = mysqli_real_escape_string($conn, $_POST['E_pasts']); // Получение значения поля "E_pasts" из формы и защита от SQL-инъекций с помощью функции
-   $Parole = md5($_POST['Parole']); // Получение значения поля "Parole" из формы и хэширование пароля с помощью функции md5() для безопасного хранения в базе данных
+   require("admin/config.php"); // Iekļauj datubāzes konfigurācijas failu
+   session_start(); // Sāk sesiju
 
-   // Формирование запроса на выборку пользователей из базы данных, где значение поля "E_pasts" равно введенному пользователем e-mail, а значение поля "Parole" равно хэшу введенного пароля
-   $select = "SELECT * FROM administrators WHERE E_pasts = '$E_pasts' AND Parole = '$Parole'"; // выбираем только тех пользователей, у которых роль 'admin'
-   // Выполнение запроса на выборку пользователей из базы данных с помощью функции mysqli_query() и сохранение результата выполнения в переменной $result.
-   $result = mysqli_query($conn, $select);
+   $E_pasts = mysqli_real_escape_string($conn, $_POST['E_pasts']); // Iegūst e-pasta adresi no formas un apstrādā to
+   $Parole = md5($_POST['Parole']); // Iegūst paroli no formas un pārveido to, izmantojot md5 hēšu
 
-   // Проверка наличия данных о пользователе в базе
+
+   $select = "SELECT * FROM administrators WHERE E_pasts = '$E_pasts' AND Parole = '$Parole'"; // Izveido vaicājumu, lai pārbaudītu, vai eksistē administrators ar norādīto e-pasta adresi un paroli
+   $result = mysqli_query($conn, $select); // Izpilda vaicājumu datubāzē
+
+
    if (mysqli_num_rows($result) > 0) {
+      // Ja atrodas administrators ar norādīto e-pasta adresi un paroli
+      $row = mysqli_fetch_array($result); // Izgūst datus par administratoru
 
-      // Получение данных о пользователе
-      $row = mysqli_fetch_array($result);
-
-      // Если пользователь найден и имеет роль "admin", сохраняем его имя в сессии и перенаправляем на страницу статистики
-      $_SESSION['admin_name'] = $E_pasts;
-      header('location:admin/statistics.php');
+      $_SESSION['admin_name'] = $E_pasts; // Saglabā e-pasta adresi sesijas mainīgajā
+      header('location:admin/statistics.php'); // Novirza uz administrātora statistikas lapu
 
    } else {
-      // Если пользователь с введенными данными не найден, добавление ошибки в массив ошибок
-      $error[] = 'Nepareiza e-pasta adrese vai parole!';
+      $error[] = 'Nepareiza e-pasta adrese vai parole!'; // Ja nav atrasts atbilstošs administrators, tiek iestatīta kļūdas ziņa
    }
 }
 ?>
@@ -35,13 +29,10 @@ if (isset($_POST['submit'])) {
 <html lang="en">
 
 <head>
-   <!-- Мета данные  -->
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Administratora pieteikšanās forma</title> <!--заголовок страницы -->
-   <!--подключение таблицы стилей для страницы административной панели -->
-   <!--подключение иконки для вкладки браузера -->
+   <title>Administratora pieteikšanās forma</title>
    <link rel="shortcut icon" href="./assets/img/favicon.png" type="image/x-icon">
    <link rel="stylesheet" href="admin/css/css.css">
    <link rel="stylesheet" href="assets/css/login.css">
@@ -50,26 +41,23 @@ if (isset($_POST['submit'])) {
 </head>
 
 <body>
-   <!-- (header) веб-страницы административной панели -->
+
    <header>
-      <a class="logo"> <span style="font-weight: bold; color: white;">Administratora</span> pieteikšanās forma</a><!--логотип административной панели (Название) -->
+      <a class="logo"> <span style="font-weight: bold; color: white;">Administratora</span> pieteikšanās
+         forma</a><!--логотип административной панели (Название) -->
       <button class="menu-toggle" aria-label="Toggle navigation menu">
          <span></span>
          <span></span>
          <span></span>
       </button>
-      <nav class="navbar"><!-- навигационное меню: 
-                                    ссылка на страницу статистики и профиля, 
-                                    ссылка на страницу всех товаров,
-                                    ссылка на страницу всех продавцов ,
-                                    ссылка на страницу категорий товаров -->
+      <nav class="navbar">
+
          <a href="index.php">Sākumlapa</a>
          <a href="shop.php">Preces</a>
          <a href="masters.php">Pārdevēji</a>
          <a href="policy.php">Mūsu politika</a>
          <a href="login_master.php"></i>Pieslēgties</a>
-         <a href="#" class="active"><i
-               class="fa-solid fa-user-lock"></i></a><!--ссылка на страницу выхода из административной панели с иконкой.  "Актирная"-->
+         <a href="#" class="active"><i class="fa-solid fa-user-lock"></i></a>
       </nav>
    </header>
 
@@ -78,7 +66,8 @@ if (isset($_POST['submit'])) {
       <form action="" method="post">
          <h3>Pieslēgties</h3>
          <?php
-         // Проверка наличия ошибок и вывод их на страницу
+         //Šis ir HTML kods, kas attēlo pieteikšanās formu administrātora saskarnē. Forma tiek iesniegta ar metodi POST un dati tiek nosūtīti uz pašu lapu (tukšs action atribūts). 
+         //Ievadlaukos "E-pasts" un "Parole" lietotājam tiek prasīts ievadīt savus pieteikšanās datus. 
          if (isset($error)) {
             foreach ($error as $error) {
                echo '<span class="error-msg">' . $error . '</span>';
@@ -88,17 +77,15 @@ if (isset($_POST['submit'])) {
          ;
          ?>
          <input type="email" name="E_pasts" required placeholder="E-pasts">
-         <!--  поле для ввода e-mail адреса пользователя, обязательное для заполнения, с подсказкой "E-pasts" внутри поля.-->
          <input type="password" name="Parole" required placeholder="Parole">
-         <!--  поле для ввода пароля, обязательное для заполнения, с подсказкой "Parole" внутри поля. Введенный текст скрыт символами звездочек или точек. -->
          <input type="submit" name="submit" title='Pieslēgties' value="Pieslēgties" class="form-btn">
-         <!-- кнопка отправки формы с названием "Pieslēgties"-->
       </form>
 
    </div>
    <?php include 'admin/footer_adm.php'; ?>
-   
+
    <script>
+      //Šis kods ir JavaScript kods, kas nodrošina funkcionalitāti izvēlnes atvēršanai un aizvēršanai, kad tiek noklikšķināts uz izvēlnes poga. (Maziem ekrāniem)
       const menuToggle = document.querySelector('.menu-toggle');
       const navbar = document.querySelector('.navbar');
 

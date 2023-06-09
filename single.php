@@ -14,7 +14,7 @@
 </head>
 
 <body class="bg-light">
-    <!-- Header -->
+
     <nav class="navbar navbar-expand-lg navbar-light shadow bg-dark">
         <div class="container d-flex justify-content-between align-items-center">
 
@@ -56,13 +56,17 @@
         </div>
         </div>
     </nav>
-    <!-- Close Header -->
-    <!-- Open Content -->
+
     <section class="bg-light">
         <div class="container pb-5">
             <?php
+            // Ievieto komentāru, kas skaidro, ka tiek ielādēts konfigurācijas fails
             require("admin/config.php");
+
+            // Iegūst preces ID no GET parametriem
             $prece_ID = $_GET['prece_ID'];
+
+            // Veic SQL vaicājumu, lai iegūtu informāciju par preci
             $preceSQL = "SELECT prece.prece_ID, prece.Nosaukums_prece, prece.Cena, prece.Statuss, prece.Apraksts_prece, prece.Attela_prece, prece.Ipatnibas_prece, 
             kategorija.Nosaukums_kategorija, 
             k_apakssadala.Nosaukums_sadala,
@@ -77,6 +81,7 @@
             WHERE prece_ID=$prece_ID";
             $atlasaPrece = mysqli_query($conn, $preceSQL) or die("Nekorekts vaicājums");
 
+            // Pārbauda, vai ir atgriezti rezultāti
             if (mysqli_num_rows($atlasaPrece) > 0) {
                 while ($row = mysqli_fetch_assoc($atlasaPrece)) {
                     ?>
@@ -84,14 +89,17 @@
                         <div class="col-lg-5 mt-5">
                             <div class="card mb-3">
                                 <?php
+                                // Nosaka attēla ceļu
                                 $image_path = '';
 
+                                // Pārbauda, vai attēls eksistē admin direktorijā
                                 if (file_exists('admin/' . $row['Attela_prece'])) {
                                     $image_path = 'admin/' . $row['Attela_prece'];
                                 } elseif (file_exists('masters/' . $row['Attela_prece'])) {
-                                    $image_path = 'masters/' . $row['Attela_prece'];
+                                    $image_path = 'masters/' . $row['Attela_prece']; // Ja attēls neeksistē admin direktorijā, pārbauda masters direktoriju
                                 }
 
+                                // Parāda attēlu vai ziņu, ja attēls nav atrasts
                                 if ($image_path) {
                                     echo '<img src="' . $image_path . '" class="card-img-top fixed-size-img-prof" alt="...">';
                                 } else {
@@ -154,8 +162,9 @@
                                         </ul>
 
                                         <h5><b>Piegāde:</b></h5>
-                                        <p class="text-black">Lai uzzinātu par piegādes veidiem, lūdzu, sazinieties ar pārdevēju. <BR/>
-                                        Ja ir citas jautājumi, rakstiet administratoram (skatiet lapas apakšu)
+                                        <p class="text-black">Lai uzzinātu par piegādes veidiem, lūdzu, sazinieties ar
+                                            pārdevēju. <BR />
+                                            Ja ir citas jautājumi, rakstiet administratoram (skatiet lapas apakšu)
                                         </p>
 
                                         <form action="" method="GET">
@@ -183,23 +192,12 @@
                 </div>
             </div>
     </section>
-    <!-- Close Content -->
 
-
-
-    <!-- Start Footer -->
     <?php include 'footer.php'; ?>
-    <!-- End Footer -->
 
-
-    <!-- Start Script -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <!-- Подключаем плагин Bootstrap -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
-    <!-- End Script -->
-
 
 </body>
 

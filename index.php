@@ -9,9 +9,7 @@ require("admin/config.php");
     </title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <link rel="shortcut icon" href="./assets/img/favicon.png" type="image/x-icon">
-
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/templatemo.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
@@ -19,8 +17,6 @@ require("admin/config.php");
 </head>
 
 <body>
-
-    <!-- Header -->
     <nav class="navbar navbar-expand-lg navbar-light shadow bg-dark">
         <div class="container d-flex justify-content-between align-items-center">
 
@@ -63,23 +59,27 @@ require("admin/config.php");
 
         </div>
     </nav>
-    <!-- Close Header -->
 
-
-    <!-- Start Banner Hero -->
 
     <div id="template-mo-zay-hero-carousel" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
             <?php
+            // Iekļaujam konfigurācijas failu
             require("admin/config.php");
+
+            // Veicam vaicājumu, lai iegūtu datus no tabulas "Kiriyena"
             $sql = "SELECT * FROM Kiriyena";
             $result = mysqli_query($conn, $sql);
 
-            // Проверка наличия результатов и вывод их на экран
+            // Pārbaudām, vai iegūtie rezultāti nav tukši
             if (mysqli_num_rows($result) > 0) {
+                // Definējam mainīgo "active" kā "true", lai pirmajam slaidam būtu klase "active"
                 $active = true;
+
+                // Iterējam cauri katram iegūtajam rindas rezultātam
                 while ($row = mysqli_fetch_assoc($result)) {
-                    $activeClass = $active ? 'active' : ''; // Добавляем класс 'active' только первому слайду
+                    // Definējam klasi "active" pēc "active" mainīgā vērtības
+                    $activeClass = $active ? 'active' : '';
                     ?>
                     <div class="carousel-item <?php echo $activeClass; ?>">
                         <div class="container">
@@ -102,41 +102,43 @@ require("admin/config.php");
                         </div>
                     </div>
                     <?php
-                    $active = false; // Отключаем класс 'active' для остальных слайдов
+                    $active = false;
                 }
             } else {
-                echo "Нет доступных записей в базе данных.";
+                // Ja tabulā nav ierakstu, izvadam paziņojumu
+                echo "Tabulā nav ierakstu.";
             }
             ?>
         </div>
     </div>
 
 
-    <script>// Находим карусель по ее ID
+    <script>
+        // Iegūstam karuseli pēc tā ID
         var carousel = document.getElementById('template-mo-zay-hero-carousel');
 
-        // Запускаем автоматическое перелистывание каждые 5 секунд
+        // Izveidojam intervalu, kas pārslēdz slaidus katras 5 sekundes laikā
         setInterval(function () {
-            // Находим активный слайд
+            // Atrodam aktīvo slaidu
             var activeSlide = carousel.querySelector('.carousel-item.active');
 
-            // Находим следующий слайд
+            // Atrodam nākamo slaidu
             var nextSlide = activeSlide.nextElementSibling;
 
-            // Если следующего слайда нет, то переключаем на первый слайд
+            // Ja nākamais slaid nav atrasts, tad izvēlamies pirmo slaidu
             if (!nextSlide) {
                 nextSlide = carousel.querySelector('.carousel-item:first-child');
             }
 
-            // Переключаем на следующий слайд
+            // Noņemam aktīvo klasi no pašreizējā slaida
             activeSlide.classList.remove('active');
+            // Pievienojam aktīvo klasi nākamajam slaidam
             nextSlide.classList.add('active');
-        }, 5000); // переключение каждые 5 секунд</script>
+        }, 7000); // Intervala periods - 7000 ms (7 sekundes)
+    </script>
+
     </div>
-    <!-- End Banner Hero -->
 
-
-    <!-- Start Categories of The Month -->
     <section class="container py-5 ">
         <div class="row text-center pt-3 ">
             <div class="col-lg-6 m-auto">
@@ -150,6 +152,7 @@ require("admin/config.php");
         </div>
         <div class="row ">
             <?php
+            // Veicam vaicājumu, lai iegūtu populārākās kategorijas
             $kategorijaSQL = "SELECT kategorija.Kategorija_ID, kategorija.Nosaukums_kategorija, kategorija.Kat_attela, COUNT(prece.Prece_ID) as Preces_skaits 
             FROM kategorija 
             LEFT JOIN prece ON kategorija.Kategorija_ID = prece.ID_Kategorija 
@@ -159,6 +162,7 @@ require("admin/config.php");
 
             $atlasa_kategorija = mysqli_query($conn, $kategorijaSQL) or die("Nekorekts vaicājums");
 
+            // Pārbaudām, vai iegūtie rezultāti nav tukši
             if (mysqli_num_rows($atlasa_kategorija) > 0) {
                 while ($row = mysqli_fetch_assoc($atlasa_kategorija)) {
                     ?>
@@ -173,6 +177,7 @@ require("admin/config.php");
                     <?php
                 }
             } else {
+                // Ja tabulā nav ierakstu, izvadam paziņojumu
                 echo "<tr><td colspan='4'>Tabulā nav ierakstu.</td></tr>";
             }
             ?>
@@ -181,10 +186,7 @@ require("admin/config.php");
         <p align="right"><a class="btn btn-success" title="Preču saraksts" href="shop.php">Apskatīt visus</a></p>
 
     </section>
-    <!-- End Categories of The Month -->
 
-
-    <!-- Start Featured Product -->
     <section class="bg-light">
         <div class="container py-5">
             <div class="row text-center py-3">
@@ -198,7 +200,7 @@ require("admin/config.php");
             </div>
             <div class="row">
                 <?php
-
+                // Veicam vaicājumu, lai iegūtu populārākos pārdevējus
                 $pardevejsSQL = "SELECT pardevejs.Pardevejs_ID, pardevejs.Brenda_nosaukums, pardevejs.Apraksts, pardevejs.Attela_URL, COUNT(prece.Prece_ID) as Preces_skaits 
                     FROM pardevejs 
                     LEFT JOIN prece ON pardevejs.Pardevejs_ID = prece.ID_Pardevejs
@@ -207,6 +209,7 @@ require("admin/config.php");
                     LIMIT 3";
                 $atlasa_pardevejs = mysqli_query($conn, $pardevejsSQL) or die("Nekorekts vaicājums");
 
+                // Pārbaudām, vai iegūtie rezultāti nav tukši
                 if (mysqli_num_rows($atlasa_pardevejs) > 0) {
                     while ($row = mysqli_fetch_assoc($atlasa_pardevejs)) {
                         ?>
@@ -216,8 +219,10 @@ require("admin/config.php");
                                 <a href="info_masters.php?Pardevejs_ID=<?php echo $row['Pardevejs_ID']; ?>"
                                     class="h2 text-decoration-none text-dark">
                                     <?php
+
                                     $image_path = '';
 
+                                     // Pārbaudām, vai attēla fails eksistē
                                     if (file_exists('admin/' . $row['Attela_URL'])) {
                                         $image_path = 'admin/' . $row['Attela_URL'];
                                     } elseif (file_exists('masters/' . $row['Attela_URL'])) {
@@ -226,6 +231,7 @@ require("admin/config.php");
                                         $image_path = $row['Attela_URL'];
                                     }
 
+                                    // Izvadam attēlu vai kļūdas paziņojumu
                                     if ($image_path) {
                                         echo '<img src="' . $image_path . '"  title="Logo" class="card-img-top  fixed-size-img-index" alt="...">';
                                     } else {
@@ -247,6 +253,7 @@ require("admin/config.php");
                         <?php
                     }
                 } else {
+                    // Ja tabulā nav ierakstu, izvadam paziņojumu
                     echo "<tr><td colspan='4'>Tabulā nav ierakstu.</td></tr>";
                 }
                 ?>
@@ -255,21 +262,13 @@ require("admin/config.php");
             </p>
         </div>
     </section>
-    <!-- End Featured Product -->
 
-
-    <!-- Start Footer -->
     <?php include 'footer.php'; ?>
-    <!-- End Footer -->
 
-    <!-- Start Script -->
-    <!-- Подключаем библиотеку jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <!-- Подключаем плагин Bootstrap -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
-    <!-- End Script -->
 </body>
 
 </html>

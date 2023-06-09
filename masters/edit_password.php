@@ -1,29 +1,29 @@
 <?php
 
-require("../admin/config.php");
-session_start();
-$Pardevejs_ID = $_GET['Pardevejs_ID'];
+require("../admin/config.php"); // Iekļauj konfigurācijas failu
+session_start(); // Sāk sesiju
+$Pardevejs_ID = $_GET['Pardevejs_ID']; // Saņem Pardevejs_ID vērtību no GET parametriem
 
-if (isset($_SESSION['user_name'])) {
-    if (isset($_POST['update'])) {
-        $old_password = $_POST['Old_password'];
-        $new_password = $_POST['New_password'];
-        $confirm_password = $_POST['Confirm_password'];
+if (isset($_SESSION['user_name'])) { // Pārbauda, vai lietotājs ir pierakstījies
+    if (isset($_POST['update'])) {  // Pārbauda, vai tiek nospiests "update" poga
+        $old_password = $_POST['Old_password']; // Iegūst ievadīto veco paroli
+        $new_password = $_POST['New_password']; // Iegūst ievadīto jauno paroli
+        $confirm_password = $_POST['Confirm_password'];  // Iegūst ievadīto apstiprinājuma paroli
 
-        // Проверяем, соответствует ли введенный старый пароль текущему паролю в базе данных
+       // Pārbauda, vai ievadītā vecā parole ir pareiza
         $query = "SELECT `Parole_pardevejs` FROM `pardevejs` WHERE `Pardevejs_ID`='" . $Pardevejs_ID . "'";
         $result = mysqli_query($conn, $query);
         $row = mysqli_fetch_assoc($result);
         $current_password = $row['Parole_pardevejs'];
 
-        if (md5($old_password) == $current_password) {
-            // Проверяем, совпадают ли новый пароль и подтверждение пароля
+        if (md5($old_password) == $current_password) { // Salīdzina ievadīto veco paroli ar esošo paroli (izmantojot md5 heškodu)
+           // Pārbauda, vai jaunā parole sakrīt ar apstiprinājuma paroli
             if ($new_password == $confirm_password) {
-                // Обновляем запись в базе данных
+                 // Jaunā parole tiek saglabāta kā md5 heškods
                 $new_password = md5($new_password);
                 mysqli_query($conn, "UPDATE `pardevejs` SET `Parole_pardevejs`='" . $new_password . "'
                  WHERE `Pardevejs_ID`='" . $Pardevejs_ID . "'");
-                header("location:../admin/confirmation.php");
+                header("location:../admin/confirmation.php");  // Pāradresē uz apstiprinājuma lapu pēc paroles atjaunināšanas
             } else {
                 $error[] = "Jaunā parole un apstiprinājuma parole nesakrīt.";
             }
@@ -61,6 +61,7 @@ if (isset($_SESSION['user_name'])) {
             <form action="" method="post">
                 <h3>Rediģēt</h3>
                 <?php
+                // Pārbaudu, vai ir kļūdas un izvadam tos kā kļūdas ziņojumus
                 if (isset($error)) {
                     foreach ($error as $error) {
                         echo '<span class="error-msg">' . $error . '</span>';
@@ -68,8 +69,11 @@ if (isset($_SESSION['user_name'])) {
                 }
                 ?>
                 <input type="password" name="Old_password" required placeholder="Vecā parole">
+                 <!-- Ievades lauks vecās paroles ievadei -->
                 <input type="password" name="New_password" required placeholder="Jaunā parole">
+                 <!-- Ievades lauks jaunās paroles ievadei -->
                 <input type="password" name="Confirm_password" required placeholder="Apstiprināt jauno paroli">
+                 <!-- Ievades lauks jaunās paroles apstiprinājumam -->
                 <input type="submit" title="Rediģēt" name="update" value="Rediģēt" class="form-btn">
                 <a href="about_me.php" title="Atpakaļ" class="btn">Atpakaļ</a>
             </form>

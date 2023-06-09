@@ -1,90 +1,99 @@
 <?php
+require("../admin/config.php"); // Iekļauj konfigurācijas failu, kas satur datu bāzes pieslēguma informāciju.
+session_start(); // Sāk jaunu sesiju vai atjauno esošo sesiju
+$Pardevejs_ID = $_GET['Pardevejs_ID']; // Iegūst Pardevejs_ID vērtību no GET parametriem.
+$E_pasts_pardevejs = $_GET['E_pasts_pardevejs']; // Iegūst E_pasts_pardevejs vērtību no GET parametriem.
+$T_numurs_pardevejs = $_GET['T_numurs_pardevejs']; // Iegūst T_numurs_pardevejs vērtību no GET parametriem.
+$Apraksts = $_GET['Apraksts']; // Iegūst Apraksts vērtību no GET parametriem.
+$error = array(); // Izveido tukšu masīvu, kas tiks izmantots kļūdu ziņu glabāšanai.
 
-require("../admin/config.php");
-session_start();
-$Pardevejs_ID = $_GET['Pardevejs_ID'];
-$E_pasts_pardevejs = $_GET['E_pasts_pardevejs'];
-$T_numurs_pardevejs = $_GET['T_numurs_pardevejs'];
-$Apraksts = $_GET['Apraksts'];
-$error = array();
 if (isset($_SESSION['user_name'])) {
 
 
     if (isset($_POST['update'])) {
+        // Pārbauda, vai POST pieprasījumā ir nospiests 'update' poga.
 
+        // Iegūst jaunās vērtības no formas ievades laukiem un pasargā pret SQL injekcijām
         $new_E_pasts_pardevejs = mysqli_real_escape_string($conn, $_POST['E_pasts_pardevejs']);
         $new_T_numurs_pardevejs = mysqli_real_escape_string($conn, $_POST['T_numurs_pardevejs']);
         $new_Apraksts = mysqli_real_escape_string($conn, $_POST['Apraksts']);
 
+        // Noklusējuma vērtība jaunajai fotogrāfijas ceļam (tukšs)
         $newPhotoPath = null;
 
+        // Pārbauda, vai ir augšupielādēta jauna fotogrāfija
         if (!empty($_FILES['newPhoto']['name'])) {
-            // Проверяем, был ли выбран новый файл изображения
+
             $file = $_FILES['newPhoto'];
-            $fileName = $file['name'];
-            $fileTmpName = $file['tmp_name'];
-            $fileSize = $file['size'];
-            $fileError = $file['error'];
-            $fileType = $file['type'];
-        
-            $fileExt = explode('.', $fileName);
-            $fileActualExt = strtolower(end($fileExt));
-        
+            $fileName = $file['name']; // Iegūst faila nosaukumu.
+            $fileTmpName = $file['tmp_name']; // Iegūst pagaidu faila nosaukumu un atrašanās vietu serverī.
+            $fileSize = $file['size']; // Iegūst faila izmēru baitos.
+            $fileError = $file['error']; // Iegūst kļūdas kodu, ja tāda radās augšupielādes procesā.
+            $fileType = $file['type']; // Iegūst faila tipu (piemēram, image/jpeg).
+
+            $fileExt = explode('.', $fileName); // Sadala faila nosaukumu un paplašinājumu punktu atdalot.
+            $fileActualExt = strtolower(end($fileExt)); // Iegūst faila paplašinājumu un pārveido to par mazajiem burtiem.
+
             $allowed = array('jpg', 'jpeg', 'png', 'gif');
-        
+
             if (in_array($fileActualExt, $allowed)) {
                 if ($fileError === 0) {
                     if ($fileSize < 500000) {
-                        // Если новый файл выбран и прошел все проверки, сохраняем его в папке "uploads"
+                        // Jaunās fotogrāfijas ceļš un nosaukums
                         $newPhotoPath = "uploads/" . uniqid('', true) . "." . $fileActualExt;
+                        // Pārvieto augšupielādēto failu uz norādīto ceļu
                         move_uploaded_file($fileTmpName, $newPhotoPath);
                     } else {
-                        // Если новый файл слишком большой, добавляем ошибку в массив ошибок
+                        // Ja fails pārsniedz maksimālo atļauto izmēru
                         $error[] = "Faila izmērs ir pārāk liels";
-                        $newPhotoPath = null; // Установите $newPhotoPath в null, чтобы избежать обновления пути файла
+                        $newPhotoPath = null;
                         header("Refresh: 1; url=" . $_SERVER['HTTP_REFERER']);
                     }
                 } else {
-                    // Если при загрузке нового файла произошла ошибка, добавляем ошибку в массив ошибок
+                    // Ja radās kļūda, augšupielādējot failu
                     $error[] = "Radās kļūda, ielādējot failu";
-                    $newPhotoPath = null; // Установите $newPhotoPath в null, чтобы избежать обновления пути файла
+                    $newPhotoPath = null;
                     header("Refresh: 1; url=" . $_SERVER['HTTP_REFERER']);
                 }
             } else {
-                // Если формат нового файла не соответствует разрешенным форматам, добавляем ошибку в массив ошибок
+                // Ja faila paplašinājums nav atļauts
                 $error[] = "Faila formāts nav atļauts";
-                $newPhotoPath = null; // Установите $newPhotoPath в null, чтобы избежать обновления пути файла
-                header("Refresh: 1; url=" . $_SERVER['HTTP_REFERER']);  
+                $newPhotoPath = null;
+                header("Refresh: 1; url=" . $_SERVER['HTTP_REFERER']);
             }
         }
-        
-        // Проверяем, есть ли уже другой пользователь с таким же email
+
+        // Pārbauda, vai jaunais e-pasta adrese jau netiek izmantota citam lietotājam
         $check_query = "SELECT * FROM pardevejs WHERE E_pasts_pardevejs = '" . $new_E_pasts_pardevejs . "' AND Pardevejs_ID != '" . $Pardevejs_ID . "'";
         $check_result = mysqli_query($conn, $check_query);
-        
+
         if (mysqli_num_rows($check_result) > 0) {
-            // Если есть, выводим сообщение об ошибке
+            // Ja adrese jau tiek izmantota
             $error[] = 'Šī e-pasta adrese jau tiek izmantota!';
         } else {
-            // Иначе, обновляем запись в базе данных
+            // Izveido vaicājumu, lai atjauninātu datus datu bāzē
             $query = "UPDATE `pardevejs` SET `E_pasts_pardevejs`='" . $new_E_pasts_pardevejs . "', `T_numurs_pardevejs`='" . $new_T_numurs_pardevejs . "'
                 , `Apraksts`='" . $new_Apraksts . "'";
-        
+
+            // Ja ir jauna fotogrāfija, pievieno attēla ceļu vaicājumam
             if (!is_null($newPhotoPath)) {
                 $query .= ", `Attela_URL`='" . $newPhotoPath . "'";
             }
-        
+
             $query .= " WHERE `Pardevejs_ID`='" . $Pardevejs_ID . "'";
-        
+
             if (mysqli_query($conn, $query)) {
                 if (!empty($error)) {
                     foreach ($error as $errorMsg) {
+                        // Vēlamā darbība ar kļūdas ziņām
                     }
                 } else {
+                    // Ja dati ir veiksmīgi atjaunināti, pārvirza uz attiecīgo lapu
                     header('location:about_me.php');
                 }
             } else {
-                $errorMsg = "Ошибка при обновлении данных: " . mysqli_error($conn) . " with query: " . $query;
+                // Ja radās kļūda, izpildot vaicājumu
+                $errorMsg = "Kļūda" . mysqli_error($conn) . " with query: " . $query;
             }
         }
     }
@@ -119,7 +128,9 @@ if (isset($_SESSION['user_name'])) {
             <form action="" method="post" enctype="multipart/form-data">
                 <h3>Rediģēt</h3>
                 <?php
-                
+                //Šī forma ietver dažādus ievades laukus un pogas, kas ļauj lietotājam rediģēt informāciju. Kods atbild par attēla augšupielādi, jaunu e-pasta adreses, 
+                //  telefona numura un apraksta ievadi. 
+                //  Ja ir kļūdas, tās tiek parādītas kā kļūdu ziņas. Forma arī ietver pogu, kas atgriež lietotāju atpakaļ uz "about_me.php" lapu.
                 if (!empty($error)) {
                     foreach ($error as $errorMsg) {
                         echo '<span class="error-msg">' . $errorMsg . '</span>';
@@ -128,7 +139,7 @@ if (isset($_SESSION['user_name'])) {
                 ?>
                 <input type="file" name="newPhoto" title="Logo" accept=".jpg,.jpeg,.png,.gif">
                 <input type="email" name="E_pasts_pardevejs" required value="<?php echo $E_pasts_pardevejs ?>">
-                <input type="tel" name="T_numurs_pardevejs" required
+                <input type="tel" name="T_numurs_pardevejs"
                     value="<?php echo ($T_numurs_pardevejs && $T_numurs_pardevejs[0] === '+') ? $T_numurs_pardevejs : '+371'; ?>">
                 <textarea name="Apraksts" placeholder="Apraksts" style="height:200px;"><?php echo $Apraksts ?></textarea>
                 <input type="submit" name="update" value="Rediģēt" class="form-btn">

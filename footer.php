@@ -2,7 +2,6 @@
 require("admin/config.php");
 ?>
 <footer class="bg-dark" id="tempaltemo_footer">
-    <!-- Код вашего футера -->
     <div class="container">
         <div class="row">
 
@@ -82,16 +81,24 @@ require("admin/config.php");
 
 
 <script>
+     // Kad lapas ielādējas
     window.addEventListener("load", function () {
-        document.getElementById("tempaltemo_footer").style.visibility = "visible"; // показать footer
+         // Iegūstam tempaltemo_footer elementu un padarām to redzamu
+        document.getElementById("tempaltemo_footer").style.visibility = "visible"; 
+
+        // Iegūstam lapas satvaru un loga augstumu
         var contentHeight = document.body.clientHeight;
         var windowHeight = window.innerHeight;
+
+        // Ja lapas satvars ir mazāks par loga augstumu
         if (contentHeight < windowHeight) {
+            // Iestatām tempaltemo_footer elementam fiksētu pozīciju, lai tas paliek pie apakšas    
             document.getElementById("tempaltemo_footer").style.position = "fixed";
             document.getElementById("tempaltemo_footer").style.bottom = "0";
             document.getElementById("tempaltemo_footer").style.left = "0";
             document.getElementById("tempaltemo_footer").style.width = "100%";
         } else {
+            // Pretējā gadījumā iestatām tempaltemo_footer elementam relatīvu pozīciju
             document.getElementById("tempaltemo_footer").style.position = "relative";
         }
     });

@@ -37,11 +37,16 @@ if (isset($_SESSION['admin_name'])) {
                     <?php
                     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         require("config.php");
+
+                        // Iegūstam pārdevēja ID no iepriekšējās formas ievades
                         $Pardevejs_ID = $_POST['Apskatīt'];
+
+                        // Izveidojam SQL vaicājumu, lai iegūtu pārdevēja datus
                         $pardevejsSQL = "SELECT * FROM pardevejs
                     WHERE Pardevejs_ID = $Pardevejs_ID";
                         $atlasa = mysqli_query($conn, $pardevejsSQL) or die("Nekorekts vaicājums");
 
+                        // Izveidojam SQL vaicājumu, lai iegūtu preču skaitu, kas saistītas ar pārdevēju
                         $sql = "SELECT pardevejs.Pardevejs_ID, COUNT(prece.Prece_ID) as skaits
                     FROM pardevejs
                     LEFT JOIN prece ON pardevejs.Pardevejs_ID = prece.ID_Pardevejs
@@ -49,8 +54,13 @@ if (isset($_SESSION['admin_name'])) {
 
                         $result = mysqli_query($conn, $sql);
                         $data = mysqli_fetch_assoc($result);
+
+                         // Attēlojam pārdevēja informāciju un preču skaitu
                         while ($row = mysqli_fetch_assoc($atlasa)) {
+
                             $image_path = '';
+
+                            // Noteikam attēla ceļu
                             if (file_exists($row['Attela_URL'])) {
                                 $image_path = $row['Attela_URL'];
                             } elseif (file_exists('../masters/' . $row['Attela_URL'])) {
@@ -58,7 +68,7 @@ if (isset($_SESSION['admin_name'])) {
                             } elseif (file_exists('../' . $row['Attela_URL'])) {
                                 $image_path = '../' . $row['Attela_URL'];
                             }
-                            // Полный вывод информации о товаре
+                             // Attēlojam informāciju par pārdevēju
                             echo " 
                             <img src='{$image_path}' title='Logo' class='fixed-size-img'>
                                     <h3>{$row['Brenda_nosaukums']}</h3>                 

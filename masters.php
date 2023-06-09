@@ -20,7 +20,6 @@ require("admin/config.php");
 
 <body class="bg-light">
 
-    <!-- Header -->
     <nav class="navbar navbar-expand-lg navbar-light shadow bg-dark">
         <div class="container d-flex justify-content-between align-items-center">
 
@@ -63,7 +62,6 @@ require("admin/config.php");
 
         </div>
     </nav>
-    <!-- Close Header -->
     <div class="container py-5 ">
         <div class="row">
 
@@ -78,9 +76,12 @@ require("admin/config.php");
                 </div>
                 <div class="row bg-light">
                     <?php
+                    // Izvēlas visus pardevējus no datubāzes tabulas
                     $pardevejs = "SELECT *
                             FROM pardevejs ";
                     $atlasa_pardevejs = mysqli_query($conn, $pardevejs) or die("Nekorekts vaicājums");
+
+                    // Pārbauda vai ir atrasti ieraksti
                     if (mysqli_num_rows($atlasa_pardevejs) > 0) {
                         while ($row = mysqli_fetch_assoc($atlasa_pardevejs)) {
                             ?>
@@ -88,8 +89,10 @@ require("admin/config.php");
                                 <div class="card mb-4 product-wap rounded-0 ">
                                     <div class="card rounded-0">
                                         <?php
+                                        // Noteikta attēla ceļš
                                         $image_path = '';
 
+                                        // Pārbauda vai attēla fails ir pieejams admin, root vai masters direktorijā
                                         if (file_exists('admin/' . $row['Attela_URL'])) {
                                             $image_path = 'admin/' . $row['Attela_URL'];
                                         } elseif (file_exists('masters/' . $row['Attela_URL'])) {
@@ -98,6 +101,7 @@ require("admin/config.php");
                                             $image_path = $row['Attela_URL'];
                                         }
 
+                                        // Attēla attēlošana vai ziņa, ja attēls nav atrasts
                                         if ($image_path) {
                                             echo '<img src="' . $image_path . '" title="Fotoattēls" class="card-img-top fixed-size-img-list-shop" alt="...">';
                                         } else {
@@ -134,11 +138,10 @@ require("admin/config.php");
         </div>
     </div>
 
-    <!-- Start Footer -->
     <?php include 'footer.php'; ?>
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <!-- Подключаем плагин Bootstrap -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
 

@@ -50,11 +50,17 @@ if (isset($_SESSION['admin_name'])) {
                         </tr>
 
                         <?php
+                        // Iekļaut konfigurācijas failu
                         require("config.php");
-                        $pardevejs = "SELECT *
-                            FROM pardevejs ";
+
+                        // Izveidot vaicājumu, lai iegūtu visus ierakstus no tabulas `pardevejs`
+                        $pardevejs = "SELECT * FROM pardevejs ";
+                        // Izpildīt vaicājumu
                         $atlasa_pardevejs = mysqli_query($conn, $pardevejs) or die("Nekorekts vaicājums");
+
+                        // Pārbaudīt, vai ir iegūti kādi ieraksti
                         if (mysqli_num_rows($atlasa_pardevejs) > 0) {
+                            // Ja ir ieraksti, izvadīt katru ierakstu
                             while ($row = mysqli_fetch_assoc($atlasa_pardevejs)) {
                                 ?>
                                 <tr>
@@ -81,6 +87,7 @@ if (isset($_SESSION['admin_name'])) {
                                 <?php
                             }
                         } else {
+                            // Ja nav ierakstu, izvadīt atbilstošu ziņu
                             echo "<tr><td colspan='4'>Tabulā nav ierakstu.</td></tr>";
                         }
                         ?>
@@ -94,6 +101,7 @@ if (isset($_SESSION['admin_name'])) {
 
         <?php include 'footer_adm.php'; ?>
         <script>
+            //Šis kods ir JavaScript kods, kas nodrošina funkcionalitāti izvēlnes atvēršanai un aizvēršanai, kad tiek noklikšķināts uz izvēlnes poga. (Maziem ekrāniem)
             const menuToggle = document.querySelector('.menu-toggle');
             const navbar = document.querySelector('.navbar');
 

@@ -34,9 +34,12 @@ if (isset($_SESSION['user_name'])) {
             <div class="box-container">
                 <div class='box'>
                     <?php
+                    // Pārbauda vai ir veikts POST pieprasījums
                     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         require("../admin/config.php");
                         $prece_ID = $_POST['Apskatīt'];
+
+                        // SQL vaicājuma izveidošana, lai atlasītu preces datus
                         $par_preceSQL = "SELECT prece.prece_ID, prece.Nosaukums_prece, prece.Cena, prece.Statuss, prece.Apraksts_prece, prece.Attela_prece, prece.Ipatnibas_prece, 
                         kategorija.Nosaukums_kategorija, 
                         k_apakssadala.Nosaukums_sadala,
@@ -49,17 +52,23 @@ if (isset($_SESSION['user_name'])) {
                         LEFT JOIN pardevejs
                         ON Pardevejs_ID = prece.ID_Pardevejs
                         WHERE prece_ID=$prece_ID && pardevejs.E_pasts_pardevejs = '" . $_SESSION['user_name'] . "'";
+
+                        // Izpilda SQL vaicājumu, lai iegūtu rezultātus
                         $atlasa_apraksts = mysqli_query($conn, $par_preceSQL) or die("Nekorekts vaicājums");
+
+                        // Parcēlšanās pa rezultātu rindām
                         while ($row = mysqli_fetch_assoc($atlasa_apraksts)) {
-                            $Nosaukums_prece = $row['Nosaukums_prece'];
-                            $Cena = $row['Cena'];
-                            $Statuss = $row['Statuss'];
-                            $Apraksts_prece = $row['Apraksts_prece'];
-                            $Ipatnibas_prece = $row['Ipatnibas_prece'];
-                            $Nosaukums_kategorija = $row['Nosaukums_kategorija'];
-                            $Nosaukums_sadala = $row['Nosaukums_sadala'];
+                            $Nosaukums_prece = $row['Nosaukums_prece']; // Iegūst preces nosaukumu no datu bāzes
+                            $Cena = $row['Cena']; // Iegūst preces cenu no datu bāzes
+                            $Statuss = $row['Statuss']; // Iegūst preces statusu no datu bāzes
+                            $Apraksts_prece = $row['Apraksts_prece']; // Iegūst preces aprakstu no datu bāzes
+                            $Ipatnibas_prece = $row['Ipatnibas_prece']; // Iegūst preces īpatnības no datu bāzes
+                            $Nosaukums_kategorija = $row['Nosaukums_kategorija']; // Iegūst preces kategorijas nosaukumu no datu bāzes
+                            $Nosaukums_sadala = $row['Nosaukums_sadala'];  // Iegūst preces sadaļas nosaukumu no datu bāzes
 
                             $image_path = '';
+
+                             // Pārbauda, vai attēla fails eksistē
                             if (file_exists($row['Attela_prece'])) {
                                 $image_path = $row['Attela_prece'];
                             } elseif (file_exists('../admin/' . $row['Attela_prece'])) {

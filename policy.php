@@ -19,8 +19,6 @@ require("admin/config.php");
 </head>
 
 <body>
-
-    <!-- Header -->
     <nav class="navbar navbar-expand-lg navbar-light shadow bg-dark">
         <div class="container d-flex justify-content-between align-items-center">
 
@@ -63,16 +61,11 @@ require("admin/config.php");
 
         </div>
     </nav>
-    <!-- Close Header -->
 
-
-    <!-- Start Banner Hero -->
     <?php
     require("admin/config.php");
     $sql = "SELECT * FROM Politika";
     $result = mysqli_query($conn, $sql);
-
-    // Проверка наличия результатов и вывод их на экран
     if (mysqli_num_rows($result) > 0) {
         while ($row = mysqli_fetch_assoc($result)) {
             ?>
@@ -104,25 +97,16 @@ require("admin/config.php");
             <?php
         }
     } else {
-        echo "Нет доступных записей в базе данных.";
+        echo "Tabulā nav ierakstu.";
     }
     ?>
 
-    <!-- End Featured Product -->
-
-
-    <!-- Start Footer -->
     <?php include 'footer.php'; ?>
-    <!-- End Footer -->
 
-    <!-- Start Script -->
-    <!-- Подключаем библиотеку jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <!-- Подключаем плагин Bootstrap -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
-    <!-- End Script -->
 </body>
 
 </html>

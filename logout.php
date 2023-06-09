@@ -1,11 +1,11 @@
 <?php
 
-@include 'admin/config.php'; // включает файл конфигурации базы данных.
+@include 'admin/config.php'; // Iekļauj konfigurācijas failu (DB)
 
-session_start(); //начинает новую сессию.
-session_unset(); //удаляет все переменные сессии.
-session_destroy();//  уничтожает текущую сессию.
+session_start(); // Sāk jaunu sesiju vai atjauno esošo
+session_unset(); // Notīra sesijas mainīgos
+session_destroy(); // Izbeidz sesiju un iznīcina sesijas datus
 
-header('location:index.php'); //перенаправляет пользователя на страницу index.php.
+header('location:index.php'); // Novirza uz index.php lapu
 
 ?>

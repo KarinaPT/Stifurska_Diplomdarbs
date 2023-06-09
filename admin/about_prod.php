@@ -1,51 +1,45 @@
 <?php
-require("config.php"); // подключение файла конфигурации базы данных и других настроек
-session_start(); //начало сессии пользователя
-if (isset($_SESSION['admin_name'])) { // Проверка, авторизован ли пользователь в системе
+require("config.php"); 
+session_start(); 
+if (isset($_SESSION['admin_name'])) { 
     ?>
     <!DOCTYPE html>
     <html lang="en">
 
     <head>
-        <!-- Мета данные  -->
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Preču administrācija</title> <!--заголовок страницы -->
-        <!--подключение таблицы стилей для страницы административной панели -->
+        <title>Preču administrācija</title> 
         <link rel="stylesheet" href="css/css.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
-        <!--подключение иконки для вкладки браузера -->
         <link rel="shortcut icon" type="image/x-icon" href="../assets/img/favicon.png" />
     </head>
 
     <body>
-        <!-- (header) веб-страницы административной панели -->
         <header>
-            <a class="logo">Administrēšanas panelis</a><!--логотип административной панели (Название) -->
-            <nav class="navbar"> <!-- навигационное меню: 
-                                    ссылка на страницу статистики и профиля, 
-                                    ссылка на страницу всех товаров "Актирная",
-                                    ссылка на страницу всех продавцов ,
-                                    ссылка на страницу категорий товаров -->
+            <a class="logo">Administrēšanas panelis</a>
+            <nav class="navbar"> 
                 <a href="statistics.php">Statistika/Profils</a>
                 <a href="all_products.php" class="active">Preces / Apraksts</a>
                 <a href="all_masters.php">Pārdevēji</a>
                 <a href="category.php">Kategorijas</a>
                 <a href="../logout.php"><i class="fa-solid fa-right-to-bracket"></i> Iziet</a>
-                <!--ссылка на страницу выхода из административной панели с иконкой  -->
             </nav>
         </header>
 
         <section id="description">
-            <h1>Detalizēts preču apraksts</h1> <!-- Заголовок раздела с детальным описанием товара -->
+            <h1>Detalizēts preču apraksts</h1> 
             <div class="box-container">
                 <div class='box'>
                     <?php
-                    if ($_SERVER['REQUEST_METHOD'] == 'POST') { // Если метод запроса POST, то выполнить следующий блок кода
-                        require("config.php"); // Подключение файла с параметрами подключения к базе данных
-                        $prece_ID = $_POST['Apskatīt']; // Получение значения ID товара из формы, отправленной методом POST
-                        // SQL запрос для получения данных о товаре с заданным ID
+                    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                        require("config.php"); 
+
+                        // Iegūstam preces ID no ievades formas
+                        $prece_ID = $_POST['Apskatīt']; 
+                       
+                         // SQL vaicājums, lai izgūtu informāciju par preces ierakstu, kurām prece_ID=$prece_ID"
                         $par_preceSQL = "SELECT prece.prece_ID, prece.Nosaukums_prece, prece.Cena, prece.Statuss, prece.Apraksts_prece, prece.Attela_prece, prece.Ipatnibas_prece, 
                     kategorija.Nosaukums_kategorija, 
                     k_apakssadala.Nosaukums_sadala,
@@ -58,16 +52,21 @@ if (isset($_SESSION['admin_name'])) { // Проверка, авторизова�
                     LEFT JOIN pardevejs
                     ON Pardevejs_ID = prece.ID_Pardevejs
                     WHERE prece_ID=$prece_ID";
-                        $atlasa_apraksts = mysqli_query($conn, $par_preceSQL) or die("Nekorekts vaicājums"); // Выполнение SQL запроса и сохранение результатов в переменную $atlasa_apraksts
-                        while ($row = mysqli_fetch_assoc($atlasa_apraksts)) { // Итерация по результатам запроса с помощью функции mysqli_fetch_assoc
+                        $atlasa_apraksts = mysqli_query($conn, $par_preceSQL) or die("Nekorekts vaicājums"); 
+                        
+                        // Attēlojam informāciju par preces ierakstu
+                        while ($row = mysqli_fetch_assoc($atlasa_apraksts)) { 
                 
                             $image_path = '';
+
+                              // Noteikam attēla ceļu
                             if (file_exists($row['Attela_prece'])) {
                                 $image_path = $row['Attela_prece'];
                             } elseif (file_exists('../masters/' . $row['Attela_prece'])) {
                                 $image_path = '../masters/' . $row['Attela_prece'];
                             }
-                            // Полный вывод информации о товаре
+
+                             // Attēlojam informāciju par preces ierakstu
                             echo " 
                             <img src='{$image_path}' title='Fotoattēls' class='fixed-size-img'>
                             <h3>{$row['Nosaukums_prece']}</h3>
@@ -81,17 +80,15 @@ if (isset($_SESSION['admin_name'])) { // Проверка, авторизова�
                             ";
                         }
                     } else {
-                        echo "Tabula nav datu ko attēlot"; // Если данных нет, то выводится сообщение "Tabula nav datu ko attēlot" 
+                        echo "Tabula nav datu ko attēlot"; 
                     }
                     ?>
                     <input type="button" onclick="history.back();" title='Preces' value="Atpakaļ" class="btn ">
-                    <!--Кнопка, которая перенаправляет пользователя на предыдущую страницу в истории браузера при нажатии -->
                 </div>
 
             </div>
         </section>
 
-        <!-- закрывающий тег для раздела страницы, который содержит информацию об авторских правах и дизайне веб-сайта. -->
         <?php include 'footer_adm.php'; ?>
         <?php
 }

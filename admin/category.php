@@ -36,22 +36,27 @@ if (isset($_SESSION['admin_name'])) {
         </header>
 
         <section id="forInfo">
-        <div class="row" style="padding-bottom: 5px;">
+            <div class="row" style="padding-bottom: 5px;">
                 <div class="info">
                     <div class="head-info head-color">Kategoriju administrēšana: <br>
                     </div>
                     <table>
                         <tr>
                             <th>Kategorijas nosaukumus</th>
-                            <th><a class='btn2' title="Pievienot kategoriju" href="add_category.php">Pievienot kategoriju</a></th>
+                            <th><a class='btn2' title="Pievienot kategoriju" href="add_category.php">Pievienot
+                                    kategoriju</a></th>
                             <th></th>
                         </tr>
 
                         <?php
+                        // Izveidot vaicājumu, lai iegūtu visus ierakstus no tabulas `kategorija`
                         $kategorijaSQL = "SELECT * FROM kategorija";
+                        // Izpildīt vaicājumu
                         $atlasa_kategorija = mysqli_query($conn, $kategorijaSQL) or die("Nekorekts vaicājums");
 
+                        // Pārbaudīt, vai ir iegūti kādi ieraksti
                         if (mysqli_num_rows($atlasa_kategorija) > 0) {
+                            // Ja ir ieraksti, izvadīt katru ierakstu
                             while ($row = mysqli_fetch_assoc($atlasa_kategorija)) {
                                 ?>
                                 <tr>
@@ -60,7 +65,7 @@ if (isset($_SESSION['admin_name'])) {
                                     </td>
                                     <td>
                                         <a class='btn2' href="delete_cat.php?Kategorija_ID=<?php echo $row['Kategorija_ID']; ?>"><i
-                                                class="fa fa-trash" aria-hidden="true" ></i></a>
+                                                class="fa fa-trash" aria-hidden="true"></i></a>
 
                                     </td>
                                 </tr>
@@ -68,6 +73,7 @@ if (isset($_SESSION['admin_name'])) {
                                 <?php
                             }
                         } else {
+                             // Ja nav ierakstu, izvadīt atbilstošu ziņu
                             echo "<tr><td colspan='4'>Tabulā nav ierakstu.</td></tr>";
                         }
                         ?>
@@ -80,20 +86,25 @@ if (isset($_SESSION['admin_name'])) {
         <section id="forInfo">
             <div class="row">
                 <div class="info">
-                    <div class="head-info head-color">apakšsadaļu administrēšana: <br>
+                    <div class="head-info head-color">Apakšsadaļu administrēšana: <br>
                     </div>
                     <table>
                         <tr>
                             <th>Apakšsadaļu nosaukumus</th>
-                            <th><a class='btn2' title="Pievienot Apakšsadaļu" href="add_subtitle.php">Pievienot Apakšsadaļu</a></th>
+                            <th><a class='btn2' title="Pievienot Apakšsadaļu" href="add_subtitle.php">Pievienot
+                                    Apakšsadaļu</a></th>
                             <th></th>
                         </tr>
 
                         <?php
+                        // Izveidot vaicājumu, lai iegūtu visus ierakstus no tabulas `k_apakssadala`
                         $subtitleSQL = "SELECT * FROM k_apakssadala";
+                        // Izpildīt vaicājumu
                         $atlasa_subtitle = mysqli_query($conn, $subtitleSQL) or die("Nekorekts vaicājums");
 
+                        // Pārbaudīt, vai ir iegūti kādi ieraksti
                         if (mysqli_num_rows($atlasa_subtitle) > 0) {
+                            // Ja ir ieraksti, izvadīt katru ierakstu
                             while ($row = mysqli_fetch_assoc($atlasa_subtitle)) {
                                 ?>
                                 <tr>
@@ -103,7 +114,7 @@ if (isset($_SESSION['admin_name'])) {
                                     <td>
                                         <a class='btn2' title="Dzēst"
                                             href="delete_subtitle.php?Kapakssadala_ID=<?php echo $row['Kapakssadala_ID']; ?>"><i
-                                                class="fa fa-trash" aria-hidden="true" ></i></a>
+                                                class="fa fa-trash" aria-hidden="true"></i></a>
 
                                     </td>
                                 </tr>
@@ -111,6 +122,7 @@ if (isset($_SESSION['admin_name'])) {
                                 <?php
                             }
                         } else {
+                            // Ja nav ierakstu, izvadīt atbilstošu ziņu
                             echo "<tr><td colspan='4'>Tabulā nav ierakstu.</td></tr>";
                         }
                         ?>
@@ -124,12 +136,14 @@ if (isset($_SESSION['admin_name'])) {
 
         <?php include 'footer_adm.php'; ?>
         <script>
+            //Šis kods ir JavaScript kods, kas nodrošina funkcionalitāti izvēlnes atvēršanai un aizvēršanai, kad tiek noklikšķināts uz izvēlnes poga. (Maziem ekrāniem)
             const menuToggle = document.querySelector('.menu-toggle');
             const navbar = document.querySelector('.navbar');
 
             menuToggle.addEventListener('click', () => {
                 navbar.classList.toggle('show');
-            });</script>
+            });
+        </script>
         <?php
 }
 ?>

@@ -1,8 +1,8 @@
 <?php
-require("admin/config.php"); // Подключение файла с настройками подключения к базе данных
-session_start(); // Начало новой сессии
-if (isset($_POST['add'])) { // Проверка, была ли нажата кнопка "Добавить"
-    // Получение данных о новом товаре из формы
+require("admin/config.php");
+session_start();
+if (isset($_POST['add'])) {
+    // Pārbaude un sagatavošana ievadītajiem datiem
     $Vards_pardevejs = mysqli_real_escape_string($conn, $_POST['Vards_pardevejs']);
     $Uzvards_pardevejs = mysqli_real_escape_string($conn, $_POST['Uzvards_pardevejs']);
     $E_pasts_pardevejs = mysqli_real_escape_string($conn, $_POST['E_pasts_pardevejs']);
@@ -12,7 +12,7 @@ if (isset($_POST['add'])) { // Проверка, была ли нажата кн
     $Attela_URL = mysqli_real_escape_string($conn, $_POST['Attela_URL']);
     $Parole_pardevejs = md5($_POST['Parole_pardevejs']);
 
-    // Handle image upload
+    // Apstrādā attēla augšupielādi
     $file = $_FILES['image'];
     $fileName = $file['name'];
     $fileTmpName = $file['tmp_name'];
@@ -23,16 +23,18 @@ if (isset($_POST['add'])) { // Проверка, была ли нажата кн
 
     if (in_array($fileExt, $allowedExt)) {
         if ($fileError === 0) {
-            if ($fileSize < 500000) { // maximum file size allowed
+            if ($fileSize < 500000) {
                 $newFileName = uniqid('', true) . "." . $fileExt;
                 $fileDestination = 'admin/uploads/' . $newFileName;
                 move_uploaded_file($fileTmpName, $fileDestination);
-                // Insert data to database
+
+                // Pārbaude vai e-pasta adrese jau ir izmantota
                 $select = " SELECT * FROM pardevejs WHERE E_pasts_pardevejs = '$E_pasts_pardevejs' ";
                 $result = mysqli_query($conn, $select);
                 if (mysqli_num_rows($result) > 0) {
                     $error[] = 'Šī e-pasta adrese jau tiek izmantota.';
                 } else {
+                    // Jauna pardevēja ievietošana datubāzē
                     mysqli_query($conn, "INSERT INTO `pardevejs`(`Vards_pardevejs`, `Uzvards_pardevejs`, `E_pasts_pardevejs`, `T_numurs_pardevejs`, `Apraksts`, `Brenda_nosaukums`, `Attela_URL`, `Parole_pardevejs`) 
                               VALUES ('$Vards_pardevejs','$Uzvards_pardevejs','$E_pasts_pardevejs','$T_numurs_pardevejs','$Apraksts','$Brenda_nosaukums','$fileDestination','$Parole_pardevejs')");
                     header('location:admin/welcome.php');
@@ -55,13 +57,10 @@ if (isset($_POST['add'])) { // Проверка, была ли нажата кн
 <html lang="en">
 
 <head>
-    <!-- Мета данные  -->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pārdevēja pieteikšanās forma</title><!--заголовок страницы -->
-    <!--подключение таблицы стилей для страницы административной панели -->
-    <!--подключение иконки для вкладки браузера -->
+    <title>Pārdevēja pieteikšanās forma</title>
     <link rel="shortcut icon" href="./assets/img/favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="admin/css/css.css">
     <link rel="stylesheet" href="assets/css/login.css">
@@ -70,26 +69,21 @@ if (isset($_POST['add'])) { // Проверка, была ли нажата кн
 </head>
 
 <body>
-    <!-- (header) веб-страницы административной панели -->
     <header>
-        <a class="logo"><span style="font-weight: bold; color: white;">Pārdevēja </span> reģistrācijas forma</a><!--логотип административной панели (Название) -->
+        <a class="logo"><span style="font-weight: bold; color: white;">Pārdevēja </span> reģistrācijas
+            forma</a>
         <button class="menu-toggle" aria-label="Toggle navigation menu">
             <span></span>
             <span></span>
             <span></span>
         </button>
-        <nav class="navbar"><!-- навигационное меню: 
-                                    ссылка на страницу статистики и профиля, 
-                                    ссылка на страницу всех товаров,
-                                    ссылка на страницу всех продавцов ,
-                                    ссылка на страницу категорий товаров -->
+        <nav class="navbar">
             <a href="index.php">Sākumlapa</a>
             <a href="shop.php">Preces</a>
             <a href="masters.php">Pārdevēji</a>
             <a href="policy.php">Mūsu politika</a>
             <a href="login_master.php" class="active"></i>Pieslēgties / Reģistrācija</a>
-            <a href="login_admin.php"><i
-                    class="fa-solid fa-user-lock"></i></a><!--ссылка на страницу выхода из административной панели с иконкой.  "Актирная"-->
+            <a href="login_admin.php"><i class="fa-solid fa-user-lock"></i></a>
         </nav>
     </header>
 
@@ -102,17 +96,15 @@ if (isset($_POST['add'])) { // Проверка, была ли нажата кн
                     echo '<span class="error-msg">' . $errorMsg . '</span>';
                 }
             }
+            //Forma ietver ievades laukus, kur lietotājs ievada savus datus, kā arī pogu "Reģistrēt" un saites uz sākumlapu un ienākšanu, ja jau ir reģistrēts. 
+            //Pēc formu iesniegšanas dati tiks nosūtīti uz tādu pašu lapu (action=""), 
+            //kur notiks datu apstrāde un ievietošana datubāzē, kā redzēts iepriekšējā PHP kodā.
             ?>
             <input type="text" name="Vards_pardevejs" required placeholder="Vārds">
-            <!--Это текстовое поле требует от пользователя ввести название товара и является обязательным для заполнения.  "placeholder" указывает, что ожидается ввод названия товара.-->
-            <input type="text" name="Uzvards_pardevejs" required
-                placeholder="Uzvārds"><!--Это текстовое поле требует от пользователя ввести цену товара и является обязательным для заполнения.  "placeholder" указывает, что ожидается ввод названия товара.-->
-            <input type="email" name="E_pasts_pardevejs" required
-                placeholder="E-pasts"><!--Эта строка создает текстовое поле для ввода описания продукта. Высота 200 пикселей-->
+            <input type="text" name="Uzvards_pardevejs" required placeholder="Uzvārds">
+            <input type="email" name="E_pasts_pardevejs" required placeholder="E-pasts">
             <input type="text" name="T_numurs_pardevejs" placeholder="Telefona numurs (Nav obligāts)">
-            <!--Это текстовое поле требует от пользователя ввести ссылку на фотографию на товара.  "placeholder" указывает, что ожидается ввод названия товара.-->
             <textarea name="Apraksts" placeholder="Apraksts (Nav obligāts)" style="height: 200px;"></textarea>
-            <!--Эта строка создает текстовое поле для ввода ос продукта. Высота 200 пикселей-->
             <input type="text" name="Brenda_nosaukums" required placeholder="Brenda nosaukums">
             <input type="file" name="image" required title="Logo">
             <input type="password" name="Parole_pardevejs" required placeholder="Parole">
@@ -122,9 +114,10 @@ if (isset($_POST['add'])) { // Проверка, была ли нажата кн
 
         </form>
 
-        <!-- закрывающий тег для раздела страницы, который содержит информацию об авторских правах и дизайне веб-сайта. -->
+
         <?php include 'admin/footer_adm.php'; ?>
         <script>
+            //Šis kods ir JavaScript kods, kas nodrošina funkcionalitāti izvēlnes atvēršanai un aizvēršanai, kad tiek noklikšķināts uz izvēlnes poga. (Maziem ekrāniem)
             const menuToggle = document.querySelector('.menu-toggle');
             const navbar = document.querySelector('.navbar');
 

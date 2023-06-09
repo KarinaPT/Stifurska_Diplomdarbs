@@ -45,38 +45,44 @@ session_start();
                         <th>Nosaukums</th>
                         <th>Cena</th>
                         <th>Pārdevējs</th>
-                        <th><a class='btn2' title='Pievienot jaunu prece' href="add_prod.php">Pievienot jaunu preci</a></th>
+                        <th><a class='btn2' title='Pievienot jaunu prece' href="add_prod.php">Pievienot jaunu preci</a>
+                        </th>
                         <th></th>
                     </tr>
 
                     <?php
-                    require("config.php");
+                    require("config.php"); // Iekļauj konfigurācijas failu, kas satur datubāzes savienojuma iestatījumus
                     $preceSQL = "SELECT prece.prece_ID, prece.Nosaukums_prece, prece.Cena, 
                             pardevejs.Brenda_nosaukums
                             FROM prece
                             JOIN pardevejs
-                            ON Pardevejs_ID = prece.ID_Pardevejs;";
-                    $atlasa_prece = mysqli_query($conn, $preceSQL) or die("Nekorekts vaicājums");
+                            ON Pardevejs_ID = prece.ID_Pardevejs;"; /* Šī SQL vaicājuma mērķis ir atlasīt datus no "prece" un "pardevejs" tabulām, izmantojot JOIN apvienošanu. Rezultātā tiks iegūtas kolonnas 
+                                 "prece_ID", "Nosaukums_prece", "Cena" un "Brenda_nosaukums". Šie dati tiks izmantoti vēlāk, 
+                                 lai aizpildītu tabulu vai veiktu citus datu apstrādes soļus. */
+                    $atlasa_prece = mysqli_query($conn, $preceSQL) or die("Nekorekts vaicājums"); // Izpilda vaicājumu un atgriež rezultātu resursu vai izvada kļūdas ziņojumu
                     if (mysqli_num_rows($atlasa_prece) > 0) {
                         while ($row = mysqli_fetch_assoc($atlasa_prece)) {
+                            // Izvada preču datus tabulas rindiņā
                             ?>
                             <tr>
                                 <td>
-                                    <?php echo $row['Nosaukums_prece']; ?>
+                                    <?php echo $row['Nosaukums_prece']; ?> <!-- Izvada preces nosaukumu -->
                                 </td>
                                 <td>
-                                    <?php echo $row['Cena']; ?>€
+                                    <?php echo $row['Cena']; ?>€ <!-- Izvada preces cenu -->
                                 </td>
                                 <td>
-                                    <?php echo $row['Brenda_nosaukums']; ?>
+                                    <?php echo $row['Brenda_nosaukums']; ?> <!-- Izvada preces brenda nosaukumu -->
                                 </td>
                                 <td>
-                                    <a title="Dzēst" class='btn2' href="delete_prod.php?prece_ID=<?php echo $row['prece_ID']; ?>"><i
-                                            class="fa fa-trash" aria-hidden="true"></i></a>
+                                    <a title="Dzēst" class='btn2'
+                                        href="delete_prod.php?prece_ID=<?php echo $row['prece_ID']; ?>"><i class="fa fa-trash"
+                                            aria-hidden="true"></i></a> <!-- "Dzēst sadaļa" ar atbilstošu ikonu un ID -->
                                     <form action='about_prod.php' method='post'>
                                         <button type='submit' class='btn2' name='Apskatīt' value=<?php echo $row['prece_ID']; ?>
                                             title="Detalizēts preču apraksts">
                                             <a><i class="far fa-clipboard" aria-hidden="true"></i></a>
+                                            <!-- "Apskatīt sadaļa" ar atbilstošu ikonu un ID -->
                                         </button>
                                     </form>
                                 </td>
@@ -85,7 +91,7 @@ session_start();
                             <?php
                         }
                     } else {
-                        echo "<tr><td colspan='4'>Tabulā nav ierakstu.</td></tr>";
+                        echo "<tr><td colspan='4'>Tabulā nav ierakstu.</td></tr>"; // Izvada paziņojumu, ja nav ierakstu
                     }
                     ?>
 
@@ -99,6 +105,7 @@ session_start();
 
     <?php include 'footer_adm.php'; ?>
     <script>
+        //Šis kods ir JavaScript kods, kas nodrošina funkcionalitāti izvēlnes atvēršanai un aizvēršanai, kad tiek noklikšķināts uz izvēlnes poga. (Maziem ekrāniem)
         const menuToggle = document.querySelector('.menu-toggle');
         const navbar = document.querySelector('.navbar');
 

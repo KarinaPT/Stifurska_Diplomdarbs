@@ -137,6 +137,7 @@
 
     <?php include 'footer_adm.php'; ?>
     <script>
+        //Šis kods ir JavaScript kods, kas nodrošina funkcionalitāti izvēlnes atvēršanai un aizvēršanai, kad tiek noklikšķināts uz izvēlnes poga. (Maziem ekrāniem)
       const menuToggle = document.querySelector('.menu-toggle');
       const navbar = document.querySelector('.navbar');
 

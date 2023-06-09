@@ -15,7 +15,6 @@
 
 <body class="bg-light">
 
-    <!-- Header -->
     <nav class="navbar navbar-expand-lg navbar-light shadow bg-dark">
         <div class="container d-flex justify-content-between align-items-center">
 
@@ -59,19 +58,18 @@
 
         </div>
     </nav>
-    <!-- Close Header -->
 
     <section class="bg-light">
         <div class="container pb-5">
             <?php
-            require("admin/config.php");
-            $Pardevejs_ID = $_GET['Pardevejs_ID'];
+            require("admin/config.php"); // Iekļauj konfigurācijas failu un izveido datu bāzes savienojumu
+            $Pardevejs_ID = $_GET['Pardevejs_ID']; // Iegūst Pardevejs_ID parametru no URL
             $pardevejsSQL = "SELECT *
             FROM pardevejs
-            WHERE Pardevejs_ID=$Pardevejs_ID";
-
+            WHERE Pardevejs_ID=$Pardevejs_ID"; // SQL vaicājums, kas atlasa datus no tabulas "pardevejs" pēc Pardevejs_ID
+            
             $precesCountSQL = "SELECT COUNT(*) AS precesCount FROM prece WHERE Pardevejs_ID = $Pardevejs_ID";
-
+            // Izpilda SQL vaicājumu un iegūst rezultātu
             $atlasaPardevejs = mysqli_query($conn, $pardevejsSQL) or die("Nekorekts vaicājums");
             if (mysqli_num_rows($atlasaPardevejs) > 0) {
                 while ($row = mysqli_fetch_assoc($atlasaPardevejs)) {
@@ -80,20 +78,20 @@
                         <div class="col-lg-5 mt-5">
                             <div class="card mb-3">
                                 <?php
-                                $image_path = '';
+                                $image_path = ''; // Mainīgais, kurā tiks glabāta attēla ceļš
 
                                 if (file_exists('admin/' . $row['Attela_URL'])) {
-                                    $image_path = 'admin/' . $row['Attela_URL'];
+                                    $image_path = 'admin/' . $row['Attela_URL']; // Ja attēls atrodas "admin" mapē, iestatām attiecīgo ceļu
                                 } elseif (file_exists('masters/' . $row['Attela_URL'])) {
-                                    $image_path = 'masters/' . $row['Attela_URL'];
+                                    $image_path = 'masters/' . $row['Attela_URL']; // Ja attēls atrodas "masters" mapē, iestatām attiecīgo ceļu
                                 } elseif (file_exists($row['Attela_URL'])) {
-                                    $image_path = $row['Attela_URL'];
+                                    $image_path = $row['Attela_URL']; // Ja attēls atrodas pašā saknes mapē, iestatām attiecīgo ceļu
                                 }
 
                                 if ($image_path) {
                                     echo '<img src="' . $image_path . '" title="Logo" class="card-img-top fixed-size-img-prof" alt="...">';
                                 } else {
-                                    echo 'Attēls nav atrasts.';
+                                    echo 'Attēls nav atrasts.'; //Ja attēls nav atrasts, izvadam atbilstošu paziņojumu
                                 }
                                 ?>
                             </div>
@@ -145,7 +143,7 @@
                                                 </strong></p>
                                         </li>
                                     </ul>
-  
+
 
                                     <h5><b>Apraksts:</b></h5>
                                     <p class="text-black">
@@ -155,7 +153,8 @@
                                     <form action="" method="GET">
                                         <div class="row pb-3">
                                             <div class="col d-grid">
-                                                <a title="Sazināties" href="https://mail.google.com/mail/?view=cm&to=<?php echo $row['E_pasts_pardevejs']; ?>"
+                                                <a title="Sazināties"
+                                                    href="https://mail.google.com/mail/?view=cm&to=<?php echo $row['E_pasts_pardevejs']; ?>"
                                                     target="_blank" class="btn btn-success btn-lg">
                                                     Sazinies ar pārdevēju
                                                 </a>
@@ -176,9 +175,6 @@
         </div>
     </section>
 
-
-
-    <!-- Start Content -->
     <div class="container py-5 ">
         <div class="row">
 
@@ -187,28 +183,16 @@
             </div>
 
             <div class="col-lg-9">
-                <!-- <div class="row">
-                    <div class="col-md-6 pb-4">
-                        <div class="d-flex">
-                            <select class="form-control">
-                                <option>Featured</option>
-                                <option>A to Z</option>
-                                <option>Item</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            -->
                 <div class="row bg-light">
                     <div class="row bg-light">
                         <?php
-                        require("admin/config.php");
+                        require("admin/config.php"); // Iekļaujam datu bāzes konfigurācijas failu
                         $prece = "SELECT prece.prece_ID, prece.Attela_prece,prece.Nosaukums_prece,prece.Cena
                           FROM prece
                           JOIN pardevejs ON Pardevejs_ID = ID_Pardevejs
-                            WHERE Pardevejs_ID = $Pardevejs_ID";
+                            WHERE Pardevejs_ID = $Pardevejs_ID"; // SQL vaicājums, lai atlasītu preces, kas pieder konkrētam pārdevējam
                         $atlasaPrece = mysqli_query($conn, $prece) or die("Nekorekts vaicājums");
-                        $count = 0;
+                        $count = 0;  // Mainīgais, lai skaitītu atgrieztās preces skaits
                         if (mysqli_num_rows($atlasaPrece) > 0) {
                             while ($row = mysqli_fetch_assoc($atlasaPrece)) {
                                 ?>
@@ -216,18 +200,19 @@
                                     <div class="card mb-4 product-wap rounded-0 ">
                                         <div class="card rounded-0">
                                             <?php
+                                            // Mainīgais, lai glabātu attēla ceļu
                                             $image_path = '';
 
-                                            if (file_exists('admin/' . $row['Attela_prece'])) {
+                                            if (file_exists('admin/' . $row['Attela_prece'])) { // Pārbaudām vai attēls eksistē admin mapē
                                                 $image_path = 'admin/' . $row['Attela_prece'];
-                                            } elseif (file_exists('masters/' . $row['Attela_prece'])) {
+                                            } elseif (file_exists('masters/' . $row['Attela_prece'])) { // Pārbaudām vai attēls eksistē masters mapē
                                                 $image_path = 'masters/' . $row['Attela_prece'];
                                             }
 
-                                            if ($image_path) {
+                                            if ($image_path) { // Pārbaudām vai ir atrasts attēla ceļš
                                                 echo '<img src="' . $image_path . '" title="Fotoattēls" class="card-img-top fixed-size-img-list" alt="...">';
                                             } else {
-                                                echo 'Attēls nav atrasts.';
+                                                echo 'Attēls nav atrasts.'; // Ja attēls nav atrasts, izvadam ziņojumu
                                             }
                                             ?>
 
@@ -251,9 +236,9 @@
                                     </div>
                                 </div>
                                 <?php
-                                $count++;
-                                if ($count % 3 == 0) {
-                                    echo '</div><div class="row bg-light">';
+                                $count++; // Palielinām skaitītāju par vienu
+                                if ($count % 3 == 0) { // Pārbaudām vai skaitītājs dalās bez atlikuma ar 3
+                                    echo '</div><div class="row bg-light">'; // Ja dalās bez atlikuma, aizveram iepriekšējo rindu un sākam jaunu rindā
                                 }
                             }
                         } else {
@@ -266,19 +251,13 @@
 
         </div>
     </div>
-    <!-- End Content -->
 
-    <!-- Start Footer -->
     <?php include 'footer.php'; ?>
-    <!-- End Footer -->
 
-    <!-- Start Script -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <!-- Подключаем плагин Bootstrap -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
-    <!-- End Script -->
 </body>
 
 </html>

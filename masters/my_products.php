@@ -41,19 +41,26 @@ if (isset($_SESSION['user_name'])) {
                         <tr>
                             <th>Nosaukums</th>
                             <th>Cena</th>
-                            <th><a class='btn2' title='Pievienot jaunu prece' href="add_my_prod.php">Pievienot jaunu preci</a></th>
+                            <th><a class='btn2' title='Pievienot jaunu prece' href="add_my_prod.php">Pievienot jaunu
+                                    preci</a></th>
                             <th></th>
                         </tr>
 
                         <?php
+                        // Pievienojam konfigurācijas failu
                         require("../admin/config.php");
+
+                        // Izveidojam SQL vaicājumu, lai atlasītu preces
                         $preceSQL = "SELECT prece.prece_ID, prece.Nosaukums_prece, prece.Cena, 
                             pardevejs.Pardevejs_ID, pardevejs.E_pasts_pardevejs
                             FROM prece
                             JOIN pardevejs
                             ON Pardevejs_ID = prece.ID_Pardevejs
                             WHERE pardevejs.E_pasts_pardevejs = '" . $_SESSION['user_name'] . "'";
+
+                        // Izpildām vaicājumu un saņemam rezultātu rindiņas
                         $atlasa_prece = mysqli_query($conn, $preceSQL) or die("Nekorekts vaicājums");
+
                         if (mysqli_num_rows($atlasa_prece) > 0) {
                             while ($row = mysqli_fetch_assoc($atlasa_prece)) {
                                 ?>
@@ -66,7 +73,8 @@ if (isset($_SESSION['user_name'])) {
                                         <?php echo $row['Cena']; ?>€
                                     </td>
                                     <td>
-                                        <a title="Dzēst" class='btn2' href="delete_my_prod.php?prece_ID=<?php echo $row['prece_ID']; ?>"><i
+                                        <a title="Dzēst" class='btn2'
+                                            href="delete_my_prod.php?prece_ID=<?php echo $row['prece_ID']; ?>"><i
                                                 class="fa fa-trash" aria-hidden="true"></i></a>
                                         <form action='my_product_details.php' method='post'>
                                             <button type='submit' class='btn2' name='Apskatīt' value=<?php echo $row['prece_ID']; ?>
@@ -88,14 +96,16 @@ if (isset($_SESSION['user_name'])) {
             </div>
         </section>
 
-        <?php include '../admin/footer_adm.php'; ?> 
+        <?php include '../admin/footer_adm.php'; ?>
         <script>
+            //Šis kods ir JavaScript kods, kas nodrošina funkcionalitāti izvēlnes atvēršanai un aizvēršanai, kad tiek noklikšķināts uz izvēlnes poga. (Maziem ekrāniem)
             const menuToggle = document.querySelector('.menu-toggle');
             const navbar = document.querySelector('.navbar');
 
             menuToggle.addEventListener('click', () => {
                 navbar.classList.toggle('show');
-            });</script>
+            });
+        </script>
         <?php
 }
 ?>

@@ -1,9 +1,11 @@
 <?php
+// Šis PHP kods iekļauj nepieciešamās konfigurācijas faila (config.php) iekļaušanu un sesijas sākšanu. 
+// Tas pārbauda, vai sesijā ir saglabāts lietotāja vārds (user_name) un izpilda papildu kodu, ja lietotājs ir pieslēdzies. 
 require("../admin/config.php");
 session_start();
 if (isset($_SESSION['user_name'])) {
-
     ?>
+
     <!DOCTYPE html>
     <html lang="en">
 
@@ -34,28 +36,33 @@ if (isset($_SESSION['user_name'])) {
         </header>
 
         <section id="description">
-            <h1>Profils
-            </h1>
+            <h1>Profils</h1>
             <div class="box-container">
                 <?php
+                // Šis kods veic vaicājumu, lai atlasītu pardevēju ar noteiktu e-pasta adresi, kas saglabāta $_SESSION['user_name'] mainīgajā. 
+                // Ja vaicājums nav veiksmīgs, tad izvadīsies kļūdas paziņojums "Nekorekts vaicājums". 
                 $lietotajsSQL = "SELECT * FROM pardevejs WHERE E_pasts_pardevejs = '" . $_SESSION['user_name'] . "'";
                 $atlasa_lietotajs = mysqli_query($conn, $lietotajsSQL) or die("Nekorekts vaicājums");
 
                 if (mysqli_num_rows($atlasa_lietotajs) > 0) {
                     while ($row = mysqli_fetch_assoc($atlasa_lietotajs)) {
-                        $T_numurs_pardevejs = $row['T_numurs_pardevejs']; // сохраняем значение T_numurs в отдельной переменной
+                        // Izgūstu nepieciešamās vērtības no datu rindas
+                        $T_numurs_pardevejs = $row['T_numurs_pardevejs'];
                         $Pardevejs_ID = $row['Pardevejs_ID'];
-                        $Attela_URL = $row['Attela_URL']; 
-                        $Apraksts = $row['Apraksts'];// сохраняем значение Administrators_ID в отдельной переменной
+                        $Attela_URL = $row['Attela_URL'];
+                        $Apraksts = $row['Apraksts'];
 
+                        // Noteiku attēla ceļu
                         $image_path = '';
                         if (file_exists($row['Attela_URL'])) {
                             $image_path = $row['Attela_URL'];
                         } elseif (file_exists('../admin/' . $row['Attela_URL'])) {
                             $image_path = '../admin/' . $row['Attela_URL'];
-                        }elseif (file_exists('../' . $row['Attela_URL'])) {
+                        } elseif (file_exists('../' . $row['Attela_URL'])) {
                             $image_path = '../' . $row['Attela_URL'];
                         }
+
+                        // Attēloju datus un veidoju saites
                         echo "
                             <div class='box'>
                             <img src='{$image_path}' class='fixed-size-img-prof' title='Logo'>
@@ -67,13 +74,14 @@ if (isset($_SESSION['user_name'])) {
                             <p><b>Loma: </b>{$row['Loma']}</p>
                             <p><b>Apraksts: </b>{$row['Apraksts']}</p>   
                             <a class='btn' title='Rediģēt Profilu' href='edit_my_prof.php?Pardevejs_ID={$Pardevejs_ID}&E_pasts_pardevejs={$_SESSION['user_name']}&T_numurs_pardevejs={$T_numurs_pardevejs}
-                            &Attela_URL={$Attela_URL}&Apraksts={$Apraksts}'>Rediģēt Profilu</a>
+                            &Attela_URL={$Attela_URL}&Apraksts={$Apraksts}'>Rediģēt profilu</a>
                             <a class='btn' title='Rediģēt parole' href='edit_password.php?Pardevejs_ID={$Pardevejs_ID}'>Rediģēt parole</a>
                            
                             
                         ";
                     }
                 } else {
+                    // Ja tabulā nav datu, attēloju paziņojumu un veicu pāradresāciju
                     echo "Tabula nav datu ko attēlot";
                     header("location:../admin/confirmation.php");
                 }
@@ -82,6 +90,8 @@ if (isset($_SESSION['user_name'])) {
         </section>
 
         <?php
+        /*Šis kods veic SQL vaicājumu, lai atlasītu "prece" un "pardevejs" tabulu ierakstus, kur "E_pasts_pardevejs" kolonna "pardevejs" tabulā atbilst $_SESSION['user_name'] vērtībai. 
+        Vaicājums arī aprēķina "prece.prece_ID" ierakstu skaitu un saglabā rezultātu mainīgajā "total". */
         $sql = "SELECT COUNT(prece.prece_ID) AS total,
         pardevejs.Pardevejs_ID, pardevejs.E_pasts_pardevejs
         FROM prece
@@ -93,6 +103,7 @@ if (isset($_SESSION['user_name'])) {
         ?>
 
         <?php
+        //Šis kods veic SQL vaicājumu, lai atlasītu datus no "administrators" tabulas un saglabātu "E_pasts" vērtību mainīgajā "phone_number", lai pēctam to izmantot
         $sql2 = "SELECT * FROM administrators";
         $result = mysqli_query($conn, $sql2);
         $data2 = mysqli_fetch_assoc($result);
@@ -100,6 +111,8 @@ if (isset($_SESSION['user_name'])) {
         ?>
 
         <section id="statistics">
+            <!-- Šis kods iekļauj divus blokus ar statistikas informāciju. Pirmajā blokā tiek parādīts "total" vērtība, kas ir atgriezta no SQL vaicājuma un attēlo preču skaitu. 
+            Otrajā blokā tiek attēlots administrators ar viņa e-pasta adresi un saiti, lai atvērtu e-pastu.-->
             <div class="icons-container">
                 <div class="icons">
                     <h1> Statistika</h1>
@@ -117,23 +130,26 @@ if (isset($_SESSION['user_name'])) {
                         <?php echo $data2['E_pasts'] ?>
                     </h3>
                     <p style="font-size:18px">E-pasts</p>
-                    <a class='btn' title='Sazināties'  target="_blank" href="https://mail.google.com/mail/?view=cm&to=<?php echo $data2['E_pasts']; ?>">Atvērt
+                    <a class='btn' title='Sazināties' target="_blank"
+                        href="https://mail.google.com/mail/?view=cm&to=<?php echo $data2['E_pasts']; ?>">Atvērt
                         e-pastu</a>
 
                 </div>
             </div>
-
-
         </section>
 
         <?php include '../admin/footer_adm.php'; ?>
+
         <script>
+            //Šis kods ir JavaScript kods, kas nodrošina funkcionalitāti izvēlnes atvēršanai un aizvēršanai, kad tiek noklikšķināts uz izvēlnes poga. (Maziem ekrāniem)
             const menuToggle = document.querySelector('.menu-toggle');
             const navbar = document.querySelector('.navbar');
 
             menuToggle.addEventListener('click', () => {
                 navbar.classList.toggle('show');
-            });</script>
+            });
+        </script>
+
         <?php
 }
 ?>

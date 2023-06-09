@@ -1,15 +1,18 @@
 <?php
-require("../admin/config.php"); // Подключение файла с настройками подключения к базе данных
-session_start(); // Начало новой сессии
+/* Šis PHP kods iekļauj nepieciešamās konfigurācijas faila (config.php) iekļaušanu un sesijas sākšanu. Tas iegūst lietotāja e-pastu no sesijas ($_SESSION['user_name']) 
+un veic vaicājumu, lai iegūtu Pardevejs_ID no datubāzes tabulas "pardevejs". Rezultātā tiek iegūts lietotāja ID ($Pardevejs_ID), kas var tikt izmantots turpmākajam kodam.*/
+require("../admin/config.php");
+session_start();
+
 $email = $_SESSION['user_name'];
 $query = "SELECT Pardevejs_ID FROM pardevejs WHERE E_pasts_pardevejs = '$email'";
 $result = mysqli_query($conn, $query);
 $user = mysqli_fetch_assoc($result);
 $Pardevejs_ID = $user['Pardevejs_ID'];
 
-if (isset($_SESSION['user_name'])) { // Проверка, авторизован ли пользователь в системе
-    if (isset($_POST['add'])) { // Проверка, была ли нажата кнопка "Добавить"
-        // Получение данных о новом товаре из формы
+if (isset($_SESSION['user_name'])) {
+    if (isset($_POST['add'])) {
+        // Saglabāju saņemtos datus no lietotāja ievades formas
         $Nosaukums_prece = mysqli_real_escape_string($conn, $_POST['Nosaukums_prece']);
         $Cena = mysqli_real_escape_string($conn, $_POST['Cena']);
         $Apraksts_prece = mysqli_real_escape_string($conn, $_POST['Apraksts_prece']);
@@ -18,38 +21,45 @@ if (isset($_SESSION['user_name'])) { // Проверка, авторизован
         $Kategorija_ID = mysqli_real_escape_string($conn, $_POST['Kategorija_ID']);
         $Kapakssadala_ID = mysqli_real_escape_string($conn, $_POST['Kapakssadala_ID']);
 
-        $file = $_FILES['image'];
-        $fileName = $file['name'];
-        $fileTmpName = $file['tmp_name'];
-        $fileSize = $file['size'];
-        $fileError = $file['error'];
-        $fileExt = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
-        $allowedExt = array('jpg', 'jpeg', 'png', 'gif');
+        $file = $_FILES['image']; // Iegūstu faila informāciju no ievades
+        $fileName = $file['name']; // Iegūstu faila nosaukumu
+        $fileTmpName = $file['tmp_name']; // Iegūstu pagaidu faila nosaukumu
+        $fileSize = $file['size']; // Iegūstu faila izmēru
+        $fileError = $file['error']; // Iegūstu kļūdas kodu, ja tāda ir
+        $fileExt = strtolower(pathinfo($fileName, PATHINFO_EXTENSION)); // Iegūstu faila paplašinājumu (bez lielajiem burtiem)
+        $allowedExt = array('jpg', 'jpeg', 'png', 'gif'); // Atļautie faila paplašinājumi
         if (in_array($fileExt, $allowedExt)) {
+            // Pārbauda, vai faila paplašinājums ir atļauts.
             if ($fileError === 0) {
-                    if ($fileSize < 500000) {
-                        $newFileName = uniqid('', true) . "." . $fileExt;
-                        $fileDestination = 'uploads/' . $newFileName;
-                        move_uploaded_file($fileTmpName, $fileDestination);
+                 // Pārbauda, vai nav kļūdas, ielādējot failu.
+                if ($fileSize < 500000) {
+                    // Pārbauda, vai faila izmērs ir mazāks par 500 000 baitiem.
+                    $newFileName = uniqid('', true) . "." . $fileExt;
+                    $fileDestination = 'uploads/' . $newFileName;
+                    move_uploaded_file($fileTmpName, $fileDestination);
 
-                        // Вставка данных о новом товаре в базу данных
-                        mysqli_query($conn, "INSERT INTO `prece`(`Nosaukums_prece`, `Cena`, `Apraksts_prece`, `Attela_prece`, `Ipatnibas_prece`, `ID_Pardevejs`, `IDKapakssadala`, `ID_Kategorija`) 
+                    // Saglabājam datus datu bāzē
+                    mysqli_query($conn, "INSERT INTO `prece`(`Nosaukums_prece`, `Cena`, `Apraksts_prece`, `Attela_prece`, `Ipatnibas_prece`, `ID_Pardevejs`, `IDKapakssadala`, `ID_Kategorija`) 
         VALUES ('$Nosaukums_prece','$Cena','$Apraksts_prece','$fileDestination','$Ipatnibas_prece','$Pardevejs_ID','$Kapakssadala_ID','$Kategorija_ID')");
-                        header('location:my_products.php'); // Перенаправление на страницу со списком всех товаров     
-                    } else {
-                        $error[] = 'Faila izmērs ir pārāk liels';
-                        header("Refresh: 1; url=" . $_SERVER['HTTP_REFERER']);
-                    }
+
+                    header('location:my_products.php');
+                } else {
+                    // Ja faila izmērs ir pārāk liels, parādām kļūdas paziņojumu
+                    $error[] = 'Faila izmērs ir pārāk liels';
+                    header("Refresh: 1; url=" . $_SERVER['HTTP_REFERER']);
+                }
             } else {
+                // Ja radās kļūda augšupielādes procesā, parādām kļūdas paziņojumu
                 $error[] = 'Neizdevās augšupielādēt failu';
                 header("Refresh: 1; url=" . $_SERVER['HTTP_REFERER']);
             }
         } else {
+            // Ja faila formāts nav atļauts, parādām kļūdas paziņojumu
             $error[] = 'Atļautie faila formāti ir: JPG, JPEG, PNG, GIF';
             header("Refresh: 1; url=" . $_SERVER['HTTP_REFERER']);
         }
     } else {
-        // Получение данных из базы данных для формирования списков значений в форме добавления товара
+
         $kategorija = mysqli_query($conn, 'SELECT * FROM kategorija');
         $k_apakssadala = mysqli_query($conn, 'SELECT * FROM k_apakssadala');
     }
@@ -83,7 +93,7 @@ if (isset($_SESSION['user_name'])) { // Проверка, авторизован
             <form action="" method="post" enctype="multipart/form-data">
                 <h3>Reģistrācija</h3>
                 <?php
-                // Проверка наличия ошибок и вывод их на страницу
+                // Pārbaudu, vai ir kļūdas un izvadam tos kā kļūdas ziņojumus
                 if (isset($error)) {
                     foreach ($error as $error) {
                         echo '<span class="error-msg">' . $error . '</span>';
@@ -93,27 +103,25 @@ if (isset($_SESSION['user_name'])) { // Проверка, авторизован
                 ;
                 ?>
                 <input type="text" name="Nosaukums_prece" required placeholder="Nosaukums">
-                <!--Это текстовое поле требует от пользователя ввести название товара и является обязательным для заполнения.  "placeholder" указывает, что ожидается ввод названия товара.-->
-                <input type="number" step="00.01" name="Cena" required
-                    placeholder="Cena"><!--Это текстовое поле требует от пользователя ввести цену товара и является обязательным для заполнения.  "placeholder" указывает, что ожидается ввод названия товара.-->
-                <textarea name="Apraksts_prece" placeholder="Apraksts" style="height:200px;"></textarea>
-                <!--Эта строка создает текстовое поле для ввода описания продукта. Высота 200 пикселей-->
+                <!-- Ievades lauks, kur lietotājs ievada preces nosaukumu. Obligāts -->
+                <input type="number" step="00.01" name="Cena" required placeholder="Cena">
+                <!-- Ievades lauks, kur lietotājs ievada preces cenu. Obligāts -->
+                <textarea name="Apraksts_prece" required placeholder="Apraksts" style="height:200px;"></textarea>
+                <!-- Teksta lauks, kur lietotājs ievada preces aprakstu. Obligāts -->
                 <input type="file" name="image" required accept="image/*" title="Fotoattēls">
-                <!--Это текстовое поле требует от пользователя ввести ссылку на фотографию на товара.  "placeholder" указывает, что ожидается ввод названия товара.-->
-                <textarea name="Ipatnibas_prece" required placeholder="Īpatnības" style="height: 200px;"></textarea>
-                <!--Эта строка создает текстовое поле для ввода ос продукта. Высота 200 пикселей-->
+                <!-- Faila ielādes lauks, kur lietotājs ielādē attēlu. Obligāts -->
+                <textarea name="Ipatnibas_prece" placeholder="Īpatnības" style="height: 200px;"></textarea>
+                <!-- Teksta lauks, kur lietotājs ievada preces īpašības -->
                 <select name="Kategorija_ID" id="Kategorija_ID" required="true">
                     <option value="" disabled selected hidden>Kategorija</option>
-                    <!--первая опция в списке, которая скрыта (атрибут hidden) и используется в качестве placeholder, чтобы пользователь понимал, что должен выбрать. -->
                     <?php
+                    // Iegūstu visus pieejamos kategoriju nosaukumus un tos attēlojam kā izvēles opcijas
                     $sql = "SELECT Kategorija_ID, Nosaukums_kategorija FROM kategorija";
                     $result = mysqli_query($conn, $sql);
-                    if (mysqli_num_rows($result) > 0) { // проверю, что полученный результат запроса содержит как минимум одну строку
-                        while ($row = mysqli_fetch_assoc($result)) { //использую цикл while для получения каждой строки из результата запроса и вывожу ее в виде опции в выпадающем списке
+                    if (mysqli_num_rows($result) > 0) {
+                        while ($row = mysqli_fetch_assoc($result)) {
                             ?>
-                            <option value="<?= $row['Kategorija_ID'] ?>">
-                                <!-- значение, которое будет отправлено в базу данных после выбора опции. --><?= $row['Nosaukums_kategorija'] ?>
-                            </option> <!--  текст, который будет отображаться на странице для данной опции.-->
+                            <option value="<?= $row['Kategorija_ID'] ?>"><?= $row['Nosaukums_kategorija'] ?></option>
                             <?php
                         }
                     }
@@ -122,6 +130,7 @@ if (isset($_SESSION['user_name'])) { // Проверка, авторизован
                 <select name="Kapakssadala_ID" required="true">
                     <option value="" disabled selected hidden>Apakškategorija</option>
                     <?php
+                    // Iegūstu visus pieejamos apakškategoriju nosaukumus un tos attēlojam kā izvēles opcijas
                     if (mysqli_num_rows($k_apakssadala) > 0) {
                         while ($row = mysqli_fetch_assoc($k_apakssadala)) {
                             ?>
@@ -131,13 +140,10 @@ if (isset($_SESSION['user_name'])) { // Проверка, авторизован
                     }
                     ?>
                 </select>
-
-
                 <input type="submit" title="Reģistrēt" name="add" value="Reģistrēt" class="form-btn">
                 <input type="button" onclick="history.back();" title="Atpakaļ" value="Manas preces" class="form-btn ">
             </form>
 
-            <!-- закрывающий тег для раздела страницы, который содержит информацию об авторских правах и дизайне веб-сайта. -->
             <?php include '../admin/footer_adm.php'; ?>
             <?php
 }

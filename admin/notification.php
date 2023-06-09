@@ -1,5 +1,3 @@
-<!-- Ievietoju saiti uz lapas stilu -->
-
 <head>
 	<link rel="stylesheet" type="text/css" href="../assets/css/confirm.css">
 </head>
