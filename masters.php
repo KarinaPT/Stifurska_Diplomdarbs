@@ -103,7 +103,7 @@ require("admin/config.php");
 
                                         // Attēla attēlošana vai ziņa, ja attēls nav atrasts
                                         if ($image_path) {
-                                            echo '<img src="' . $image_path . '" title="Fotoattēls" class="card-img-top" alt="...">';
+                                            echo '<img src="' . $image_path . '" title="Fotoattēls" class="card-img-top fixed-size-img-list img-fluid" alt="...">';
                                         } else {
                                             echo 'Attēls nav atrasts.';
                                         }
@@ -121,7 +121,7 @@ require("admin/config.php");
                                             <?php echo $row['Brenda_nosaukums']; ?>
                                     </div>
                                 </div>
-                            </div>
+                            </div> 
                             <?php
                         }
                     } else {

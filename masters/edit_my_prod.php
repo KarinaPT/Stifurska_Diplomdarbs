@@ -156,7 +156,7 @@ if (isset($_SESSION['user_name'])) {
                 <!-- Teksta lauks ar nosaukumu "Apraksts_prece". Lai lauks būtu obligāts, ir norādīts required atribūts. Iekš textarea tiek ievietota vērtība, kas atgriežas no PHP mainīgā $Apraksts_prece. Iestatīts arī stils, lai textarea būtu augstāka -->
                 <input type="number" step="00.01" name="Cena" required value="<?php echo $Cena; ?>">
                 <!-- Ievades lauks skaitļa ievadei ar nosaukumu "Cena". Lai ievadlauks būtu obligāts, ir norādīts required atribūts. Ievadlaukam tiek piešķirta vērtība, kas atgriežas no PHP mainīgā $Cena. Norādīts arī solis skaitļu ievadei (0.01) -->
-                <textarea name="Ipatnibas_prece" style="height: 200px;"><?php echo $Ipatnibas_prece; ?></textarea>
+                <textarea name="Ipatnibas_prece" style="height: 200px;"><?php echo trim($Ipatnibas_prece); ?></textarea>
                 <!-- Teksta lauks ar nosaukumu "Ipatnibas_prece". Iekš textarea tiek ievietota vērtība, kas atgriežas no PHP mainīgā $Ipatnibas_prece. Iestatīts arī stils, lai textarea būtu augstāka -->
                 <input type="file" name="newPhoto" title="Fotoattēls" accept=".jpg,.jpeg,.png,.gif">
                 <!-- Faila ievades lauks ar nosaukumu "newPhoto". Pieņem tikai failus ar atļautajiem paplašinājumiem (.jpg, .jpeg, .png, .gif). Iestatīts arī atribūts title, kas parāda uzvedni, kad peli novieto uz lauka -->
