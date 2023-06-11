@@ -62,7 +62,7 @@
                         Saitē tiek padoti trīs parametri: Administrators_ID, E_pasts un T_numurs. */
                         echo "                                                                               
                             <div class='box'>
-                            <img title='Foto' src='{$row['Attela_admin']}'>
+                            <img title='Foto' src='{$row['Attela_admin']}' class='fixed-size-img'>
                             <p><b>Vārds: </b>{$row['Vards']}</p>
                             <p><b>Uzvārds: </b>{$row['Uzvards']}</p>
                             <p><b>E-pasts: </b>{$row['E_pasts']}</p>

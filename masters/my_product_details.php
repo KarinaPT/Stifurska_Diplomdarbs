@@ -80,7 +80,7 @@ if (isset($_SESSION['user_name'])) {
                                         <h3>{$row['Nosaukums_prece']}</h3>
                                         <p><b>Cena: </b>{$row['Cena']}€</p>
                                         <p><b>Statuss: </b>{$row['Statuss']}</p>
-                                        <p><b>Apraksts: </b>{$row['Apraksts_prece']}</p>
+                                        <p><b>Apraksts: </b>" . wordwrap($row['Apraksts_prece'], 70, "<br>", true) . "</p> 
                                         <p><b>Īpatnības: </b>{$row['Ipatnibas_prece']}</p>
                                         <p><b>Kategorija: </b>{$row['Nosaukums_kategorija']}</p>
                                         <p><b>Kategoriju apakšsadaļa: </b>{$row['Nosaukums_sadala']}</p>

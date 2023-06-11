@@ -377,6 +377,17 @@ footer {
     color: #4C2818;
 
 }
+@media screen and (max-width: 1920px) {
+    #description .box-container {
+        display: flex;
+        justify-content: center;
+        padding-left: 350px; 
+        padding-right: 350px; 
+        width: 100%; 
+      }
+
+     
+  }
 
 @media (max-width: 1280px) {
 
