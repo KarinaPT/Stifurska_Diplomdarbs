@@ -226,9 +226,7 @@
                                             </div>
                                         </div>
                                         <div class="card-body">
-                                            <a href="shop-single.html" class="h3 text-decoration-none">
                                                 <?php echo $row['Nosaukums_prece']; ?>
-                                            </a>
                                             <p class="text-center mb-0">
                                                 <?php echo $row['Cena']; ?>€
                                             </p>

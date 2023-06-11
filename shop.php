@@ -153,7 +153,6 @@
                                 </div>
                                 <div class="card-body">
                                     <?php echo $row['Nosaukums_prece']; ?>
-                                    </a>
                                     <p class="text-center mb-0">
                                         <?php echo $row['Cena']; ?>€
                                     </p>
