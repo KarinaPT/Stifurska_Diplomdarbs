@@ -118,9 +118,7 @@ require("admin/config.php");
                                         </div>
                                     </div>
                                     <div class="card-body">
-                                        <a href="shop-single.html" class="h3 text-decoration-none">
                                             <?php echo $row['Brenda_nosaukums']; ?>
-                                        </a>
                                     </div>
                                 </div>
                             </div>
