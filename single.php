@@ -101,7 +101,7 @@
 
                                 // Parāda attēlu vai ziņu, ja attēls nav atrasts
                                 if ($image_path) {
-                                    echo '<img src="' . $image_path . '" class="card-img-top fixed-size-img-prof" alt="...">';
+                                    echo '<img src="' . $image_path . '" class="card-img-top" alt="...">';
                                 } else {
                                     echo 'Attēls nav atrasts.';
                                 }

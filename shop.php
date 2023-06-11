@@ -136,7 +136,7 @@
 
                                     // Parāda attēlu vai ziņu, ja attēls nav atrasts
                                     if ($image_path) {
-                                        echo '<img src="' . $image_path . '"  title="Fotoattēls" class="card-img-top fixed-size-img-list-shop" alt="...">';
+                                        echo '<img src="' . $image_path . '"  title="Fotoattēls" class="card-img-top fixed-size-img-list img-fluid" alt="...">';
                                     } else {
                                         echo 'Attēls nav atrasts.';
                                     }

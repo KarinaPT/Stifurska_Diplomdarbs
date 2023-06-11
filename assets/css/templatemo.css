@@ -1,4 +1,3 @@
-/* Typography */
 body,
 ul,
 li,
@@ -30,7 +29,7 @@ div {
   font-size: 22px !important;
 }
 
-/* General */
+
 .logo {
   font-weight: 500 !important;
 }
@@ -95,7 +94,7 @@ div {
   color: #131410;
 }
 
-/* Nav */
+
 #templatemo_nav_top {
   min-height: 40px;
 }
@@ -122,12 +121,10 @@ div {
   margin-right: 20px;
 }
 
-/* Hero Carousel */
 #template-mo-zay-hero-carousel {
   background: #f5f6ed !important;
 }
 
-/* Accordion */
 .templatemo-accordion a {
   color: #000;
 }
@@ -136,12 +133,10 @@ div {
   color: #333d4a;
 }
 
-/* Shop */
 .shop-top-menu a:hover {
   color: #A66A2C !important;
 }
 
-/* Product */
 .product-wap {
   box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.10);
 }
@@ -191,7 +186,6 @@ div {
   margin-top: 20px;
 }
 
-/* Brand */
 .brand-img {
   filter: grayscale(100%);
   opacity: 0.5;
@@ -203,7 +197,6 @@ div {
   opacity: 1;
 }
 
-/* Carousel Hero */
 #template-mo-zay-hero-carousel .carousel-indicators li {
   margin-top: -50px;
   background-color: #131410;
@@ -215,13 +208,11 @@ div {
   font-size: 2.8em !important;
 }
 
-/* Carousel Brand */
 .tempaltemo-carousel .h1 {
   font-size: .5em !important;
   color: #131410 !important;
 }
 
-/* Services */
 .services-icon-wap {
   transition: .3s;
 }
@@ -235,7 +226,6 @@ div {
   background: #A66A2C;
 }
 
-/* Contact map */
 .leaflet-control a,
 .leaflet-control {
   font-size: 10px !important;
@@ -245,7 +235,6 @@ div {
   border: 1px solid #e8e8e8;
 }
 
-/* Footer */
 #tempaltemo_footer {
   position: relative;
   visibility: hidden;
@@ -285,12 +274,12 @@ div {
 }
 
 /*
-// Extra small devices (portrait phones, less than 576px)
-// No media query since this is the default in Bootstrap
+// Īpaši mazas ierīces (portreta tālruņi, mazāk nekā 576 pikseļi)
+// Nav multivides vaicājuma, jo tas ir noklusējuma iestatījums programmā Bootstrap
 */
 
 
-/* Small devices (landscape phones, 576px and up)*/
+/* Mazas ierīces (ainavas tālruņi, 576 pikseļi un vairāk)*/
 .product-wap .h3,
 .product-wap li,
 .product-wap i,
@@ -312,44 +301,19 @@ div {
   background-color: #A66A2C;
 }
 
-@media (min-width: 1080px) {
-  .fixed-size-img-prof {
-    width: 525px;
-    /* Замените на желаемую ширину */
-    height: 525px;
-    /* Замените на желаемую высоту */
-    object-fit: cover;
-  }
-
-  .fixed-size-img {
-    width: 400px;
-    /* Замените на желаемую ширину */
-    height: 400px;
-    /* Замените на желаемую высоту */
-    object-fit: cover;
-  }
-
-  .fixed-size-img-index {
-    width: 413px;
-    /* Замените на желаемую ширину */
-    height: 413px;
-    /* Замените на желаемую высоту */
-    object-fit: cover;
-  }
-
+@media (min-width: 820px) {
   .fixed-size-img-list {
-    width: 295px;
-    /* Замените на желаемую ширину */
-    height: 295px;
-    /* Замените на желаемую высоту */
+    width: 302px;
+    height: 302px;
     object-fit: cover;
   }
+}
 
-  .fixed-size-img-list-shop {
+
+@media (min-width: 1019px) {
+  .fixed-size-img-list {
     width: 302px;
-    /* Замените на желаемую ширину */
     height: 302px;
-    /* Замените на желаемую высоту */
     object-fit: cover;
   }
 }
@@ -370,9 +334,11 @@ div {
   #tempaltemo_footer {
     position: static;
   }
-
-
-
+  .fixed-size-img-list {
+    width: 302px;
+    height: 302px;
+    object-fit: cover;
+  }
 }
 
 /* Large devices (desktops, 992px and up)*/
@@ -399,4 +365,3 @@ div {
 }
 
 /* Extra large devices (large desktops, 1200px and up)*/
-@media (min-width: 1200px) {}

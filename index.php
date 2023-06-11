@@ -233,7 +233,7 @@ require("admin/config.php");
 
                                     // Izvadam attēlu vai kļūdas paziņojumu
                                     if ($image_path) {
-                                        echo '<img src="' . $image_path . '"  title="Logo" class="card-img-top  fixed-size-img-index" alt="...">';
+                                        echo '<img src="' . $image_path . '"  title="Logo" class="card-img-top " alt="...">';
                                     } else {
                                         echo 'Problēma ar logotipa iegūšanu.';
                                     }

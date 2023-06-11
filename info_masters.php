@@ -89,7 +89,7 @@
                                 }
 
                                 if ($image_path) {
-                                    echo '<img src="' . $image_path . '" title="Logo" class="card-img-top fixed-size-img-prof" alt="...">';
+                                    echo '<img src="' . $image_path . '" title="Logo" class="card-img-top" alt="...">';
                                 } else {
                                     echo 'Attēls nav atrasts.'; //Ja attēls nav atrasts, izvadam atbilstošu paziņojumu
                                 }
@@ -210,7 +210,7 @@
                                             }
 
                                             if ($image_path) { // Pārbaudām vai ir atrasts attēla ceļš
-                                                echo '<img src="' . $image_path . '" title="Fotoattēls" class="card-img-top fixed-size-img-list" alt="...">';
+                                                echo '<img src="' . $image_path . '" title="Fotoattēls" class="card-img-top fixed-size-img-list img-fluid" alt="...">';
                                             } else {
                                                 echo 'Attēls nav atrasts.'; // Ja attēls nav atrasts, izvadam ziņojumu
                                             }

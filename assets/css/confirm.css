@@ -1,82 +1,80 @@
-/* Стили для формы */
 form {
-    font-family: 'Poppins', sans-serif; /* выбор шрифта для формы */
-    background-color: #fff; /* установка белого фона */
-    border: 1px solid #ccc; /* установка тонкой серой границы */
-    border-radius: 5px; /* скругление углов формы */
-    box-shadow: 0 0 10px #ccc; /* добавление теней */
-    max-width: 500px; /* установка максимальной ширины формы */
-    margin: 0 auto; /* автоматическое выравнивание по центру по горизонтали */
-    padding: 20px; /* добавление отступов вокруг формы */
-    text-align: center; /* выравнивание содержимого формы по центру */
-}
+    font-family: 'Poppins', sans-serif; /* Izvēlieties fontu formai */
+    background-color: #fff; /* Iestatiet baltu fonu */
+    border: 1px solid #ccc; /* Iestatiet plānu pelēku apmales */
+    border-radius: 5px; /* Noapaļot formas stūrus */
+    box-shadow: 0 0 10px #ccc; /* Pievienot ēnas efektu */
+    max-width: 500px; /* Iestatiet maksimālo formu platumu */
+    margin: 0 auto; /* Automātiska centēšana horizontāli */
+    padding: 20px; /* Pievienot atkāpi ap formu */
+    text-align: center; /* Centrēt formā esošo saturu */
+ }
 
-form p {
-font-size: 20px; /* устанавливает размер шрифта для текста внутри <p> тегов */
-margin-bottom: 20px; /* добавляет отступ вниз для всех <p> тегов */
-}
+ form p {
+    font-size: 20px; /* Uzstāda fonta lielumu <p> tagiem */
+    margin-bottom: 20px; /* Pievieno apakšējo atkāpi visiem <p> tagiem */
+ }
 
-form button,
-form a {
-background-color: #A66A2C; /* установка фона для кнопок */
-border: none; /* убирает границы у кнопок */
-border-radius: 5px; /* скругление углов кнопок */
-color: #fff; /* устанавливает белый цвет для текста на кнопках */
-cursor: pointer; /* устанавливает значок курсора при наведении на кнопку */
-display: inline-block; /* устанавливает блочный тип для элементов <button> и <a> */
-font-size: 20px; /* устанавливает размер шрифта для текста на кнопках */
-padding: 10px 20px; /* добавляет отступы внутри кнопок */
-text-align: center; /* устанавливает выравнивание текста по центру */
-text-decoration: none; /* убирает подчеркивание для ссылок */
-transition: background-color 0.3s ease; /* добавляет плавный переход цвета при навед */
-margin: 10px;
-}
+ form button,
+ form a {
+    background-color: #A66A2C; /* Uzstāda fona krāsu pogām un saitēm */
+    border: none; /* Noņem robežas no pogām */
+    border-radius: 5px; /* Izveido apļveida stūrus pogām */
+    color: #fff; /* Uzstāda baltu teksta krāsu pogās un saitēs */
+    cursor: pointer; /* Uzstāda kursora ikonu, kad tiek virzīts uz pogu */
+    display: inline-block; /* Uzstāda pogas un saites kā bloka elementus */
+    font-size: 20px; /* Uzstāda fonta lielumu pogām un saitēm */
+    padding: 10px 20px; /* Pievieno iekšējo atkāpi pogām */
+    text-align: center; /* Uzstāda teksta centrēšanu pogās un saitēs */
+    text-decoration: none; /* Noņem pazīmes noformatēšanu pogām un saitēm */
+    transition: background-color 0.3s ease; /* Veido pārejas efektu fona krāsai */
+    margin: 10px; /* Uzstāda ārējo atkāpi pogām */
+ }
 
-/*Стили для кнопок при наведении (hover):*/
 form button:hover,
 form a:hover {
-background-color: #D5AA72;
+    background-color: #D5AA72;
 }
 
-/* Стили для ссылки "Нет" */
 a {
-color: #A66A2C; /* установка цвета текста ссылки */
-display: inline-block; /* установка инлайн-блочного элемента */
-font-size: 20px; /* установка размера шрифта ссылки */
-margin-left: 10px; /* установка отступа слева от ссылки */
-text-decoration: none; /* установка отсутствия подчеркивания для ссылки */
-transition: color 0.3s ease; /* добавление плавного перехода цвета при наведении на ссылку */
+    color: #A66A2C; 
+    display: inline-block; 
+    font-size: 20px; 
+    margin-left: 10px; 
+    text-decoration: none; 
+    transition: color 0.3s ease; 
 }
 
 a:hover {
-color: #D5AA72;
+    color: #D5AA72;
 }
 
 .no-data {
 font-size: 18px;
-font-weight: bold;
-color: #be853b;
-border: 1px solid #422705;
-padding: 10px;
-text-align: center;
-text-transform: uppercase;
-}
-
-.success-message {
-background-color: #dff0d8;
-color: #3c763d;
-padding: 10px;
-border: 1px solid #d6e9c6;
-border-radius: 4px;
-margin-bottom: 10px;
+  font-weight: bold;
+  color: #be853b;
+  border: 1px solid #422705;
+  padding: 10px;
+  text-align: center;
+  text-transform: uppercase;
+  }
+  
+  .success-message {
+    background-color: #dff0d8;
+    color: #3c763d;
+    padding: 10px;
+    border: 1px solid #d6e9c6;
+    border-radius: 4px;
+    margin-bottom: 10px;
 }
 
 .error-message {
-background-color: #f2dede;
-color: #a94442;
-padding: 10px;
-border: 1px solid #ebccd1;
-border-radius: 4px;
-margin-bottom: 10px;
+    background-color: #f2dede;
+    color: #a94442;
+    padding: 10px;
+    border: 1px solid #ebccd1;
+    border-radius: 4px;
+    margin-bottom: 10px;
 }
 
+  

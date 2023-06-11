@@ -1,235 +1,247 @@
 * {
+   /* Kopējie stila noteikumi */
    font-family: 'Poppins', sans-serif;
-   /* устанавливает шрифт для текста на странице. */
+   /* Visiem elementiem tiek piemērots fonts Poppins un sans-serif */
    margin: 0;
-   /* Устанавливает отступы внешнего края в 0 для всех элементов */
+   /* Noņemam ārējo atstarpes */
    padding: 0;
-   /* Устанавливает отступы внутреннего края в 0 для всех элементов */
+   /* Noņemam iekšējo atstarpes */
    box-sizing: border-box;
-   /* Устанавливает модель "border-box" для всех элементов, чтобы ширина и высота элемента включали в себя границы и заполнение */
+   /* Iekļaujam border un padding iekš elementa platuma */
    outline: none;
-   /* Убирает обводку при нажатии на элементы */
+   /* Noņemam ārējo kontūru */
    border: none;
-   /* Устанавливает границу в 0 для всех элементов */
+   /* Noņemam ārējo robežu */
    text-decoration: none;
-   /* Убирает подчеркивание ссылок */
+   /* Noņemam teksta dekorācijas */
 }
 
 .container {
    min-height: 100vh;
-   /* устанавливает минимальную высоту блока на 100% высоты видимой области страницы.*/
+   /* Minimālais augstums ir 100% no viewport augstuma */
    display: flex;
-   /*определяет тип отображения контейнера как гибкого блока.*/
+   /* Elementi tiek izvietoti kā flex bērni */
    align-items: center;
-   /* выравнивает элементы внутри контейнера по вертикали по центру.*/
+   /* "Bērni" tiek izvietoti centrā vertikāli */
    justify-content: center;
-   /*выравнивает элементы внутри контейнера по горизонтали по центру.*/
+   /* "Bērni" tiek izvietoti centrā horizontāli */
    padding: 20px;
-   /*задает отступы для содержимого контейнера по 20 пикселей со всех сторон.*/
+   /* Iekšējais atstarpes no kreisās un labās puses - 20 pikseļi */
    padding-bottom: 60px;
-   /*задает отступ снизу контейнера на 60 пикселей.*/
+   /* Iekšējais atstarpes no apakšas - 60 pikseļi */
 }
 
 .container .content {
    text-align: center;
-   /*Устанавливает выравнивание текста внутри элемента по центру*/
 }
 
-/* Стили для заголовка h3 внутри контейнера .content */
+/*.container .content h3 stila noteikumi */
 .container .content h3 {
    font-size: 30px;
-   /* устанавливает размер шрифта 30 пикселей */
+   /* Fonta izmērs - 30 pikseļi */
    color: black;
-   /*устанавливает цвет текста на черный */
+   /* Teksta krāsa - melnā */
 }
 
-/* Стили для заголовка h1 внутри контейнера .content */
+/*.container .content h1 stila noteikumi */
 .container .content h1 {
    font-size: 50px;
-   /* устанавливает размер шрифта 50 пикселей*/
+   /* Fonta izmērs - 50 pikseļi */
    color: black;
-   /*устанавливает цвет текста на черный */
+   /* Teksta krāsa - melnā */
 }
 
-/* Стили для спана внутри заголовка h1 внутри контейнера .content */
+/* .container .content h1 span stila noteikumi*/
 .container .content h1 span {
    background: rgb(102, 243, 2);
-   /*устанавливает фоновый цвет на зеленый*/
+   /* Fona krāsa - zaļa */
    color: #fff;
-   /* устанавливает цвет текста на белый */
+   /* Teksta krāsa - baltā */
    border-radius: 5px;
-   /*устанавливает скругление углов радиусом 5 пикселей*/
+   /* Iestata formas malu apaļumu. */
    padding: 0 15px;
-   /*добавляет внутренние отступы слева и справа по 15 пикселей */
+   /* Iekšējais atstarpes no kreisās un labās puses - 0 no augšas un apakšas, 15 pikseļi no kreisās un labās puses */
 }
 
-/* Стили для абзаца внутри контейнера .content */
 .container .content p {
+   /* Stili teksta elementam p iekš .content konteinerī */
    font-size: 25px;
-   /*устанавливает размер шрифта 25 пикселей */
+   /* Iestata teksta lielumu uz 25 pikseļiem */
    margin-bottom: 20px;
-   /* добавляет внешний отступ снизу в 20 пикселей*/
+   /* Pievieno apakšpusējo atstarpi 20 pikseļu lielumā */
 }
 
-/* Стили для контейнера формы */
 .form-container {
+   /* Stili formu konteinerim */
    min-height: 100vh;
-   /* устанавливает минимальную высоту блока на 100% высоты видимой области страницы.*/
+   /* Iestata minimālo augstumu uz 100% no redzamās lapas augstuma. */
    display: flex;
-   /* задает контейнеру гибкое расположение элементов*/
+   /* Iestata elastīgu elementu izvietojumu konteineram. */
    align-items: center;
-   /* выравнивание содержимого по центру по вертикали*/
+   /* Izlīdzina saturu vertikāli centrā. */
    justify-content: center;
-   /*выравнивание содержимого по центру по горизонтали*/
+   /* Izlīdzina saturu horizontāli centrā. */
    padding: 20px;
-   /*внешний отступ у контейнера формы*/
+   /* Iestata ārējo atstarpi konteineram. */
    padding-bottom: 60px;
-   /*внутренний отступ снизу у контейнера формы*/
+   /* Iestata apakšējo iekšējo atstarpi konteineram. */
    background: #eee;
-   /*устанавливает фоновый цвет контейнера формы  */
+   /* Iestata fona krāsu konteineram. */
 }
 
-/* Стили для формы */
+/* Stili formai iekš formu konteinera */
 .form-container form {
    padding: 20px;
-   /* внутренний отступ у формы */
+   /* Iestata iekšējo atstarpi formai. */
    border-radius: 5px;
-   /*закругление углов у формы*/
+   /* Iestata formas malu apaļumu. */
    box-shadow: 0 5px 10px rgba(0, 0, 0, .1);
-   /*добавляет тень у формы */
+   /* Pievieno formai ēnu. */
    background: #fff;
-   /*устанавливает фоновый цвет формы*/
+   /* Iestata fona krāsu formai. */
    text-align: center;
-   /*выравнивание содержимого по центру по горизонтали */
+   /* Izlīdzina saturu horizontāli centrā formā. */
    width: 500px;
-   /*задает ширину формы*/
+   /* Iestata formas platību. */
 }
 
-/* Стили для заголовка формы */
+/* Stili formu virsrakstam iekš formu konteinera */
 .form-container form h3 {
    font-size: 30px;
-   /*устанавливает размер шрифта для заголовка формы*/
+   /* Iestata teksta lielumu virsrakstam. */
    text-transform: uppercase;
-   /*переводит все буквы заголовка в верхний регистр */
+   /* Pārveido visus burtus virsrakstā uz lielajiem burtiem. */
    margin-bottom: 10px;
-   /*внутренний отступ снизу у заголовка формы*/
+   /* Iestata apakšējo iekšējo atstarpi virsrakstam. */
    color: black;
-   /*устанавливает цвет текста для заголовка формы */
+   /* Iestata teksta krāsu virsrakstam. */
 }
 
-/* Общие стили для всех форм-элементов */
+/* Kopējie stili visiem formu elementiem */
 .form-container form input,
 .form-container form select {
    width: 100%;
-   /*Ширина равна 100%*/
+   /* Iestata platību uz 100%. */
    padding: 10px 15px;
-   /*Внутренний отступ сверху и снизу - 10px, слева и справа - 15px */
+   /* Iestata iekšējo atstarpi augšā un apakšā - 10 pikseļi, pa kreisi un pa labi - 15 pikseļi. */
    font-size: 17px;
-   /*Размер шрифта - 17px*/
+   /* Iestata teksta lielumu uz 17 pikseļiem. */
    margin: 8px 0;
-   /*Внешний отступ сверху и снизу - 8px, слева и справа - 0*/
+   /* Iestata ārējo atstarpi augšā un apakšā - 8 pikseļi, pa kreisi un pa labi - 0. */
    background: #eee;
-   /*Цвет фона - светло-серый */
+   /* Iestata fona krāsu uz gaiši pelēku. */
    border-radius: 5px;
-   /*Закругление углов - 5px*/
+   /* Iestata malu apaļumu uz 5 pikseļiem. */
    display: inline-block;
-   /*Элементы располагаются в строку друг за другом */
+   /* Elementi tiek izvietoti viens aiz otra līnijā. */
 }
 
-/* Стили для текстовых полей ввода */
+/* Stili ievades laukiem ar tekstu */
 .form-container form textarea {
    width: 100%;
-   /*Ширина равна 100%*/
+   /* Iestata platību uz 100%. */
    padding: 10px 15px;
-   /*Внутренний отступ сверху и снизу - 10px, слева и справа - 15px */
+   /* Iestata iekšējo atstarpi augšā un apakšā - 10 pikseļi, pa kreisi un pa labi - 15 pikseļi. */
    font-size: 17px;
-   /*Размер шрифта - 17px*/
+   /* Iestata teksta lielumu uz 17 pikseļiem. */
    margin: 8px 0;
-   /*Внешний отступ сверху и снизу - 8px, слева и справа - 0*/
+   /* Iestata ārējo atstarpi augšā un apakšā - 8 pikseļi, pa kreisi un pa labi - 0. */
    background: #eee;
-   /* Цвет фона - светло-серый */
+   /* Iestata fona krāsu uz gaiši pelēku. */
    border-radius: 5px;
-   /*Закругление углов - 5px*/
+   /* Iestata malu apaļumu uz 5 pikseļiem. */
    display: inline-block;
-   /*Элементы располагаются в строку друг за другом */
+   /* Elementi tiek izvietoti viens aiz otra līnijā. */
 }
 
-/* Стили для опций в выпадающем списке */
+/* Stili izvēles iespējām izkrītošajā sarakstā */
 .form-container form select option {
    background: #fff;
-   /*Цвет фона - белый*/
+   /* Iestata fona krāsu uz baltu. */
 }
 
-/* Стили для кнопки отправки формы */
+/* Stili nosūtīšanas formas pogai */
 .form-container form .form-btn {
    background: #A66A2C;
-   /*Цвет фона - коричневый*/
+   /* Iestata fona krāsu uz brūnu. */
    color: #fff;
-   /*Цвет текста - белый*/
+   /* Iestata teksta krāsu uz balto. */
    text-transform: capitalize;
-   /*Преобразование первой буквы в заглавную*/
+   /* Pārveido pirmo burtu par lielo burtu. */
    font-size: 20px;
-   /*Размер шрифта - 20px*/
+   /* Iestata teksta lielumu uz 20 pikseļiem. */
    cursor: pointer;
-   /* Изменение внешнего вида указателя мыши при наведении на кнопку*/
+   /* Iestata peles kursora izskatu par rādītāju, kad tiek virzīts uz pogu. */
 }
 
-/* Стили для кнопки отправки формы при наведении */
+/* Stili nosūtīšanas formas pogai, kad tiek virzīts peles kursors */
 .form-container form .form-btn:hover {
    background: #D5AA72;
-   /*Цвет фона при наведении - светло-коричневый*/
+   /* Iestata fona krāsu uz gaiši brūnu, kad tiek virzīts peles kursors. */
    color: #fff;
-   /* Цвет текста при наведении - белый*/
+   /* Iestata teksta krāsu uz balto, kad tiek virzīts peles kursors. */
 }
 
-/*Стили для текста под формой*/
+/*Stili teksta zem formas*/
 .form-container form p {
    margin-top: 10px;
-   /*Внешний отступ сверху - 10px*/
+   /* Iestata ārējo atstarpi augšā - 10 pikseļi. */
    font-size: 20px;
-   /*Размер шрифта*/
+   /* Iestata teksta lielumu. */
    color: black;
-   /*Цвет текста - черный */
+   /* Iestata teksta krāsu uz melnu. */
 }
 
-/*Стили для ссылок в тексте под формой*/
+/*Stili saitēm teksta elementā zem formas */
 .form-container form p a {
    color: rgb(255, 0, 0);
-   /* Цвет ссылок - красный*/
+   /* Iestata saites krāsu uz sarkanu. */
 }
 
-/* Стили для сообщения об ошибке */
+/* Stili kļūdas ziņojumam */
 .form-container form .error-msg {
    margin: 10px 0;
-   /*Внешние отступы сверху и снизу - 10px, слева и справа - 0*/
+   /*Iestata ārējos atstarpes augšā un apakšā - 10 pikseļi, pa kreisi un pa labi - 0. */
    display: block;
-   /*Отображать сообщение об ошибке как блочный элемент /*/
+   /*Attēlo kļūdas ziņojumu kā bloka elementu.*/
    background: rgb(255, 0, 0);
-   /*Цвет фона сообщения об ошибке - красный*/
+   /* Iestata kļūdas ziņojuma fona krāsu - sarkanu.*/
    color: #fff;
-   /*Цвет текста сообщения об ошибке - белый*/
+   /*Iestata kļūdas ziņojuma teksta krāsu - baltu.*/
    border-radius: 5px;
-   /*Радиус скругления углов рамки сообщения об ошибке - 5px*/
+   /* Iestata robežas radiusu kļūdas ziņojuma apmalēm - 5 pikseļi. */
    font-size: 20px;
-   /*Размер шрифта сообщения об ошибке - 20px */
+   /*Iestata kļūdas ziņojuma teksta lielumu - 20 pikseļi.*/
    padding: 10px;
-   /*Внутренние отступы у рамки сообщения об ошибке - 10px */
+   /*Iestata iekšējos atstarpes ap kļūdas ziņojuma robežām - 10 pikseļi. */
 }
 
-@media screen and (min-width: 1600px) and (max-width: 1920px) and (min-height: 900px) and (max-height: 1080px) {
+@media screen and (max-width: 1280px) {
    .container {
-     margin-top: 150px;
-     margin-bottom: 150px;
-     /* Увеличьте значения отступов сверху и снизу по вашему выбору */
+      margin-top: 150px;
+      margin-bottom: 150px;
+      /* Palieliniet augšējo un apakšējo atstarpi pēc savas izvēles */
    }
 
    .form-container {
       margin-top: 130px;
       margin-bottom: 130px;
-      /* Увеличьте значения отступов сверху и снизу по вашему выбору */
-    }
+      /* Palieliniet augšējo un apakšējo atstarpi pēc savas izvēles */
+   }
+}
 
-  
+@media screen and (min-width: 1600px) and (max-width: 1920px) and (min-height: 900px) and (max-height: 1080px) {
+   .container {
+      margin-top: 150px;
+      margin-bottom: 150px;
+      /* Palieliniet augšējo un apakšējo atstarpi pēc savas izvēles */
+   }
+
+   .form-container {
+      margin-top: 130px;
+      margin-bottom: 130px;
+      /* Palieliniet augšējo un apakšējo atstarpi pēc savas izvēles */
+   }
 }
 
 /* Media  768px */
@@ -240,6 +252,7 @@
       margin-top: 10px;
    }
 }
+
 @media screen and (max-width: 700px) {
    form {
       max-width: 100%;
@@ -247,6 +260,7 @@
       margin-top: 10px;
    }
 }
+
 @media screen and (max-width: 1200px) {
    form {
       max-width: 100%;
@@ -254,6 +268,7 @@
       margin-top: 200px;
    }
 }
+
 @media screen and (max-width: 920px) {
    form {
       max-width: 100%;
@@ -261,6 +276,7 @@
       margin-top: 70px;
    }
 }
+
 @media screen and (max-width: 670px) {
    form {
       max-width: 100%;
@@ -268,6 +284,7 @@
       margin-top: 100px;
    }
 }
+
 @media screen and (max-width: 850px) {
    form {
       max-width: 100%;
@@ -275,4 +292,3 @@
       margin-top: 100px;
    }
 }
-
