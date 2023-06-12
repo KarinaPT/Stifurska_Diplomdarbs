@@ -73,7 +73,7 @@ if (isset($_SESSION['admin_name'])) {
                             <p><b>Cena: </b>{$row['Cena']}€</p>
                             <p><b>Statuss: </b>{$row['Statuss']}</p>
                             <p><b>Pārdevējs: </b>{$row['Brenda_nosaukums']}</p>
-                            <p><b>Apraksts: </b>{$row['Apraksts_prece']}</p>  
+                            <p><b>Apraksts: </b>{$row['Apraksts_prece']}</p> 
                             <p><b>Īpatnības: </b>{$row['Ipatnibas_prece']}</p>
                             <p><b>Kategorija: </b>{$row['Nosaukums_kategorija']}</p>
                             <p><b>Kategoriju apakšsadaļa: </b>{$row['Nosaukums_sadala']}</p>

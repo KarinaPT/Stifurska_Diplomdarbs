@@ -72,7 +72,7 @@ if (isset($_SESSION['user_name'])) {
                             <p><b>E-pasts: </b>{$row['E_pasts_pardevejs']}</p>
                             <p><b>Telefona numurs: </b>{$row['T_numurs_pardevejs']}</p>
                             <p><b>Loma: </b>{$row['Loma']}</p>
-                            <p><b>Apraksts: </b>" . wordwrap($row['Apraksts'], 70, "<br>", true) . "</p>        
+                            <p><b>Apraksts: </b>{$row['Apraksts']}</p>        
                             <a class='btn' title='Rediģēt Profilu' href='edit_my_prof.php?Pardevejs_ID={$Pardevejs_ID}&E_pasts_pardevejs={$_SESSION['user_name']}&T_numurs_pardevejs={$T_numurs_pardevejs}
                             &Attela_URL={$Attela_URL}&Apraksts={$Apraksts}'>Rediģēt profilu</a>
                             <a class='btn' title='Rediģēt parole' href='edit_password.php?Pardevejs_ID={$Pardevejs_ID}'>Rediģēt parole</a>
