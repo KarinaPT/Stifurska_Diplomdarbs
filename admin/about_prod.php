@@ -74,7 +74,7 @@ if (isset($_SESSION['admin_name'])) {
                             <p><b>Statuss: </b>{$row['Statuss']}</p>
                             <p><b>Pārdevējs: </b>{$row['Brenda_nosaukums']}</p>
                             <p><b>Apraksts: </b>" . wordwrap($row['Apraksts_prece'], 70, "<br>", true) . "</p> 
-                            <p><b>Īpatnības: </b>{$row['Ipatnibas_prece']}</p>
+                            <p><b>Īpatnības: </b>" . wordwrap($row['Ipatnibas_prece'], 70, "<br>", true) . "</p>
                             <p><b>Kategorija: </b>{$row['Nosaukums_kategorija']}</p>
                             <p><b>Kategoriju apakšsadaļa: </b>{$row['Nosaukums_sadala']}</p>
                             ";
