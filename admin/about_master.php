@@ -70,7 +70,7 @@ if (isset($_SESSION['admin_name'])) {
                             }
                              // Attēlojam informāciju par pārdevēju
                             echo " 
-                            <img src='{$image_path}' title='Logo' class='fixed-size-img'>
+                            <img src='{$image_path}' title='Logo' class='fixed-size-img-prof'>
                                     <h3>{$row['Brenda_nosaukums']}</h3>                 
                                     <p><b>Vārds: </b>{$row['Vards_pardevejs']}</p>
                                     <p><b>Uzvārds: </b>{$row['Uzvards_pardevejs']}</p>

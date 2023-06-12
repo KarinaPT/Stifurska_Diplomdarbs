@@ -68,7 +68,7 @@ if (isset($_SESSION['admin_name'])) {
 
                              // Attēlojam informāciju par preces ierakstu
                             echo " 
-                            <img src='{$image_path}' title='Fotoattēls' class='fixed-size-img'>
+                            <img src='{$image_path}' title='Fotoattēls' class='fixed-size-img-prof'>
                             <h3>{$row['Nosaukums_prece']}</h3>
                             <p><b>Cena: </b>{$row['Cena']}€</p>
                             <p><b>Statuss: </b>{$row['Statuss']}</p>

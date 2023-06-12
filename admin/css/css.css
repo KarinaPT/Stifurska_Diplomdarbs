@@ -385,6 +385,10 @@ footer {
         padding-right: 350px; 
         width: 100%; 
       }
+      #description .box-container .box .fixed-size-img-prof {
+        width: 450px;
+        height: 450px;
+      }
 
      
   }
@@ -743,6 +747,10 @@ footer {
     tr:nth-child(even) {
         background-color: var(--bg);
     }
+    #description .box-container .box .fixed-size-img-prof {
+        width: 345px;
+        height: 345px;
+      }
 }
 
 @media (min-width: 1080px) {

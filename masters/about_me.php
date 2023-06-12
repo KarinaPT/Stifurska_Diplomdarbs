@@ -65,7 +65,7 @@ if (isset($_SESSION['user_name'])) {
                         // Attēloju datus un veidoju saites
                         echo "
                             <div class='box'>
-                            <img src='{$image_path}' class='fixed-size-img' title='Logo'>
+                            <img src='{$image_path}' class='fixed-size-img-prof' title='Logo'>
                             <h3>{$row['Brenda_nosaukums']}</h3>
                             <p><b>Vārds: </b>{$row['Vards_pardevejs']}</p>
                             <p><b>Uzvārds: </b>{$row['Uzvards_pardevejs']}</p>
