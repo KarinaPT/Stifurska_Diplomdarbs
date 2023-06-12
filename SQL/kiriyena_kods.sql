@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS `kiriyena_db`.`Administrators` (
   `Uzvards` VARCHAR(50) NOT NULL,
   `E_pasts` VARCHAR(100) NOT NULL,
   `T_numurs` VARCHAR(12) NULL,
-  `Loma` VARCHAR(15) NOT NULL DEFAULT 'Administrātors',
+  `Loma` VARCHAR(15) NOT NULL DEFAULT 'Administrators',
   `Parole` VARCHAR(50) NOT NULL,
   `Attela_admin` TEXT NULL,
   PRIMARY KEY (`Administrators_ID`))
@@ -85,9 +85,9 @@ CREATE TABLE IF NOT EXISTS `kiriyena_db`.`Prece` (
   `IDKapakssadala` INT NOT NULL,
   `ID_Kategorija` INT NOT NULL,
   PRIMARY KEY (`Prece_ID`, `ID_Pardevejs`, `IDKapakssadala`, `ID_Kategorija`),
- -- INDEX `fk_Prece_Pārdevējs_idx` (`ID_Pardevejs` ASC) VISIBLE,
+--  INDEX `fk_Prece_Pārdevējs_idx` (`ID_Pardevejs` ASC) VISIBLE,
 --  INDEX `fk_Prece_K_apakssadala1_idx` (`IDKapakssadala` ASC) VISIBLE,
- -- INDEX `fk_Prece_Kategorija1_idx` (`ID_Kategorija` ASC) VISIBLE,
+--  INDEX `fk_Prece_Kategorija1_idx` (`ID_Kategorija` ASC) VISIBLE,
   CONSTRAINT `fk_Prece_Pārdevējs`
     FOREIGN KEY (`ID_Pardevejs`)
     REFERENCES `kiriyena_db`.`Pardevejs` (`Pardevejs_ID`)
@@ -139,7 +139,7 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `kiriyena_db`;
-INSERT INTO `kiriyena_db`.`Administrators` (`Administrators_ID`, `Vards`, `Uzvards`, `E_pasts`, `T_numurs`, `Loma`, `Parole`, `Attela_admin`) VALUES (DEFAULT, 'Karina', 'Štifurska', 'kstifurska@gmail.com', '+37126459875', 'Administrātors', '21232f297a57a5a743894a0e4a801fc3', 'https://cdn.onlinewebfonts.com/svg/img_325788.png');
+INSERT INTO `kiriyena_db`.`Administrators` (`Administrators_ID`, `Vards`, `Uzvards`, `E_pasts`, `T_numurs`, `Loma`, `Parole`, `Attela_admin`) VALUES (DEFAULT, 'Karina', 'Štifurska', 'kstifurska@gmail.com', '+37126459875', 'Administrators', '21232f297a57a5a743894a0e4a801fc3', 'https://cdn4.iconfinder.com/data/icons/user-icons-5/100/user-13-512.png');
 
 COMMIT;
 
